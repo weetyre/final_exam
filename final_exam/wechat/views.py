@@ -1,9 +1,11 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
 from django.contrib import auth
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.shortcuts import render, render_to_response
 
-# Create your views here.
-from .forms import LoginForm
+from .admin import UserCreationForm
+from .forms import LoginForm, RegisterForm
+from .models import MyUser
 
 
 def index_login(request):
@@ -26,3 +28,37 @@ def index_login(request):
         form = LoginForm()
     return render(request, 'login.html',
                   {'form': form, 'block_title': 'Login'})
+
+
+def index_register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user_filter = MyUser.objects.filter(email=request.POST['email'])
+            if len(user_filter) <= 0:
+                form.save()
+                username = form.cleaned_data['email']
+                password = form.cleaned_data['password']
+                user = auth.authenticate(request, username=username, password=password)
+                auth.login(request, user)
+
+                return HttpResponseRedirect("/me")
+            else:
+                error_message = 'The email is already taken'
+                return render(request, 'register.html',
+                              {'form': form, 'input_error': error_message, 'block_title': 'Register'})
+    else:
+        form = UserCreationForm()
+    return render(request, 'register.html', {'form': form, 'block_title': 'Register'})
+
+
+@login_required
+def index_me(request):
+    user = auth.authenticate(request)
+    return render(request, 'me.html', user)
+
+
+@login_required
+def index_logout(request):
+    auth.logout(request)
+    return HttpResponseRedirect("/login")

@@ -1,13 +1,5 @@
-{% extends "base.html" %}
-{% load static %}
-{% block head %}
-    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-{% endblock %}
-{% block body %}
-    <div id="right" class="container-flex">
-        <div id="login" class="table-vertical-align">
-            <h1 class="head-block well-block">{{ block_title }}</h1>
+{% extends "index.html" %}
+        {% block right_div %}
             <form class="login-form content-center well-block" action="/login" onsubmit="return " method="post">
                 <p class="error">{{ input_error }}</p>
                 {{ form.non_field_errors }}
@@ -33,7 +25,4 @@
                     <a href="/register" class="link-button">Register</a>
                 </p>
             </form>
-        </div>
-    </div>
-
-{% endblock %}
+        {% endblock %}
