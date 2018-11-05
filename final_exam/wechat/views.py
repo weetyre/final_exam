@@ -19,7 +19,7 @@ def index_login(request):
                 # Correct password, and the user is marked "active"
                 auth.login(request, user)
                 # Redirect to a success page.
-                return HttpResponseRedirect("me?user=" + username)
+                return HttpResponseRedirect("/me")
             else:
                 error_message = "Sorry, that's not a valid username or password"
                 return render(request, 'login.html',
