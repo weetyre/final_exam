@@ -1,14 +1,14 @@
 {% extends "base.html" %}
-{% block static_files %}
+{% block head %}
     {% block static_file %}{% endblock %}
-{% load static %}
+    {% load static %}
     <link rel="stylesheet" href="{% static 'css/reset.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 {% endblock %}
-{% block main_body %}
+{% block body %}
     <div class="container-flex flex-reset">
         <div id="left" class="container-flex">
-            <img src="../img/background.jpg">
+            <img src="{% static 'img/background.jpg' %}">
         </div>
         <div id="right" class="container-flex">
             <div id="login" class="table-vertical-align">

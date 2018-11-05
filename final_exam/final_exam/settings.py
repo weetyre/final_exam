@@ -127,3 +127,7 @@ STATICFILES_DIRS =(
 )
 
 AUTH_USER_MODEL = 'wechat.MyUser'
+
+LOGIN_URL = '/login'
+
+APPEND_SLASH=False
