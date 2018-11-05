@@ -20,9 +20,9 @@ def index_login(request):
                 return HttpResponseRedirect("me?user=" + username)
             else:
                 error_message = "Sorry, that's not a valid username or password"
-                return render(request, 'wechat/login.html',
+                return render(request, 'login.html',
                               {'form': form, 'input_error': error_message, 'block_title': 'Login'})
     else:
         form = LoginForm()
-    return render(request, 'wechat/login.html',
+    return render(request, 'login.html',
                   {'form': form, 'block_title': 'Login'})
