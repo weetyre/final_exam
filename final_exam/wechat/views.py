@@ -1,5 +1,6 @@
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 
@@ -59,9 +60,11 @@ def index_landingPage(request):
 
 
 @login_required
-def index_me(request):
-    user = auth.authenticate(request)
-    return render(request, 'me.html', user)
+def index_profile(request):
+    if request.method == 'GET':
+        user = auth.authenticate(request)
+        form1 = PasswordChangeForm(user=user)
+        return render(request, 'settings_account.html', user)
 
 
 @login_required

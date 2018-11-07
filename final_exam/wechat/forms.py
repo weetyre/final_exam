@@ -10,3 +10,7 @@ class LoginForm(forms.Form):
 class RegisterForm(LoginForm):
     password_confirm = forms.CharField(label='Password confirm', min_length=6,
                                        widget=forms.PasswordInput(attrs={'class': 'form-input'}))
+
+
+class ChangeEmailForm(forms.Form):
+    email = forms.EmailField(label='Email', max_length=50, widget=forms.EmailInput(attrs={'class': 'from-input'}))

@@ -40,6 +40,35 @@ p{
     flex-direction: column;
 }
 
+.col-2{
+    width: 25%;
+}
+
+.col-7{
+    width: 75%;
+}
+
+.menu{
+    border: 1px solid #cccccc;
+}
+
+.menu-item{
+    padding: 10px;
+    display: block;
+    cursor: default;
+    text-decoration: none;
+}
+
+.subhead{
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.subhead-heading{
+    font-size: 24px;
+    font-weight: 300;
+}
+
 /**
 div container
  */

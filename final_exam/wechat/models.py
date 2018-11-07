@@ -40,6 +40,10 @@ class MyUserManager(BaseUserManager):
 
 
 class MyUser(AbstractBaseUser):
+    username = models.CharField(
+        max_length=20,
+        unique=True,
+    )
     email = models.EmailField(
         verbose_name='email address',
         max_length=255,
@@ -52,7 +56,8 @@ class MyUser(AbstractBaseUser):
     objects = MyUserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['created_at']
+    EMAIL_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
     def __str__(self):
         return self.email

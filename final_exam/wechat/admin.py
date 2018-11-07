@@ -10,6 +10,8 @@ from .models import MyUser
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
+    username = forms.CharField(label='Password', max_length=20, min_length=6,
+                               widget=forms.PasswordInput(attrs={'class': 'form-input'}))
     password = forms.CharField(label='Password', max_length=18, min_length=6,
                                widget=forms.PasswordInput(attrs={'class': 'form-input'}))
     password_confirmation = forms.CharField(label='Password confirmation', max_length=18, min_length=6,
@@ -48,7 +50,7 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = MyUser
-        fields = ('email', 'password', 'created_at', 'is_active', 'is_admin')
+        fields = ('username', 'email', 'password', 'created_at', 'is_active', 'is_admin')
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.
@@ -65,10 +67,10 @@ class UserAdmin(BaseUserAdmin):
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
-    list_display = ('email', 'created_at', 'is_admin')
+    list_display = ('username', 'email', 'created_at', 'is_admin')
     list_filter = ('is_admin',)
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
+        (None, {'fields': ('username', 'email', 'password')}),
         ('Personal info', {'fields': ('created_at',)}),
         ('Permissions', {'fields': ('is_admin',)}),
     )
@@ -77,11 +79,11 @@ class UserAdmin(BaseUserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'created_at', 'password', 'password_confirmation')}
+            'fields': ('username', 'email', 'created_at', 'password', 'password_confirmation')}
          ),
     )
-    search_fields = ('email',)
-    ordering = ('email',)
+    search_fields = ('username',)
+    ordering = ('username',)
     filter_horizontal = ()
 
 
