@@ -3,16 +3,21 @@
     <div class="subhead">
         <h2 class="subhead-heading">Change password</h2>
     </div>
-    <form class="" action="s"
-    {{ form_change_psw }}
+    <form class="" action="/account/change_psw" method="post">
+        {% csrf_token %}
+        {{ form_change_psw }}
+        <input type="submit" name="submit" value="change email">
+    </form>
     <div class="subhead">
         <h2 class="subhead-heading">Change email</h2>
     </div>
-    <form class="login-form" action="/profile/email" onsubmit="return " method="post">
+    <form class="login-form" action="/account/change_email" onsubmit="return " method="post">
         <div class="error-block">
             <p class="error">{{ error_msg }}</p>
         </div>
         {{ form_change_email.email }}
         <input type="submit" name="submit" value="change email">
     </form>
+
+    <a href="/logout" class="link-button">Log out</a>
 {% endblock %}

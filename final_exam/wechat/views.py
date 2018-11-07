@@ -2,11 +2,12 @@ from django.contrib import auth
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.hashers import make_password
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 
 from .admin import UserCreationForm
-from .forms import LoginForm, RegisterForm, ChangeEmailForm
+from .forms import LoginForm, ChangeEmailForm
 from .models import MyUser
 
 
@@ -29,7 +30,8 @@ def index_login(request):
                 return render(request, 'login.html',
                               {'form': form, 'input_error': error_message, 'block_title': 'Login'})
 
-            user = auth.authenticate(request, email=email, password=password)
+            user = MyUser.objects.get(email=email)
+            user = auth.authenticate(request, username=user.username, password=password)
             # incorrect password
             if user is None:
                 error_message = 'password is invalid.'
@@ -39,7 +41,7 @@ def index_login(request):
             if user is not None and user.is_active:
                 # Correct password, and the user is marked "active"
                 auth.login(request, user)
-                return HttpResponseRedirect("/profile")
+                return HttpResponseRedirect("/profile?user=" + user.username)
                 # Redirect to a success page.
             else:
                 error_message = "Sorry, that's not a valid username or password"
@@ -55,19 +57,29 @@ def index_register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            user_filter = MyUser.objects.filter(email=request.POST['email'])
-            if len(user_filter) <= 0:
-                form.save()
+            email_filter = MyUser.objects.filter(email=request.POST['email'])
+            username_filter = MyUser.objects.filter(username=request.POST['username'])
+            if len(email_filter) <= 0 and len(username_filter) <= 0:
+                # form.save()
+                username = form.cleaned_data['username']
                 email = form.cleaned_data['email']
-                password = form.cleaned_data['password']
-                user = auth.authenticate(request, email=email, password=password)
+                # password = make_password(form.cleaned_data['password'])
+                user = MyUser.objects.create_user(username, email,)
+                user.set_password(form.cleaned_data['password'])
+                # user = auth.authenticate(request, email=email, password=user.password)
                 auth.login(request, user)
 
-                return HttpResponseRedirect("/profile")
+                return HttpResponseRedirect("/profile?user=" + user.username)
             else:
-                error_message = 'The email is already taken'
-                return render(request, 'register.html',
-                              {'form': form, 'input_error': error_message, 'block_title': 'Register'})
+                if len(email_filter) > 0:
+                    error_msg1 = 'email already taken.'
+                    return render(request, 'register.html',
+                                  {'form': form, 'input_error': error_msg1, 'block_title': 'Register'})
+
+                if len(username_filter) > 0:
+                    error_msg2 = 'username already taken.'
+                    return render(request, 'register.html',
+                                  {'form': form, 'input_error': error_msg2, 'block_title': 'Register'})
     else:
         form = UserCreationForm()
     return render(request, 'register.html', {'form': form, 'block_title': 'Register'})
@@ -81,7 +93,9 @@ def index_landingPage(request):
 @login_required
 def index_profile(request):
     if request.method == 'GET':
-        user = auth.authenticate(request)
+        username = request.GET['user']
+        user = auth.authenticate(request, username=username)
+        # user = auth.authenticate(request)
         form1 = PasswordChangeForm(user=user)
         form2 = ChangeEmailForm()
         return render(request, 'settings_account.html',
@@ -108,7 +122,6 @@ def account_email_change(request):
             user.email = email
             user.save()
             return HttpResponseRedirect("/profile")
-
 
 
 @login_required

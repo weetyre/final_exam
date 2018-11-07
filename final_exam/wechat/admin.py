@@ -10,7 +10,7 @@ from .models import MyUser
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
-    username = forms.CharField(label='Password', max_length=20, min_length=6,
+    username = forms.CharField(label='username', max_length=20, min_length=6,
                                widget=forms.TextInput(attrs={'class': 'form-input'}))
     password = forms.CharField(label='Password', max_length=18, min_length=6,
                                widget=forms.PasswordInput(attrs={'class': 'form-input'}))
@@ -20,7 +20,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = MyUser
-        fields = ('email',)
+        fields = ('email', 'username')
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -36,6 +36,7 @@ class UserCreationForm(forms.ModelForm):
         user.set_password(self.cleaned_data["password"])
         # here set current time to created_date
         user.set_created_date()
+        user.username = self.cleaned_data['username']
         if commit:
             user.save()
         return user
