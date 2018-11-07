@@ -41,7 +41,7 @@ def index_login(request):
             if user is not None and user.is_active:
                 # Correct password, and the user is marked "active"
                 auth.login(request, user)
-                return HttpResponseRedirect("/profile?user=" + user.username)
+                return HttpResponseRedirect("/profile?email=" + user.email)
                 # Redirect to a success page.
             else:
                 error_message = "Sorry, that's not a valid username or password"
@@ -69,7 +69,7 @@ def index_register(request):
                 user = auth.authenticate(email=email, password=form.cleaned_data['password'])
                 auth.login(request, user)
 
-                return HttpResponseRedirect("/profile?user=" + user.username)
+                return HttpResponseRedirect("/profile?email=" + user.email)
             else:
                 if len(email_filter) > 0:
                     error_msg1 = 'email already taken.'
@@ -93,13 +93,13 @@ def index_landingPage(request):
 @login_required
 def index_profile(request):
     if request.method == 'GET':
-        username = request.GET['user']
-        user = auth.authenticate(request, username=username)
+        email = request.GET['email']
+        user = MyUser.objects.get(email=email)
         # user = auth.authenticate(request)
         form1 = PasswordChangeForm(user=user)
         form2 = ChangeEmailForm()
         return render(request, 'settings_account.html',
-                      user, {'form_change_psw': form1, 'form_change_email': form2})
+                      {'user': user, 'form_change_psw': form1, 'form_change_email': form2})
 
 
 @login_required
