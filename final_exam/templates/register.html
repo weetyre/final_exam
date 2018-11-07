@@ -9,6 +9,10 @@
             <p class="error" id="psw_error"></p>
             <p class="error" id="psw_match"></p>
         </div>
+        <p>
+            <label for="{{ form.username.id_for_label }}">Username</label>
+        </p>
+        {{ form.username }}
         <p class="errors">{{ form.email.errors }}</p>
         <p>
             <label for="{{ form.email.id_for_label }}">Email</label>

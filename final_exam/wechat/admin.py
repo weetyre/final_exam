@@ -11,7 +11,7 @@ class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
     username = forms.CharField(label='Password', max_length=20, min_length=6,
-                               widget=forms.PasswordInput(attrs={'class': 'form-input'}))
+                               widget=forms.TextInput(attrs={'class': 'form-input'}))
     password = forms.CharField(label='Password', max_length=18, min_length=6,
                                widget=forms.PasswordInput(attrs={'class': 'form-input'}))
     password_confirmation = forms.CharField(label='Password confirmation', max_length=18, min_length=6,

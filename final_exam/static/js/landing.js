@@ -6,7 +6,7 @@ window.onload=function () {
         num = --i;
         if(num<0){
             clearInterval(time);
-            location = "/me";
+            location = "/profile";
         }
     },1000)
 }

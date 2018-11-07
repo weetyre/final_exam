@@ -21,9 +21,9 @@ def index_login(request):
             user_model = MyUser.objects.all()
             for i in user_model:
                 if i.email == email:
-                    i = 0
+                    flag = 0
 
-            if i :
+            if flag :
                 error_message = 'email not found.'
                 return render(request, 'login.html',
                               {'form': form, 'input_error': error_message, 'block_title': 'Login'})
@@ -42,7 +42,7 @@ def index_login(request):
             if user is not None and user.is_active:
                 # Correct password, and the user is marked "active"
                 auth.login(request, user)
-                return HttpResponseRedirect("/me")
+                return HttpResponseRedirect("/profile")
                 # Redirect to a success page.
             else:
                 error_message = "Sorry, that's not a valid username or password"
@@ -66,7 +66,7 @@ def index_register(request):
                 user = auth.authenticate(request, username=username, password=password)
                 auth.login(request, user)
 
-                return HttpResponseRedirect("/me")
+                return HttpResponseRedirect("/profile")
             else:
                 error_message = 'The email is already taken'
                 return render(request, 'register.html',
