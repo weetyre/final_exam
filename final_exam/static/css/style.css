@@ -169,6 +169,10 @@ left page
  */
 #left{
     overflow: hidden;
+    background-repeat: no-repeat;
+    background-position: center center;
+    align-content: stretch;
+    justify-content: space-around;
 }
 /**
 right page
