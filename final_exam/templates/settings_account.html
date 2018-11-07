@@ -1,11 +1,17 @@
 {% extends "settings.html" %}
 {% block content %}
     <div class="subhead">
-    <h2 class="subhead-heading">Change password</h2>
+        <h2 class="subhead-heading">Change password</h2>
     </div>
     {{ form_change_psw }}
     <div class="subhead">
-    <h2 class="subhead-heading">Change email</h2>
-    {{ form_change_email }}
+        <h2 class="subhead-heading">Change email</h2>
     </div>
+    <form class="login-form" action="/profile" onsubmit="return " method="post">
+        <div class="error-block">
+            <p class="error">{{ error_msg }}</p>
+        </div>
+        {{ form_change_email.email }}
+        <input type="submit" name="submit" value="change email">
+    </form>
 {% endblock %}

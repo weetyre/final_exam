@@ -5,7 +5,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 
 from .admin import UserCreationForm
-from .forms import LoginForm, RegisterForm
+from .forms import LoginForm, RegisterForm, ChangeEmailForm
 from .models import MyUser
 
 
@@ -64,7 +64,9 @@ def index_profile(request):
     if request.method == 'GET':
         user = auth.authenticate(request)
         form1 = PasswordChangeForm(user=user)
-        return render(request, 'settings_account.html', user)
+        form2 = ChangeEmailForm()
+        return render(request, 'settings_account.html',
+                      {'user': user, 'form_change_psw': form1, 'form_change_email': form2})
 
 
 @login_required
