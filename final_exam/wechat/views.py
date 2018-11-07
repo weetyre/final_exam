@@ -30,8 +30,8 @@ def index_login(request):
                 return render(request, 'login.html',
                               {'form': form, 'input_error': error_message, 'block_title': 'Login'})
 
-            user = MyUser.objects.get(email=email)
-            user = auth.authenticate(request, username=user.username, password=password)
+            #user = MyUser.objects.get(email=email)
+            user = auth.authenticate(email = email, password=password)
             # incorrect password
             if user is None:
                 error_message = 'password is invalid.'
@@ -64,9 +64,9 @@ def index_register(request):
                 username = form.cleaned_data['username']
                 email = form.cleaned_data['email']
                 # password = make_password(form.cleaned_data['password'])
-                user = MyUser.objects.create_user(username, email,)
-                user.set_password(form.cleaned_data['password'])
-                # user = auth.authenticate(request, email=email, password=user.password)
+                user = MyUser.objects.create_user(username, email,form.cleaned_data['password'])
+
+                user = auth.authenticate(email=email, password=form.cleaned_data['password'])
                 auth.login(request, user)
 
                 return HttpResponseRedirect("/profile?user=" + user.username)

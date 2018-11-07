@@ -20,7 +20,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = MyUser
-        fields = ('email', 'username')
+        fields = ('email', )
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -36,7 +36,6 @@ class UserCreationForm(forms.ModelForm):
         user.set_password(self.cleaned_data["password"])
         # here set current time to created_date
         user.set_created_date()
-        user.username = self.cleaned_data['username']
         if commit:
             user.save()
         return user
