@@ -13,9 +13,32 @@ def index_login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data['email']
+            email = form.cleaned_data['email']
             password = form.cleaned_data['password']
-            user = auth.authenticate(request, username=username, password=password)
+
+            #if email is not found
+            flag = 1
+            user_model = MyUser.objects.all()
+            for i in user_model:
+                if i.email == email:
+                    i = 0
+
+            if i :
+                error_message = 'email not found.'
+                return render(request, 'login.html',
+                              {'form': form, 'input_error': error_message, 'block_title': 'Login'})
+
+
+            user = auth.authenticate(request, email=email, password=password)
+            #incorrect password
+            if user is None:
+                error_message = 'password is invalid.'
+                return render(request, 'login.html',
+                              {'form': form, 'input_error': error_message, 'block_title': 'Login'})
+
+
+
+
             if user is not None and user.is_active:
                 # Correct password, and the user is marked "active"
                 auth.login(request, user)
@@ -55,8 +78,7 @@ def index_register(request):
 
 def index_landingPage(request):
     #mainpage
-    render(request,'landingpage.html')
-    pass
+    return render(request, 'landingpage.html')
 
 
 @login_required
