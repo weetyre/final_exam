@@ -11,4 +11,5 @@ dataSources.local.xml
 rest-client.private.env.json
 http-client.private.env.json
 
-/db.sqlite3
+/final_exam/db.sqlite3
+/final_exam/wechat/migrations/0001_initial.py
