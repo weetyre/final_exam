@@ -16,28 +16,24 @@ def index_login(request):
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
 
-            #if email is not found
+            # if email is not found
             flag = 1
             user_model = MyUser.objects.all()
             for i in user_model:
                 if i.email == email:
                     flag = 0
 
-            if flag :
+            if flag:
                 error_message = 'email not found.'
                 return render(request, 'login.html',
                               {'form': form, 'input_error': error_message, 'block_title': 'Login'})
 
-
             user = auth.authenticate(request, email=email, password=password)
-            #incorrect password
+            # incorrect password
             if user is None:
                 error_message = 'password is invalid.'
                 return render(request, 'login.html',
                               {'form': form, 'input_error': error_message, 'block_title': 'Login'})
-
-
-
 
             if user is not None and user.is_active:
                 # Correct password, and the user is marked "active"
@@ -61,9 +57,9 @@ def index_register(request):
             user_filter = MyUser.objects.filter(email=request.POST['email'])
             if len(user_filter) <= 0:
                 form.save()
-                username = form.cleaned_data['email']
+                email = form.cleaned_data['email']
                 password = form.cleaned_data['password']
-                user = auth.authenticate(request, username=username, password=password)
+                user = auth.authenticate(request, email=email, password=password)
                 auth.login(request, user)
 
                 return HttpResponseRedirect("/profile")
@@ -77,7 +73,7 @@ def index_register(request):
 
 
 def index_landingPage(request):
-    #mainpage
+    # mainpage
     return render(request, 'landingpage.html')
 
 
@@ -88,7 +84,15 @@ def index_profile(request):
         form1 = PasswordChangeForm(user=user)
         form2 = ChangeEmailForm()
         return render(request, 'settings_account.html',
-                      {'user': user, 'form_change_psw': form1, 'form_change_email': form2})
+                      user, {'form_change_psw': form1, 'form_change_email': form2})
+
+
+@login_required
+def account_psw_change(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.POST)
+        if form.is_valid():
+
 
 
 @login_required

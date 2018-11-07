@@ -1,7 +1,7 @@
 {% extends "index.html" %}
         {% block right_div %}
             <form class="login-form content-center well-block" action="/login" onsubmit="return " method="post">
-                <p class="error">{{ input_error }}</p>
+            <p class="error">{{ input_error }}</p>
                 {{ form.non_field_errors }}
                 {% csrf_token %}
                 <p class="errors">{{ form.email.errors }}</p>
