@@ -18,8 +18,8 @@ def index_login(request):
             if user is not None and user.is_active:
                 # Correct password, and the user is marked "active"
                 auth.login(request, user)
-                # Redirect to a success page.
                 return HttpResponseRedirect("/me")
+                # Redirect to a success page.
             else:
                 error_message = "Sorry, that's not a valid username or password"
                 return render(request, 'login.html',
@@ -50,6 +50,12 @@ def index_register(request):
     else:
         form = UserCreationForm()
     return render(request, 'register.html', {'form': form, 'block_title': 'Register'})
+
+
+def index_landingPage(request):
+    #mainpage
+    render(request,'landingpage.html')
+    pass
 
 
 @login_required
