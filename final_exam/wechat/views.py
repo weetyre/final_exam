@@ -1,4 +1,5 @@
 from django.contrib import auth
+from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.http import HttpResponse, Http404, HttpResponseRedirect
@@ -90,8 +91,23 @@ def index_profile(request):
 @login_required
 def account_psw_change(request):
     if request.method == 'POST':
-        form = PasswordChangeForm(request.POST)
+        form = PasswordChangeForm(user=request.user, data=request.POST)
         if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            return HttpResponseRedirect("/profile")
+
+
+@login_required
+def account_email_change(request):
+    if request.method == 'POST':
+        user = auth.authenticate(request)
+        email = request.POST['email']
+        email_filter = MyUser.objects.filter(email=request.POST['email'])
+        if len(email_filter) <= 0:
+            user.email = email
+            user.save()
+            return HttpResponseRedirect("/profile")
 
 
 
