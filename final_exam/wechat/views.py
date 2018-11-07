@@ -54,8 +54,7 @@ def index_register(request):
 
 def index_landingPage(request):
     #mainpage
-    render(request,'landingpage.html')
-    pass
+    return render(request, 'landingpage.html')
 
 
 @login_required
