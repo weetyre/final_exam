@@ -11,12 +11,14 @@ class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
     username = forms.CharField(label='username', max_length=20, min_length=6,
-                               widget=forms.TextInput(attrs={'class': 'form-input'}))
+                               widget=forms.TextInput(attrs={'class': 'form-input'}),
+                               error_messages={'required': 'username already taken.',})
     password = forms.CharField(label='Password', max_length=18, min_length=6,
                                widget=forms.PasswordInput(attrs={'class': 'form-input'}))
     password_confirmation = forms.CharField(label='Password confirmation', max_length=18, min_length=6,
                                             widget=forms.PasswordInput(attrs={'class': 'form-input'}))
-    email = forms.EmailField(label='Email', max_length=50, widget=forms.EmailInput(attrs={'class': 'from-input'}))
+    email = forms.EmailField(label='Email', max_length=50, widget=forms.EmailInput(attrs={'class': 'from-input'})
+                             ,error_messages={'required': 'email already taken.',})
 
     class Meta:
         model = MyUser
@@ -27,7 +29,7 @@ class UserCreationForm(forms.ModelForm):
         password = self.cleaned_data.get("password")
         password_confirmation = self.cleaned_data.get("password_confirmation")
         if password and password_confirmation and password != password_confirmation:
-            raise forms.ValidationError("Passwords don't match")
+            raise forms.ValidationError("passwords don't match")
         return password_confirmation
 
     def save(self, commit=True):

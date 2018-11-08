@@ -1,20 +1,37 @@
 {% extends "settings.html" %}
 {% block content %}
-    <div class="container-flex">
+    <div class="container">
         <div class="subhead">
             <h2 class="subhead-heading">Change password</h2>
         </div>
-        <form class="" action="/account/change_psw" method="post">
+        <form class="" action="/account/change_psw" method="post" onsubmit="return pswValidation2(this)">
             {% csrf_token %}
-            {{ form_change_psw }}
-            <input type="submit" name="submit" value="change email">
+
+            <div class="text-content content-center error-block">
+                <p class="error" id="psw_error"></p>
+            </div>
+            <div class="text-content content-center error-block">
+                <p class="error" id="psw_match"></p>
+            </div>
+
+            {{ form_change_psw.old_password.label_tag }}
+            {{ form_change_psw.old_password }}
+            {{ form_change_psw.new_password1.label_tag }}
+            {{ form_change_psw.new_password1 }}
+            {{ form_change_psw.new_password2.label_tag }}
+            {{ form_change_psw.new_password2 }}
+            <input type="submit" name="submit" value="change password">
         </form>
         <div class="subhead">
             <h2 class="subhead-heading">Change email</h2>
         </div>
-        <form class="login-form" action="/account/change_email" onsubmit="return " method="post">
+        <form class="login-form" action="/account/change_email" method="post" onsubmit="return emailValidation(this)">
+            {% csrf_token %}
             <div class="error-block">
                 <p class="error">{{ error_msg }}</p>
+            </div>
+            <div class="text-content content-center error-block">
+                <p class="error" id="error_show"></p>
             </div>
             {{ form_change_email.email }}
             <input type="submit" name="submit" value="change email">
@@ -22,5 +39,5 @@
 
         <a href="/logout" class="link-button">Log out</a>
     </div>
-
+    <script type="text/javascript" src="static/js/account.js"></script>
 {% endblock %}
