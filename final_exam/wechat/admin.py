@@ -32,12 +32,6 @@ class UserCreationForm(forms.ModelForm):
             raise forms.ValidationError("passwords don't match")
         return password_confirmation
 
-
-
-
-
-
-
     def save(self, commit=True):
         # Save the provided password in hashed format
         user = super().save(commit=False)

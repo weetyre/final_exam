@@ -1,66 +1,70 @@
 <!doctype html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>text</title>
+    <meta charset="utf-8">
+    <title>text</title>
     {% load static %}
-<link href="{% static 'css/reset.css' %}" rel="stylesheet" type="text/css">
-<link href="{% static 'css/profile.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/reset.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/profile.css' %}" rel="stylesheet" type="text/css">
 </head>
 
 <body>
-	<div class="container-flex flex-reset">
-        <div id="left" class="container-flex">
-            <img src="{% static 'img/background.jpg' %}">
-        </div>
-        <div id="right" class="container-flex">
-            <div class="table-vertical-align">
+<div class="container-flex flex-reset">
+    <div id="left" class="container-flex">
+        <img src="{% static 'img/background.jpg' %}">
+    </div>
+    <div id="right" class="container-flex">
+        <div class="table-vertical-align">
+            <div class="float-left col-8">
+                <h2 class="head-block">{{ user.username }} </h2>
+                <h3 class="subhead-heading">Settings</h3>
+                <h2 class="subhead-heading">Change password</h2>
 
-				
-				
-                 <div class="float-left col-8">
-                   <h2 class="head-block">{{ user.username }} </h2>
-                   <h3 class="subhead-heading">Settings</h3>
-					 
-                   
-       				 <h2 class="subhead-heading">Change password</h2>
-    				
-					 
-    				<form class="" action="/account/change_psw" method="post">
-						<div class="passwor1">
+                <form class="" action="/account/change_psw" method="post" onsubmit="return pswValidation2(this)">
+                    <div class="passwor1">
+                        <div class="field">
+                            {% csrf_token %}
+                            <div class="text-content content-center error-block">
+                                <p class="error" id="psw_error"></p>
+                            </div>
+                            <div class="text-content content-center error-block">
+                                <p class="error" id="psw_match"></p>
+                            </div>
 
-                            <div class="field">
-							{% csrf_token %}
-					        {{ form_change_psw }}
-						<div class="change_word">
-							<input name="submit" type="submit" class="submint_b1" value="change password">
-						</div>
-						
-						</div>
-						
-						
-					</form>
+                            {{ form_change_psw.old_password.label_tag }}
+                            {{ form_change_psw.old_password }}
+                            {{ form_change_psw.new_password1.label_tag }}
+                            {{ form_change_psw.new_password1 }}
+                            {{ form_change_psw.new_password2.label_tag }}
+                            {{ form_change_psw.new_password2 }}
+                            <div class="change_word">
+                                <input name="submit" type="submit" class="submint_b1" value="change password">
+                            </div>
+                        </div>
+                    </div>
+                </form>
 
-					<h2 class="subhead-heading">Change email</h2>
-					
-					 
-					<form class="login-form" action="/account/change_email" onsubmit="return " method="post">
-						<div class="error-block">
-							<p class="error">{{ error_msg }}</p>
-						</div>
-						<div class="field">
-							{{ form_change_email.email }}
-						</div>
-						<div class="change_word">
-							<input name="submit" type="submit" class="submint_b2" value="change email">
-						</div>
-						
-					</form>
-			
-					<a href="/logout" class="link-button">Log out</a>
-					
-              </div>
+                <h2 class="subhead-heading">Change email</h2>
 
+                <form class="login-form" action="/account/change_email" method="post"
+                      onsubmit="return emailValidation(this)">
+                    {% csrf_token %}
+                    <div class="error-block">
+                        <p class="error">{{ error_msg }}</p>
+                    </div>
+                    <div class="text-content content-center error-block">
+                        <p class="error" id="error_show"></p>
+                    </div>
+                    <div class="field">
+                        {{ form_change_email.email }}
+                    </div>
+                    <div class="change_word">
+                        <input name="submit" type="submit" class="submint_b2" value="change email">
+                    </div>
+                </form>
+
+                <a href="/logout" class="link-button">Log out</a>
+            </div>
         </div>
     </div>
 
