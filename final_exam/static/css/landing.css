@@ -1,0 +1,10 @@
+.back_jpg{
+    display: flex;
+    overflow:hidden;
+    align-content: stretch;
+    justify-content: space-around;
+    background-image: url("../img/welcome.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size:cover;
+}
