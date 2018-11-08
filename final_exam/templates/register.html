@@ -5,36 +5,28 @@
     <form class="login-form content-center well-block" action="/register" method="post" onsubmit="return validation(this)">
         {% csrf_token %}
         <div class="text-content content-center">
-
-
-
-
         </div>
         <p>
             <label for="{{ form.username.id_for_label }}">Username</label>
         </p>
         {{ form.username }}
         <div class="text-content content-center">
-             <p class="error" id="name_error"></p>
+             <p class="error" id="name_error">{{ input_error }}</p>
+
         </div>
 
-
-        <p class="errors">{{ form.email.errors }}</p>
         <p>
             <label for="{{ form.email.id_for_label }}">Email</label>
         </p>
         {{ form.email }}
         <div class="text-content content-center">
-             <p class="error" id="error_show">{{ input_error }}</p>
+             <p class="error" id="error_show">{{ input_error2 }}</p>
+
         </div>
-
-
-        <p class="errors">{{ form.password.errors }}</p>
         <p>
             <label for="{{ form.password.id_for_label }}">Password</label>
         </p>
         {{ form.password }}
-        {{ form.password_confirmation.errors }}
         <div class="text-content content-center">
              <p class="error" id="psw_error"></p>
         </div>

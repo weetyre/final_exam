@@ -14,12 +14,12 @@ var psw2 = document.getElementById("id_password_confirmation");
 
 psw1.onblur = psw2.onblur = function () {
     if (psw1.value.length < 6 || psw2.value.length < 6) {
-        document.getElementById("psw_error").innerHTML = "Password too short.";
+        document.getElementById("psw_error").innerHTML = "password too short.";
     } else {
         document.getElementById("psw_error").innerHTML = "";
     }
     if (psw1.value != psw2.value) {
-        document.getElementById("psw_match").innerHTML = "Password mismatch!";
+        document.getElementById("psw_match").innerHTML = "password mismatch!";
     } else {
         document.getElementById("psw_match").innerHTML = "";
     }
@@ -51,7 +51,7 @@ function validation() {
     var psw1_str = document.getElementById("id_password").value;
     var psw2_str = document.getElementById("id_password_confirmation").value;
     if (psw1_str.length < 6 || psw2_str.length < 6) {
-        document.getElementById("psw_error").innerHTML = "Password too short.";
+        document.getElementById("psw_error").innerHTML = "password too short.";
         return false;
     }
     if (psw1_str !== psw2_str) {
@@ -67,5 +67,4 @@ function validation() {
         document.getElementById("name_error").innerHTML = "username has illegal characters.";
         return false;
     }
-    return true;
 }

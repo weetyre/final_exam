@@ -55,34 +55,36 @@ def index_login(request):
 
 def index_register(request):
     if request.method == 'POST':
+
         form = UserCreationForm(request.POST)
-        if form.is_valid():
-            email_filter = MyUser.objects.filter(email=request.POST['email'])
-            username_filter = MyUser.objects.filter(username=request.POST['username'])
-            if len(email_filter) <= 0 and len(username_filter) <= 0:
+
+        email_filter = MyUser.objects.filter(email=request.POST['email'])
+        username_filter = MyUser.objects.filter(username=request.POST['username'])
+        if len(email_filter) <= 0 and len(username_filter) <= 0:
                 # form.save()
-                username = form.cleaned_data['username']
-                email = form.cleaned_data['email']
+            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
                 # password = make_password(form.cleaned_data['password'])
-                user = MyUser.objects.create_user(username, email,form.cleaned_data['password'])
+            user = MyUser.objects.create_user(username, email,form.cleaned_data['password'])
 
-                user = auth.authenticate(email=email, password=form.cleaned_data['password'])
-                auth.login(request, user)
+            user = auth.authenticate(email=email, password=form.cleaned_data['password'])
+            auth.login(request, user)
 
-                return HttpResponseRedirect("/profile?user=" + user.username)
-            else:
-                if len(email_filter) > 0:
-                    error_msg1 = 'email already taken.'
-                    return render(request, 'register.html',
-                                  {'form': form, 'input_error': error_msg1, 'block_title': 'Register'})
+            return HttpResponseRedirect("/profile?user=" + user.username)
+        else:
+            if len(email_filter) > 0:
+                error_msg1 = 'email already taken.'
+                return render(request, 'register.html',
+                                  {'form': form, 'input_error2': error_msg1, 'block_title': 'Register'})
 
-                if len(username_filter) > 0:
-                    error_msg2 = 'username already taken.'
-                    return render(request, 'register.html',
+            if len(username_filter) > 0:
+                error_msg2 = 'username already taken.'
+                return render(request, 'register.html',
                                   {'form': form, 'input_error': error_msg2, 'block_title': 'Register'})
+
     else:
         form = UserCreationForm()
-    return render(request, 'register.html', {'form': form, 'block_title': 'Register'})
+        return render(request, 'register.html', {'form': form, 'block_title': 'Register'})
 
 
 def index_landingPage(request):
@@ -93,13 +95,11 @@ def index_landingPage(request):
 @login_required
 def index_profile(request):
     if request.method == 'GET':
-        username = request.GET['user']
-        user = auth.authenticate(request, username=username)
-        # user = auth.authenticate(request)
+        user = request.user
         form1 = PasswordChangeForm(user=user)
         form2 = ChangeEmailForm()
         return render(request, 'settings_account.html',
-                      user, {'form_change_psw': form1, 'form_change_email': form2})
+                      {'user':user,'form_change_psw': form1, 'form_change_email': form2})
 
 
 @login_required
