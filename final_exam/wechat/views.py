@@ -108,7 +108,12 @@ def account_psw_change(request):
         if form.is_valid():
             form.save()
             update_session_auth_hash(request, form.user)
-            return HttpResponseRedirect("/profile")
+            form2 = ChangeEmailForm()
+
+            msg = 'succeeded!'
+            return render(request, 'settings_account.html',
+                          {'user': request.user, 'form_change_psw': form,
+                           'form_change_email': form2, 'success_msg1': msg})
         else:
             form2 = ChangeEmailForm()
             return render(request, 'settings_account.html',
@@ -124,7 +129,12 @@ def account_email_change(request):
         if len(email_filter) <= 0:
             user.email = email
             user.save()
-            return HttpResponseRedirect("/profile")
+            form1 = MyPasswordChangeForm(user=user)
+            form2 = ChangeEmailForm()
+            msg = 'succeeded!'
+            return render(request, 'settings_account.html',
+                          {'user': request.user, 'form_change_psw': form1,
+                           'form_change_email': form2, 'success_msg2': msg})
         else:
             form1 = MyPasswordChangeForm(user=user)
             form2 = ChangeEmailForm()

@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import PasswordChangeForm
 from django.utils.translation import gettext, gettext_lazy as _
 
-from final_exam.wechat.models import MyUser
+from .models import MyUser
 
 
 class LoginForm(forms.Form):
@@ -24,16 +24,31 @@ class ChangeEmailForm(forms.Form):
 
 
 class MyPasswordChangeForm(PasswordChangeForm):
+    new_password1 = forms.CharField(
+        label=_("password"),
+        widget=forms.PasswordInput,
+        strip=False,
+    )
+    new_password2 = forms.CharField(
+        label=_("password confirmation"),
+        strip=False,
+        widget=forms.PasswordInput,
+    )
+    old_password = forms.CharField(
+        label=_("Old password"),
+        strip=False,
+        widget=forms.PasswordInput(),
+    )
     error_messages = {
         **PasswordChangeForm.error_messages,
         'password_incorrect': _("invalid password."),
     }
 
     def clean_old_password(self):
-        super.old_password = self.cleaned_data["old_password"]
-        if not self.user.check_password(super.old_password):
+        old_password = self.cleaned_data["old_password"]
+        if not self.user.check_password(old_password):
             raise forms.ValidationError(
                 self.error_messages['password_incorrect'],
                 code='password_incorrect',
             )
-        return super.old_password
+        return old_password

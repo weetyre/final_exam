@@ -1,8 +1,12 @@
 {% extends "index.html" %}
 {% block static_file %}
 {% endblock %}
+{% block title %}
+    <title>registration</title>
+{% endblock %}
 {% block right_div %}
-    <form class="login-form content-center well-block" action="/register" method="post" onsubmit="return validation(this)">
+    <form class="login-form content-center well-block" action="/register" method="post"
+          onsubmit="return validation(this)">
         {% csrf_token %}
         <div class="text-content content-center">
         </div>
@@ -11,7 +15,7 @@
         </p>
         {{ form.username }}
         <div class="text-content content-center">
-             <p class="error" id="name_error">{{ input_error }}</p>
+            <p class="error" id="name_error">{{ input_error }}</p>
 
         </div>
 
@@ -20,7 +24,7 @@
         </p>
         {{ form.email }}
         <div class="text-content content-center">
-             <p class="error" id="error_show">{{ input_error2 }}</p>
+            <p class="error" id="error_show">{{ input_error2 }}</p>
 
         </div>
         <p>
@@ -28,14 +32,14 @@
         </p>
         {{ form.password }}
         <div class="text-content content-center">
-             <p class="error" id="psw_error"></p>
+            <p class="error" id="psw_error"></p>
         </div>
         <p>
             <label for="{{ form.password_confirmation.id_for_label }}">Password confirm</label>
         </p>
         {{ form.password_confirmation }}
         <div class="text-content content-center">
-              <p class="error" id="psw_match"></p>
+            <p class="error" id="psw_match"></p>
         </div>
         <p class="submit">
             <input type="submit" name="submit" value="Sign up" id="submit" class="button button-primary link-button">
@@ -44,5 +48,6 @@
             <a href="/login" class="link-button">Login</a>
         </p>
     </form>
-    <script type="text/javascript" src="/static/js/register.js"></script>
+    {% load static %}
+    <script type="text/javascript" src="{% static 'js/register.js' %}"></script>
 {% endblock %}

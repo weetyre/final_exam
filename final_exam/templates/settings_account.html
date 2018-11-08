@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>text</title>
+    <title>profile page</title>
     {% load static %}
     <link href="{% static 'css/reset.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'css/profile.css' %}" rel="stylesheet" type="text/css">
@@ -30,6 +30,13 @@
                             <div class="text-content content-center error-block">
                                 <p class="error" id="psw_match"></p>
                             </div>
+                            <div class="text-content content-center error-block">
+                                <p class="error" id="psw_match">
+                                    {% if form_change_psw.errors %}
+                                        {{ form_change_psw.error_messages.password_incorrect }}
+                                    {% endif %}
+                                </p>
+                            </div>
 
                             {{ form_change_psw.old_password.label_tag }}
                             {{ form_change_psw.old_password }}
@@ -37,6 +44,9 @@
                             {{ form_change_psw.new_password1 }}
                             {{ form_change_psw.new_password2.label_tag }}
                             {{ form_change_psw.new_password2 }}
+                            <div class="success-text">
+                                <p>{{ success_msg1 }}</p>
+                            </div>
                             <div class="change_word">
                                 <input name="submit" type="submit" class="submint_b1" value="change password">
                             </div>
@@ -49,11 +59,12 @@
                 <form class="login-form" action="/account/change_email" method="post"
                       onsubmit="return emailValidation(this)">
                     {% csrf_token %}
-                    <div class="error-block">
-                        <p class="error">{{ error_msg }}</p>
+
+                    <div class="success-text">
+                        <p>{{ success_msg2 }}</p>
                     </div>
                     <div class="text-content content-center error-block">
-                        <p class="error" id="error_show"></p>
+                        <p class="error" id="error_show">{{ error_msg }}</p>
                     </div>
                     <div class="field">
                         {{ form_change_email.email }}
@@ -67,6 +78,7 @@
             </div>
         </div>
     </div>
-
+    <script type="text/javascript" src="{% static 'js/account.js' %}"></script>
+</div>
 </body>
 </html>
