@@ -130,4 +130,5 @@ AUTH_USER_MODEL = 'wechat.MyUser'
 
 LOGIN_URL = '/login'
 
-APPEND_SLASH=False
+# APPEND_SLASH=False
+

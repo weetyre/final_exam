@@ -110,6 +110,10 @@ def account_psw_change(request):
             form.save()
             update_session_auth_hash(request, form.user)
             return HttpResponseRedirect("/profile")
+        else:
+            form2 = ChangeEmailForm()
+            return render(request, 'settings_account.html',
+                          {'user': request.user, 'form_change_psw': form, 'form_change_email': form2})
 
 
 @login_required
@@ -122,6 +126,13 @@ def account_email_change(request):
             user.email = email
             user.save()
             return HttpResponseRedirect("/profile")
+        else:
+            form1 = PasswordChangeForm(user=user)
+            form2 = ChangeEmailForm()
+            error_message='email already taken.'
+            return render(request, 'settings_account.html',
+                          {'user': user, 'form_change_psw': form1, 'form_change_email': form2,
+                           'error_msg':error_message})
 
 
 @login_required
