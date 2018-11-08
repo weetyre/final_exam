@@ -1,13 +1,34 @@
 {% extends "index.html" %}
 {% block body %}
-    <div class="float-left col-2" role="navigation">
-    <nav class="menu" >
-        <h2 class="menu-heading menu-item">{{ user.username }}</h2>
-        <h3 class="menu-heading menu-item">Settings</h3>
-        <a class="menu-item" href="/settings/account">Account</a>
-    </nav>
+{%load static%}
+
+     <div class="container-flex flex-reset">
+        <div id="left" class="container-flex">
+            <img src="{% static 'img/background.jpg' %}">
+        </div>
+        <div id="right" class="container-flex">
+            <div class="table-vertical-align">
+
+            <h2>{{ user.username }}</h2>
+            <h3>Settings</h3>
+            <a class="menu-item" href="/settings/account">Account</a>
+
+            <div id="left" class="container-flex">
+                 <div class="float-left col-7">
+                    {% block content %}{% endblock %}
+                </div>
+
+
+            </div>
+
+        </div>
     </div>
-    <div class="float-left col-7">
-    {% block content %}{% endblock %}
-    </div>
+
+
+
+
+
+
+
+
 {% endblock %}
