@@ -62,12 +62,12 @@ def index_register(request):
         username_filter = MyUser.objects.filter(username=request.POST['username'])
         if len(email_filter) <= 0 and len(username_filter) <= 0:
                 # form.save()
-            username = form.cleaned_data['username']
-            email = form.cleaned_data['email']
+            username = request.POST['username']
+            email = request.POST['email']
                 # password = make_password(form.cleaned_data['password'])
-            user = MyUser.objects.create_user(username, email,form.cleaned_data['password'])
+            user = MyUser.objects.create_user(username, email,request.POST['password'])
 
-            user = auth.authenticate(email=email, password=form.cleaned_data['password'])
+            user = auth.authenticate(email=email, password=request.POST['password'])
             auth.login(request, user)
 
             return HttpResponseRedirect("/profile?user=" + user.username)
