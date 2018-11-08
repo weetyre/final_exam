@@ -21,7 +21,6 @@
                  <div class="float-left col-8">
                    <h2 class="head-block">{{ user.username }} </h2>
                    <h3 class="subhead-heading">Settings</h3>
-            		<a href="/settings/account">Account</a>
 					 
                    
        				 <h2 class="subhead-heading">Change password</h2>
@@ -29,11 +28,10 @@
 					 
     				<form class="" action="/account/change_psw" method="post">
 						<div class="passwor1">
-						
-						<div>
+
+                            <div class="field">
 							{% csrf_token %}
-					{{ form_change_psw }}
-						</div>
+					        {{ form_change_psw }}
 						<div class="change_word">
 							<input name="submit" type="submit" class="submint_b1" value="change password">
 						</div>
@@ -50,7 +48,7 @@
 						<div class="error-block">
 							<p class="error">{{ error_msg }}</p>
 						</div>
-						<div>
+						<div class="field">
 							{{ form_change_email.email }}
 						</div>
 						<div class="change_word">

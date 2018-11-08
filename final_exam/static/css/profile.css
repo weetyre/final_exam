@@ -86,8 +86,12 @@ p{
 }
 
 .subhead-heading{
-    font-size: 24px;
-    font-weight: 300;
+	font-size: 24px;
+	padding-top: auto;
+	padding-right: auto;
+	padding-left: 9px;
+	padding-bottom: auto;
+	font-weight: 300;
 }
 
 /**
@@ -123,7 +127,7 @@ div container
 form
  */
 .login-form{
-	padding-top: 2em;
+	padding-top: 0em;
 	padding-right: 2em;
 	padding-left: 0em;
 	padding-bottom: 4em;
@@ -221,10 +225,14 @@ submit button
 error text
  */
 .error, .errorlist{
-    color: red;
-    font-size: 12px;
-    width: 100%;
-    display: inline-block;
+	color: red;
+	font-size: 12px;
+	width: 100%;
+	padding-top: 8px;
+	padding-right: 8px;
+	padding-left: 8px;
+	padding-bottom: 8px;
+	display: inline-block;
 }
 
 /**
@@ -258,7 +266,7 @@ responsive-design
     }
 }
 .submint_bu {
-	
+
     padding: 10px;
     text-align: center;
     background-color: #0284bb;
@@ -306,4 +314,11 @@ responsive-design
 .change_word{
 	padding-left: 9px;
 	padding-top: 7px;
+}
+.field {
+	padding-top: auto;
+	padding-right: 21px;
+	padding-left: 8px;
+	padding-bottom: auto;
+
 }
