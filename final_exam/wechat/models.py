@@ -15,7 +15,7 @@ from django.contrib.auth.models import (
 
 
 class MyUserManager(BaseUserManager):
-    def create_user(self, username, email, password=None):
+    def create_user(self, username, email, sex, password=None):
         """
         Creates and saves a User with the given email, date of
         birth and password.
@@ -29,6 +29,7 @@ class MyUserManager(BaseUserManager):
         user = self.model(
             username=username,
             email=self.normalize_email(email),
+            sex=sex,
             created_at=now,
         )
 
@@ -120,7 +121,7 @@ class One_to_one_msg_record(models.Model):
     form_id = models.ForeignKey(MyUser, related_name='from_id_O2O', on_delete=models.CASCADE)
     to_id = models.ForeignKey(MyUser, related_name='to_id_O2O', on_delete=models.CASCADE)
     content = models.CharField(max_length=500)
-
+    create_time = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return "One_to_one_msg_record"
