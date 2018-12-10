@@ -8,3 +8,69 @@
     background-position: center center;
     background-size:cover;
 }
+
+.bg{
+    overflow:hidden;
+    background-image: url("../img/bg.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size:cover;
+    height: 100%;
+    width:100%
+}
+html,body,main{
+    background-color: #ffffff;
+    height: 100%;
+    margin: 0;
+    font-size: 11px;
+    font-family: sans-serif;
+}
+.chat{
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    background-color: #00a0d2;
+}
+.main_chat{
+    background-color: #0f0f0f;
+    height: 75%;
+}
+.message_box{
+    background-color: #ff4c1a;
+    height: 100%;
+}
+.profile_box{
+    background-color: #ff27a0;
+    height: 100%;
+}
+.pro_name{
+    height: 11%;
+    background-color: #79c7d2;
+}
+.pro_search{
+    height: 5.6%;
+    background-color: #2b542c;
+}
+.pro_select{
+    height: 7%;
+    background-color: #5bff35;
+}
+.pro_info_list{
+    height: 76.4%;
+    background-color: #ffd18f;
+}
+.msg_title{
+    height: 8%;
+    background-color: #d2c11a;
+}
+
+.msg_main{
+    height: 67%;
+    background-color: #ff7c00;
+}
+.msg_sender{
+    height: 25%;
+    background-color: #ea40ff;
+}

@@ -1,16 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>home</title>
     {%load static%}
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap-theme.css' %}">
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}">
     <script type="text/javascript" src="{%static 'js/jquery-3.3.1.js'%}"></script>
-        <script type="text/javascript" src="{%static 'js/bootstrap.js'%}"></script>
-
+    <script type="text/javascript" src="{%static 'js/bootstrap.js'%}"></script>
 </head>
-<body>
-{% block body %}{% endblock %}
+<body class="bg">
+    <div class="container chat">
+        <div class="main_chat">
+            <div class="profile_box col-md-3">
+                <div class="pro_name"></div>
+                <div class="pro_search"></div>
+                <div class="pro_select"></div>
+                <div class="pro_info_list"></div>
+            </div>
+            <div class="message_box col-md-9">
+                <div class="msg_title"></div>
+                <div class="msg_main"></div>
+                <div class="msg_sender"></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
