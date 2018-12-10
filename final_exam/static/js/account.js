@@ -11,23 +11,24 @@ function emailValidation() {
         return true;
     }
 }
-
 email.onblur = function () {
     emailValidation()
 };
 
-var psw1 = document.getElementById("id_password");
-var psw2 = document.getElementById("id_password_confirmation");
+    let old_psw = document.getElementById("id_old_password");
+    let p1 = document.getElementById("id_new_password1");
+    let p2 = document.getElementById("id_new_password2");
 
-function passwordValidation() {
+function pswValidation2() {
+
     let flag = true;
-    if (psw1.value.length < 6 || psw2.value.length < 6) {
+    if (old_psw.value.length < 6 || p1.value.length < 6 || p2.value.length < 6) {
         document.getElementById("psw_error").innerHTML = "password too short.";
         flag = false;
     } else {
         document.getElementById("psw_error").innerHTML = "";
     }
-    if (psw1.value != psw2.value) {
+    if (p1.value != p2.value) {
         document.getElementById("psw_match").innerHTML = "password mismatch!";
         flag = false;
     } else {
@@ -37,30 +38,6 @@ function passwordValidation() {
     return flag;
 }
 
-psw1.onblur = psw2.onblur = function () {
-    passwordValidation()
+old_psw.onblur = p1.onblur = p2.onblur = function () {
+    pswValidation2()
 };
-
-
-var username = document.getElementById("id_username");
-
-function usernameValidation() {
-    var reg2 = /^[a-z]+$/;
-    var username_value = username.value;
-    if (!reg2.test(username_value)) {
-        document.getElementById("name_error").innerHTML = "username has illegal characters.";
-        return false;
-    } else {
-        document.getElementById("name_error").innerHTML = "";
-        return true;
-    }
-}
-
-username.onblur = function () {
-    usernameValidation()
-};
-
-
-function validation() {
-    return emailValidation() && passwordValidation() && usernameValidation();
-}

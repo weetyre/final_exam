@@ -6,17 +6,28 @@ from django.contrib.auth.models import (
 )
 
 
+import datetime
+
+from django.db import models
+from django.contrib.auth.models import (
+    BaseUserManager, AbstractBaseUser
+)
+
+
 class MyUserManager(BaseUserManager):
-    def create_user(self, email, password=None):
+    def create_user(self, username, email, password=None):
         """
         Creates and saves a User with the given email, date of
         birth and password.
         """
         if not email:
             raise ValueError('Users must have an email address')
+        if not username:
+            raise ValueError('Users must have an username')
 
         now = datetime.date.today()
         user = self.model(
+            username=username,
             email=self.normalize_email(email),
             created_at=now,
         )
@@ -25,13 +36,14 @@ class MyUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, password):
+    def create_superuser(self, username, email, password):
         """
         Creates and saves a superuser with the given email, date of
         birth and password.
         """
         user = self.create_user(
-            email,
+            username=username,
+            email=self.normalize_email(email),
             password=password,
         )
         user.is_admin = True
@@ -54,7 +66,6 @@ class MyUser(AbstractBaseUser):
         max_length=10,
         null=True
     )
-
     created_at = models.DateField()
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
@@ -89,14 +100,16 @@ class MyUser(AbstractBaseUser):
         self.created_at = datetime.date.today()
 
 
+
 class User_realation(models.Model):
     uid = models.ForeignKey(MyUser, related_name='uid_UR', on_delete=models.CASCADE)
-    friend_id = models.ForeignKey(MyUser, related_name='friend_id_UR', on_delete=models.CASCADE)
+    friend_id =models.ForeignKey(MyUser, related_name='friend_id_UR', on_delete=models.CASCADE)
 
     class Meta:
         unique_together = (('uid', 'friend_id'),)
 
     primary = ('uid', 'friend_id')
+
 
     def __str__(self):
         return "User_realation"
@@ -108,9 +121,9 @@ class One_to_one_msg_record(models.Model):
     to_id = models.ForeignKey(MyUser, related_name='to_id_O2O', on_delete=models.CASCADE)
     content = models.CharField(max_length=500)
 
+
     def __str__(self):
         return "One_to_one_msg_record"
-
 
 class Group(models.Model):
     gid = models.IntegerField(primary_key=True)
@@ -133,11 +146,11 @@ class Group_msg(models.Model):
     primary = ('mid', 'gid')
 
 
+
 class G_msg_config(models.Model):
-    uid = models.ForeignKey(MyUser, related_name='uid_GMC', on_delete=models.CASCADE)
-    gid = models.ForeignKey(Group, related_name='gid_GMC', on_delete=models.CASCADE)
-    last_read_msg_id = models.ForeignKey(Group_msg, related_name='last_read_msg_id', on_delete=models.CASCADE,
-                                         null=False)
+    uid = models.ForeignKey(MyUser, related_name='uid_GMC', on_delete= models.CASCADE)
+    gid = models.ForeignKey(Group, related_name='gid_GMC', on_delete= models.CASCADE)
+    last_read_msg_id = models.ForeignKey(Group_msg,  related_name='last_read_msg_id', on_delete=models.CASCADE,null=False)
 
     class Meta:
         unique_together = (('uid', 'gid'),)
