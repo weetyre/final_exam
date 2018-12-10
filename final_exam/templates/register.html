@@ -28,6 +28,16 @@
 
         </div>
         <p>
+            <label for="{{ form.sex.id_for_label }}">Sex</label>
+        </p>
+        <select name="sex" id="list_">
+            <option value="boy">boy</option>
+            <option value="girl">girl</option>
+        </select>
+        <div class="text-content content-center">
+            <p class="error" id="error_show"></p>
+        </div>
+        <p>
             <label for="{{ form.password.id_for_label }}">Password</label>
         </p>
         {{ form.password }}
