@@ -19,24 +19,38 @@
             <div class="pro_search"></div>
             <div class="pro_select">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item">
+                    <li class="nav-item my-nav-item">
                         <a class="nav-link active" id="friends-tab" data-toggle="tab" href="#friends" role="tab"
                            aria-controls="friends" aria-selected="true">Friends</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item my-nav-item">
                         <a class="nav-link" id="groups-tab" data-toggle="tab" href="#groups" role="tab"
                            aria-controls="groups" aria-selected="false">Groups</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item my-nav-item">
                         <a class="nav-link" id="list-tab" data-toggle="tab" href="#list" role="tab"
                            aria-controls="list" aria-selected="false">List</a>
                     </li>
                 </ul>
                 <div class="tab-content scroll-y" id="myTabContent">
                     <div class="tab-pane active" id="friends" role="tabpanel" aria-labelledby="friends-tab">
-                        <div class="media text-muted pt-3 myTabItem">
+
+                        {% for friend in friends%}
+                            <div class="media text-muted pt-3 my-tab-item">
+                                <img data-src=""
+                                     alt="32x32" class="mr-2 rounded img-face"
+                                     src="{{ friend.img }}"
+                                     data-holder-rendered="true">
+                                <p class="media-body pb-3 mb-0 small lh-125">
+                                    <strong class="d-block text-gray-dark">{{ friend.name }}</strong>
+
+                                </p>
+                            </div>
+                        {% endfor %}
+
+                        <div class="media text-muted pt-3 my-tab-item">
                             <img data-src=""
-                                 alt="32x32" class="mr-2 rounded" style="width: 32px; height: 32px;"
+                                 alt="32x32" class="mr-2 rounded img-face"
                                  src="{% static "/img/face.jpg" %}"
                                  data-holder-rendered="true">
                             <p class="media-body pb-3 mb-0 small lh-125">
@@ -44,9 +58,9 @@
                                 message
                             </p>
                         </div>
-                        <div class="media text-muted pt-3 myTabItem">
+                        <div class="media text-muted pt-3 my-tab-item">
                             <img data-src=""
-                                 alt="32x32" class="mr-2 rounded" style="width: 32px; height: 32px;"
+                                 alt="32x32" class="mr-2 rounded img-face"
                                  src="{% static "/img/face.jpg" %}"
                                  data-holder-rendered="true">
                             <p class="media-body pb-3 mb-0 small lh-125">
@@ -54,9 +68,9 @@
                                 message
                             </p>
                         </div>
-                        <div class="media text-muted pt-3 myTabItem">
+                        <div class="media text-muted pt-3 my-tab-item">
                             <img data-src=""
-                                 alt="32x32" class="mr-2 rounded" style="width: 32px; height: 32px;"
+                                 alt="32x32" class="mr-2 rounded img-face"
                                  src="{% static "/img/face.jpg" %}"
                                  data-holder-rendered="true">
                             <p class="media-body pb-3 mb-0 small lh-125">
@@ -64,9 +78,9 @@
                                 message
                             </p>
                         </div>
-                        <div class="media text-muted pt-3 myTabItem">
+                        <div class="media text-muted pt-3 my-tab-item">
                             <img data-src=""
-                                 alt="32x32" class="mr-2 rounded" style="width: 32px; height: 32px;"
+                                 alt="32x32" class="mr-2 rounded img-face"
                                  src="{% static "/img/face.jpg" %}"
                                  data-holder-rendered="true">
                             <p class="media-body pb-3 mb-0 small lh-125">
@@ -74,9 +88,9 @@
                                 message
                             </p>
                         </div>
-                        <div class="media text-muted pt-3 myTabItem">
+                        <div class="media text-muted pt-3 my-tab-item">
                             <img data-src=""
-                                 alt="32x32" class="mr-2 rounded" style="width: 32px; height: 32px;"
+                                 alt="32x32" class="mr-2 rounded img-face"
                                  src="{% static "/img/face.jpg" %}"
                                  data-holder-rendered="true">
                             <p class="media-body pb-3 mb-0 small lh-125">
@@ -84,9 +98,9 @@
                                 message
                             </p>
                         </div>
-                        <div class="media text-muted pt-3 myTabItem">
+                        <div class="media text-muted pt-3 my-tab-item">
                             <img data-src=""
-                                 alt="32x32" class="mr-2 rounded" style="width: 32px; height: 32px;"
+                                 alt="32x32" class="mr-2 rounded img-face"
                                  src="{% static "/img/face.jpg" %}"
                                  data-holder-rendered="true">
                             <p class="media-body pb-3 mb-0 small lh-125">
@@ -94,9 +108,19 @@
                                 message
                             </p>
                         </div>
-                        <div class="media text-muted pt-3 myTabItem">
+                        <div class="media text-muted pt-3 my-tab-item">
                             <img data-src=""
-                                 alt="32x32" class="mr-2 rounded" style="width: 32px; height: 32px;"
+                                 alt="32x32" class="mr-2 rounded img-face"
+                                 src="{% static "/img/face.jpg" %}"
+                                 data-holder-rendered="true">
+                            <p class="media-body pb-3 mb-0 small lh-125">
+                                <strong class="d-block text-gray-dark">@friend</strong>
+                                message
+                            </p>
+                        </div>
+                        <div class="media text-muted pt-3 my-tab-item">
+                            <img data-src=""
+                                 alt="32x32" class="mr-2 rounded img-face"
                                  src="{% static "/img/face.jpg" %}"
                                  data-holder-rendered="true">
                             <p class="media-body pb-3 mb-0 small lh-125">
