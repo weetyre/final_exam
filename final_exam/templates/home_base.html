@@ -1,31 +1,65 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>home</title>
-    {%load static%}
+    {% load static %}
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap-theme.css' %}">
     <link rel="stylesheet" href="{% static 'css/landing.css' %}">
-    <script type="text/javascript" src="{%static 'js/jquery-3.3.1.js'%}"></script>
-    <script type="text/javascript" src="{%static 'js/bootstrap.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-3.3.1.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
 </head>
 <body class="bg">
-    <div class="container chat">
-        <div class="main_chat">
-            <div class="profile_box col-md-3">
-                <div class="pro_name"></div>
-                <div class="pro_search"></div>
-                <div class="pro_select"></div>
-                <div class="pro_info_list"></div>
+<div class="container chat">
+    <div class="main_chat">
+        <div class="profile_box col-md-3">
+            <div class="pro_name"></div>
+            <div class="pro_search"></div>
+            <div class="pro_select">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="friends-tab" data-toggle="tab" href="#friends" role="tab"
+                           aria-controls="friends" aria-selected="true">Friends</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="groups-tab" data-toggle="tab" href="#groups" role="tab"
+                           aria-controls="groups" aria-selected="false">Groups</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="list-tab" data-toggle="tab" href="#list" role="tab"
+                           aria-controls="list" aria-selected="false">List</a>
+                    </li>
+                </ul>
+                <div class="tab-content pro_info_list" id="myTabContent">
+                    <div class="tab-pane fade active" id="friends" role="tabpanel" aria-labelledby="friends-tab">
+                        <div class="media text-muted pt-3">
+                            <img data-src=""
+                                 alt="32x32" class="mr-2 rounded" style="width: 32px; height: 32px;" src="{% static "/img/face.jpg" %}"
+                                 data-holder-rendered="true">
+                            <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                                <strong class="d-block text-gray-dark">@friend</strong>
+                                message
+                            </p>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="groups" role="tabpanel" aria-labelledby="groups-tab">
+                        g
+                    </div>
+                    <div class="tab-pane fade" id="list" role="tabpanel" aria-labelledby="list-tab">
+                        l
+                    </div>
+                </div>
             </div>
-            <div class="message_box col-md-9">
-                <div class="msg_title"></div>
-                <div class="msg_main"></div>
-                <div class="msg_sender"></div>
-            </div>
+            {#            <div class="pro_info_list"></div>#}
+        </div>
+        <div class="message_box col-md-9">
+            <div class="msg_title"></div>
+            <div class="msg_main"></div>
+            <div class="msg_sender"></div>
         </div>
     </div>
+</div>
 </body>
 </html>
