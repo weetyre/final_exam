@@ -150,3 +150,16 @@ html, body, main {
 .copyright {
     text-align: center;
 }
+.text_in{
+    overflow-y: scroll;
+    min-height: 109px;
+    resize: none;
+}
+.send_bu{
+   text-align:right;
+}
+.chat_in{
+    overflow-y: scroll;
+    min-height: 350px;
+    resize: none;
+}
