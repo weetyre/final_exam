@@ -150,6 +150,6 @@ def index_logout(request):
     auth.logout(request)
     return HttpResponseRedirect("/login")
 
-@login_required
+
 def myhome(request):
-    pass
+    return render(request, 'home_base.html')
