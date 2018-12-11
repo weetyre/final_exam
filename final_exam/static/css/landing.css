@@ -27,15 +27,18 @@ html,body,main{
 }
 .chat{
     display: flex;
-    align-content: center;
     flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
+    justify-content:center;
+    align-items:center;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    height:100%;
     background-color: #00a0d2;
 }
 .main_chat{
     background-color: #0f0f0f;
-    height: 75%;
+    width: 100%;
+    height: 70%;
 }
 .message_box{
     background-color: #ff4c1a;
@@ -73,4 +76,8 @@ html,body,main{
 .msg_sender{
     height: 25%;
     background-color: #ea40ff;
+}
+.div-row{ height:100%}
+.copyright{
+    text-align: center;
 }
