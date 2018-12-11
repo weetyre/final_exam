@@ -62,8 +62,9 @@ def index_register(request):
             # form.save()
             username = request.POST['username']
             email = request.POST['email']
+            sex = request.POST['sex']
             # password = make_password(form.cleaned_data['password'])
-            user = MyUser.objects.create_user(username, email, request.POST['password'])
+            user = MyUser.objects.create_user(username, email, sex, request.POST['password'])
 
             user = auth.authenticate(email=email, password=request.POST['password'])
             auth.login(request, user)
@@ -148,3 +149,7 @@ def account_email_change(request):
 def index_logout(request):
     auth.logout(request)
     return HttpResponseRedirect("/login")
+
+
+def myhome(request):
+    return render(request, 'home_base.html')
