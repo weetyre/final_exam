@@ -16,7 +16,7 @@
 <div class="container chat">
     <div class="main_chat col-md-12">
         <div class="row div-row">
-            <div class="profile_box col-md-3">
+            <div class="profile_box col-md-3 border shadow-lg p-1 bg-white rounded">
                 <div class="pro_name"></div>
                 <div class="pro_search"></div>
                 <div class="pro_select">
@@ -38,7 +38,7 @@
                         <div class="tab-pane active" id="friends" role="tabpanel" aria-labelledby="friends-tab">
 
                             {% for friend in friends %}
-                                <div class="media text-muted pt-3 my-tab-item" data-userid="{{ friend.id }}" v-on:click="tabItemSelect(this)">
+                                <div class="media text-muted pt-3 my-tab-item" data-userid="{{ friend.id }}">
                                     <img data-src=""
                                          alt="32x32" class="mr-2 rounded img-face"
                                          src="{{ friend.img }}"
@@ -60,7 +60,7 @@
                                     message
                                 </p>
                             </div>
-                            <div class="media text-muted pt-3 my-tab-item" data-userid="f2" v-on:click="tabItemSelect(this)">
+                            <div class="media text-muted pt-3 my-tab-item" data-userid="f2">
                                 <img data-src=""
                                      alt="32x32" class="mr-2 rounded img-face"
                                      src="{% static "/img/face.jpg" %}"
@@ -70,7 +70,7 @@
                                     message
                                 </p>
                             </div>
-                            <div class="media text-muted pt-3 my-tab-item" data-userid="f3" v-on:click="tabItemSelect(this)">
+                            <div class="media text-muted pt-3 my-tab-item" data-userid="f3">
                                 <img data-src=""
                                      alt="32x32" class="mr-2 rounded img-face"
                                      src="{% static "/img/face.jpg" %}"
@@ -80,7 +80,7 @@
                                     message
                                 </p>
                             </div>
-                            <div class="media text-muted pt-3 my-tab-item" data-userid="f3" v-on:click="tabItemSelect(this)">
+                            <div class="media text-muted pt-3 my-tab-item" data-userid="f3">
                                 <img data-src=""
                                      alt="32x32" class="mr-2 rounded img-face"
                                      src="{% static "/img/face.jpg" %}"
@@ -90,7 +90,7 @@
                                     message
                                 </p>
                             </div>
-                            <div class="media text-muted pt-3 my-tab-item" data-userid="f3" v-on:click="tabItemSelect(this)">
+                            <div class="media text-muted pt-3 my-tab-item" data-userid="f3">
                                 <img data-src=""
                                      alt="32x32" class="mr-2 rounded img-face"
                                      src="{% static "/img/face.jpg" %}"
@@ -100,7 +100,7 @@
                                     message
                                 </p>
                             </div>
-                            <div class="media text-muted pt-3 my-tab-item"  data-userid="f3" v-on:click="tabItemSelect(this)">
+                            <div class="media text-muted pt-3 my-tab-item"  data-userid="f3">
                                 <img data-src=""
                                      alt="32x32" class="mr-2 rounded img-face"
                                      src="{% static "/img/face.jpg" %}"
@@ -140,10 +140,21 @@
                     </div>
                 </div>
             </div>
-            <div class="message_box col-md-9">
+            <div class="message_box border col-md-9 shadow-lg p-1 bg-white rounded">
                 <div class="msg_title"></div>
-                <div class="msg_main"></div>
-                <div class="msg_sender"></div>
+                <div class="msg_main">
+                    <div class="input-group chat_in_height">
+                        <textarea class="form-control chat_in" readonly></textarea>
+                    </div>
+                </div>
+                <div class="msg_sender">
+                    <div class="input-group text_in_height">
+                        <textarea class="form-control text_in"></textarea>
+                    </div>
+                    <div class="button-group send_bu">
+                        <button type="button" class="btn btn-default">Send</button>
+                    </div>
+                </div>
             </div>
         </div>
         <p class="copyright">copyright</p>

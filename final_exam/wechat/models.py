@@ -151,7 +151,7 @@ class Group_msg(models.Model):
 class G_msg_config(models.Model):
     uid = models.ForeignKey(MyUser, related_name='uid_GMC', on_delete= models.CASCADE)
     gid = models.ForeignKey(Group, related_name='gid_GMC', on_delete= models.CASCADE)
-    last_read_msg_id = models.ForeignKey(Group_msg,  related_name='last_read_msg_id', on_delete=models.CASCADE,null=False)
+    last_read_msg_id = models.ForeignKey(Group_msg,  related_name='last_read_msg_id', on_delete=models.CASCADE, null=False)
 
     class Meta:
         unique_together = (('uid', 'gid'),)
