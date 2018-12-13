@@ -43,94 +43,94 @@
                     <div class="tab-content scroll-y" id="myTabContent">
                         <div class="tab-pane active" id="friends" role="tabpanel" aria-labelledby="friends-tab">
                             {% for friend in friends %}
-                                <div class="media text-muted pt-3 my-tab-item" data-userid="{{ friend.id }}">
+                                <div class="media text-muted my-tab-item" data-userid="{{ friend.id }}">
                                     <img data-src=""
                                          alt="32x32" class="mr-2 rounded img-face"
                                          src="{{ friend.img }}"
                                          data-holder-rendered="true">
-                                    <p class="media-body pb-3 mb-0 small lh-125">
+                                    <p class="media-body mb-0 small lh-125">
                                         <strong class="d-block text-gray-dark">{{ friend.name }}</strong>
 
                                     </p>
                                 </div>
                             {% endfor %}
 
-                            <div class="media text-muted pt-3 my-tab-item" data-userid="f1">
+                            <div class="media text-muted my-tab-item" data-userid="f1">
                                 <img data-src=""
                                      alt="32x32" class="mr-2 rounded img-face"
                                      src="{% static "/img/face.jpg" %}"
                                      data-holder-rendered="true">
-                                <p class="media-body pb-3 mb-0 small lh-125 text-truncate">
+                                <p class="media-body mb-0 small lh-125 text-truncate">
                                     <strong class="d-block text-gray-dark">@friend</strong>
                                     message
                                 </p>
                             </div>
-                            <div class="media text-muted pt-3 my-tab-item" data-userid="f2">
+                            <div class="media text-muted my-tab-item" data-userid="f2">
                                 <img data-src=""
                                      alt="32x32" class="mr-2 rounded img-face"
                                      src="{% static "/img/face.jpg" %}"
                                      data-holder-rendered="true">
-                                <p class="media-body pb-3 mb-0 small lh-125">
+                                <p class="media-body mb-0 small lh-125">
                                     <strong class="d-block text-gray-dark">@friend</strong>
                                     message
                                 </p>
                             </div>
-                            <div class="media text-muted pt-3 my-tab-item" data-userid="f3">
+                            <div class="media text-muted my-tab-item" data-userid="f3">
                                 <img data-src=""
                                      alt="32x32" class="mr-2 rounded img-face"
                                      src="{% static "/img/face.jpg" %}"
                                      data-holder-rendered="true">
-                                <p class="media-body pb-3 mb-0 small lh-125">
+                                <p class="media-body mb-0 small lh-125">
                                     <strong class="d-block text-gray-dark">@friend</strong>
                                     message
                                 </p>
                             </div>
-                            <div class="media text-muted pt-3 my-tab-item" data-userid="f3">
+                            <div class="media text-muted my-tab-item" data-userid="f3">
                                 <img data-src=""
                                      alt="32x32" class="mr-2 rounded img-face"
                                      src="{% static "/img/face.jpg" %}"
                                      data-holder-rendered="true">
-                                <p class="media-body pb-3 mb-0 small lh-125">
+                                <p class="media-body mb-0 small lh-125">
                                     <strong class="d-block text-gray-dark">@friend</strong>
                                     message
                                 </p>
                             </div>
-                            <div class="media text-muted pt-3 my-tab-item" data-userid="f3">
+                            <div class="media text-muted my-tab-item" data-userid="f3">
                                 <img data-src=""
                                      alt="32x32" class="mr-2 rounded img-face"
                                      src="{% static "/img/face.jpg" %}"
                                      data-holder-rendered="true">
-                                <p class="media-body pb-3 mb-0 small lh-125">
+                                <p class="media-body mb-0 small lh-125">
                                     <strong class="d-block text-gray-dark">@friend</strong>
                                     message
                                 </p>
                             </div>
-                            <div class="media text-muted pt-3 my-tab-item" data-userid="f3">
+                            <div class="media text-muted my-tab-item" data-userid="f3">
                                 <img data-src=""
                                      alt="32x32" class="mr-2 rounded img-face"
                                      src="{% static "/img/face.jpg" %}"
                                      data-holder-rendered="true">
-                                <p class="media-body pb-3 mb-0 small lh-125">
+                                <p class="media-body mb-0 small lh-125">
                                     <strong class="d-block text-gray-dark">@friend</strong>
                                     message
                                 </p>
                             </div>
-                            <div class="media text-muted pt-3 my-tab-item">
+                            <div class="media text-muted my-tab-item">
                                 <img data-src=""
                                      alt="32x32" class="mr-2 rounded img-face"
                                      src="{% static "/img/face.jpg" %}"
                                      data-holder-rendered="true">
-                                <p class="media-body pb-3 mb-0 small lh-125">
+                                <p class="media-body mb-0 small lh-125">
                                     <strong class="d-block text-gray-dark">@friend</strong>
                                     message
                                 </p>
                             </div>
-                            <div class="media text-muted pt-3 my-tab-item">
+                            <div class="media text-muted my-tab-item">
                                 <img data-src=""
                                      alt="32x32" class="mr-2 rounded img-face"
                                      src="{% static "/img/face.jpg" %}"
                                      data-holder-rendered="true">
-                                <p class="media-body pb-3 mb-0 small lh-125">
+                                <p class="media-body mb-0 small lh-125">
                                     <strong class="d-block text-gray-dark">@friend</strong>
                                     message
                                 </p>
@@ -148,13 +148,13 @@
             <div class="message_box border col-md-9 shadow-lg p-1 bg-white rounded">
                 <div class="msg_title"></div>
                 <div class="msg_main">
-                    <div class="input-group chat_in_height flex-row">
+                    <div class="input-group chat_in_height flex-row scroll-y">
                         <!--选中 '#msg-show' 元素， 判断消息谁发——我或别人，在 ’#msg-show div' 子元素class添加值'msg-mine'（自己发）或 ’msg-other‘-->
                         <div id="msg-show">
                             <div class="media text-muted p-2 msg-item msg-mine" data-userid="f1">
                                 <div class="d-flex msg-container">
                                     <img data-src=""
-                                         alt="32x32" class="m-2 rounded img-face"
+                                         alt="32x32" class="rounded img-face-msg"
                                          src="{% static "/img/face.jpg" %}"
                                          data-holder-rendered="true">
                                     <p class="media-body mb-0 small lh-125 p-2 msg-content">
@@ -167,7 +167,7 @@
                             <div class="media text-muted p-2 msg-item msg-other" data-userid="f1">
                                 <div class="d-flex msg-container">
                                     <img data-src=""
-                                         alt="32x32" class="m-2 rounded img-face"
+                                         alt="32x32" class="rounded img-face-msg"
                                          src="{% static "/img/face.jpg" %}"
                                          data-holder-rendered="true">
                                     <p class="media-body mb-0 small lh-125 p-2 msg-content">

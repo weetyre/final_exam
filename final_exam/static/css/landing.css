@@ -1,7 +1,6 @@
 /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
 ::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
+    width: 8px;
     background-color: transparent;
 }
 
@@ -13,8 +12,8 @@
 
 /*定义滑块 内阴影+圆角*/
 ::-webkit-scrollbar-thumb {
-    -webkit-box-shadow: inset 0 0 6px rgba(253, 253, 253, 0.3);
-    background-color: #434a54;
+    -webkit-box-shadow: inset 0 0 6px rgba(243, 243, 243, 0.3);
+    background-color: #dad8d7;
 }
 
 .back_jpg {
@@ -115,11 +114,12 @@ html, body, main {
 }
 
 .my-tab-item {
-    border-top: 1px solid #262930 !important;
+    border-top: 1px solid #c2c2c2 !important;
+    padding: 8px 4px 8px 4px;
 }
 
 .my-tab-item:hover {
-    background-color: #434a54;
+    background-color: #c2c2c3;
 }
 
 .my-tab-item::selection {
@@ -129,6 +129,12 @@ html, body, main {
 .img-face {
     width: 32px;
     height: 32px;
+}
+
+.img-face-msg{
+    width: 32px;
+    height: 32px;
+    margin: 0 0.5rem 0.5rem 0.5rem;
 }
 
 .msg-item {
@@ -180,7 +186,7 @@ html, body, main {
 }
 
 #myTabContent {
-    background-color: #323b46;
+    background-color: #eae8e7;
     flex: 2;
 }
 
