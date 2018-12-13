@@ -7,16 +7,46 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap-theme.css' %}">
+    <script type="text/javascript" src="{% static 'js/popper.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/jquery-3.3.1.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/landing.css' %}">
+    <link href="{% static 'css/open-iconic-bootstrap.css' %}" rel="stylesheet">
 </head>
 <body class="bg">
 <div class="container chat">
     <div class="main_chat col-md-12">
         <div class="row div-row">
             <div class="profile_box col-md-3 border shadow-lg p-1 bg-white rounded">
-                <div class="pro_name"></div>
+                <div class="pro_name">
+                  <table>
+                      <tbody  class="user_picture">
+                      <tr>
+                          <td class="p1">
+                              <img data-src=""
+                                     alt="32x32" class="mr-2 rounded img-face img_size"
+                                     src="{% static "/img/face.jpg" %}"
+                                     data-holder-rendered="true">
+                          </td>
+                           <td class="p2"><p id="user_name">程威</p></td>
+                           <td class="p3">
+                               <div class="dropdown btn-group">
+                                   <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true">
+                                     <span class="oi oi-grid-three-up" title="icon name" aria-hidden="true"></span>
+                                   </button>
+                                   <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                        <li><a href="#">1</a></li>
+                                        <li><a href="#">2</a></li>
+                                        <li><a href="#">3</a></li>
+                                        <li><a href="#">4</a></li>
+                                   </ul>
+                               </div>
+                           </td>
+
+                      </tr>
+                      </tbody>
+                  </table>
+                </div>
                 <div class="pro_search">
                     <div class="form-group container center">
                         <div class="row">

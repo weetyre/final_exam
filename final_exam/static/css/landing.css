@@ -69,8 +69,11 @@ html, body, main {
 }
 
 .pro_name {
+    padding-top: 5%;
+    padding-bottom: 5%;
+    padding-left: 5%;
+    padding-right: 5%;
     height: 11%;
-    background-color: #79c7d2;
 }
 
 .pro_search {
@@ -223,4 +226,34 @@ html, body, main {
 
 .nav_height {
     height: 100%;
+}
+.user_picture{
+    height: 100%;
+    width: 100%;
+}
+.user_menu{
+    height: 100%;
+    background-color: #0b2e13;
+}
+.img_size{
+    width: auto;
+    height: auto;
+    max-width: 83%;
+    max-height: 83%;
+}
+.p1{
+    width: 30%;
+    text-align: left;
+}
+.p2{
+    padding-top: 5.5%;
+    text-align: left;
+    font-family: "Calisto MT";
+    font-weight: bold;
+    font-size: 20px;
+    width: 50%;
+}
+.p3{
+    text-align: center;
+    width: 20%;
 }
