@@ -40,7 +40,7 @@ def index_login(request):
             if user is not None and user.is_active:
                 # Correct password, and the user is marked "active"
                 auth.login(request, user)
-                return HttpResponseRedirect("/profile?user=" + user.username)
+                return HttpResponseRedirect("/home")
                 # Redirect to a success page.
             else:
                 error_message = "Sorry, that's not a valid username or password"
@@ -150,6 +150,7 @@ def index_logout(request):
     auth.logout(request)
     return HttpResponseRedirect("/login")
 
-
+@login_required
 def myhome(request):
-    return render(request, 'home_base.html')
+    if request.method == 'GET':
+        return render(request, 'home_base.html', {'user': request.user})
