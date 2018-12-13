@@ -10,4 +10,12 @@ dataSources.local.xml
 /.idea/httpRequests/
 rest-client.private.env.json
 http-client.private.env.json
+/final_exam/db.sqlite3
 final_exam/db.sqlite3
+/final_exam/final_exam/__pycache__/*.pyc
+final_exam/final_exam/__pycache__/*.pyc
+/final_exam/wechat/migrations/__pycache__/*.pyc
+final_exam/wechat/migrations/__pycache__/*.pyc
+/final_exam/wechat/__pycache__/*.pyc
+final_exam/wechat/__pycache__/*.pyc
+*.pyc
