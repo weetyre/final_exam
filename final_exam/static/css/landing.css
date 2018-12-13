@@ -92,7 +92,7 @@ html, body, main {
 
 .msg_main {
     height: 67%;
-    background-color: #ff7c00;
+    background-color: #f3f3f3;
 }
 
 .msg_sender {
@@ -131,6 +131,50 @@ html, body, main {
     height: 32px;
 }
 
+.msg-item {
+    width: 100%;
+    height: fit-content;
+    display: block;
+}
+
+.msg-container {
+    width: fit-content;
+    max-width: 80%;
+}
+
+.msg-other {
+    float: left;
+    display: flex;
+    flex-direction: row !important;
+}
+
+.msg-other div {
+    flex-direction: row !important;
+}
+
+.msg-mine {
+    float: right;
+    display: flex;
+    flex-direction: row-reverse !important;
+}
+
+.msg-mine div {
+    flex-direction: row-reverse !important;
+}
+
+.msg-content {
+    width: fit-content;
+    white-space: normal;
+    background-color: #ffffff;
+    border-radius: 0.4rem !important;
+
+}
+
+#msg-show {
+    height: fit-content;
+    justify-content: space-between;
+}
+
 #myTab {
     height: auto;
 }
@@ -147,24 +191,30 @@ html, body, main {
 .copyright {
     text-align: center;
 }
-.text_in{
+
+.text_in {
     overflow-y: scroll;
     resize: none;
 }
-.text_in_height{
+
+.text_in_height {
     height: 81%;
     margin-bottom: 1%;
 }
-.send_bu{
-   text-align:right;
+
+.send_bu {
+    text-align: right;
 }
-.chat_in{
+
+.chat_in {
     overflow-y: scroll;
     resize: none;
 }
-.chat_in_height{
+
+.chat_in_height {
     height: 94%;
 }
-.nav_height{
+
+.nav_height {
     height: 100%;
 }
