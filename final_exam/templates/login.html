@@ -3,29 +3,29 @@
     <title>login</title>
 {% endblock %}
 {% block right_div %}
-    <form class="login-form content-center well-block" action="/login" onsubmit="return " method="post">
-        <p class="error">{{ input_error }}</p>
+    <form class="login-form content-center well-block" action="/login" onsubmit="return emailValidation()" method="post">
+        <p class="error" id="error_show">{{ input_error }}</p>
         {{ form.non_field_errors }}
         {% csrf_token %}
-        <p class="errors">{{ form.email.errors }}</p>
+        <p class="errors">{{ form.text.errors }}</p>
         <p>
-            <label for="{{ form.email.id_for_label }}">Email</label>
+            <label for="">Username or Email</label>
         </p>
-        {{ form.email }}
+        {{ form.text }}
         <p class="errors">{{ form.password.errors }}</p>
         <p>
             <label for="{{ form.password.id_for_label }}">Password</label>
         </p>
         {{ form.password }}
-        <p class="submit">
-            <label for="rememberme">
-                <input class="form-input" type="checkbox" name="rememberme" id="rememberme">
-                Remember Me
-            </label>
-            <input type="submit" name="submit" value="Log in" id="submit" class="link-button">
-        </p>
-        <p class="nav">
-            <a href="/register" class="link-button">Register</a>
-        </p>
+        <div>
+            <p class="submit">
+                <input type="submit" name="submit" value="Log in" id="submit" class="link-button">
+            </p>
+            <p class="nav">
+                <a href="/register" class="link-button">Register</a>
+            </p>
+        </div>
     </form>
+    {% load static %}
+    <script type="text/javascript" src="{%static 'js/login.js'%}"></script>
 {% endblock %}
