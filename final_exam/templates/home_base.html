@@ -10,7 +10,6 @@
     <script type="text/javascript" src="{% static 'js/jquery-3.3.1.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/landing.css' %}">
-    <script type="text/javascript" src=" https://cdn.staticfile.org/vue/2.5.21/vue.min.js"></script>
 </head>
 <body class="bg">
 <div class="container chat">
@@ -50,7 +49,7 @@
                                 </div>
                             {% endfor %}
 
-                            <div class="media text-muted pt-3 my-tab-item " data-userid="f1" v-on:click="tabItemSelect(this)">
+                            <div class="media text-muted pt-3 my-tab-item " data-userid="f1">
                                 <img data-src=""
                                      alt="32x32" class="mr-2 rounded img-face"
                                      src="{% static "/img/face.jpg" %}"
@@ -100,7 +99,7 @@
                                     message
                                 </p>
                             </div>
-                            <div class="media text-muted pt-3 my-tab-item"  data-userid="f3">
+                            <div class="media text-muted pt-3 my-tab-item" data-userid="f3">
                                 <img data-src=""
                                      alt="32x32" class="mr-2 rounded img-face"
                                      src="{% static "/img/face.jpg" %}"
