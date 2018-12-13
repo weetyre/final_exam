@@ -15,37 +15,42 @@
 </head>
 <body class="bg">
 <div class="container chat">
-    <div class="main_chat col-md-12">
+    <div class="main_chat col-md-12 px-5">
         <div class="row div-row">
             <div class="profile_box col-md-3 border shadow-lg p-1 bg-white rounded">
                 <div class="pro_name">
-                  <table>
-                      <tbody  class="user_picture">
-                      <tr>
-                          <td class="p1">
-                              <img data-src=""
+                    <table>
+                        <tbody class="user_picture">
+                        <tr>
+                            <td class="p1">
+                                <img data-src=""
                                      alt="32x32" class="mr-2 rounded img-face img_size"
                                      src="{% static "/img/face.jpg" %}"
                                      data-holder-rendered="true">
-                          </td>
-                           <td class="p2"><p id="user_name">程威</p></td>
-                           <td class="p3">
-                               <div class="dropdown btn-group">
-                                   <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true">
-                                     <span class="oi oi-grid-three-up" title="icon name" aria-hidden="true"></span>
-                                   </button>
-                                   <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                        <li><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">4</a></li>
-                                   </ul>
-                               </div>
-                           </td>
+                            </td>
+                            <td class="p2"><p id="user_name">程威</p></td>
+                            <td class="p3">
+                                <div class="dropdown btn-group">
+                                    <a class="btn btn-default dropdown-toggle" href="#" role="button"
+                                       id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                       aria-expanded="false">
+                                        <span class="oi oi-grid-three-up" title="icon name" aria-hidden="true"></span>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item" href="#"><span class="oi oi-plus" title="icon name"
+                                                                                aria-hidden="true"></span> 加好友，群</a>
+                                        <a class="dropdown-item" href="/profile"><span class="oi oi-cog" title="icon name"
+                                                                                aria-hidden="true"></span> 个人信息修改</a>
+                                        <a class="dropdown-item" href="/logout"><span class="oi oi-account-logout"
+                                                                                title="icon name"
+                                                                                aria-hidden="true"></span> 登出</a>
+                                    </div>
+                                </div>
+                            </td>
 
-                      </tr>
-                      </tbody>
-                  </table>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="pro_search">
                     <div class="form-group container center">
@@ -176,7 +181,19 @@
                 </div>
             </div>
             <div class="message_box border col-md-9 shadow-lg p-1 bg-white rounded">
-                <div class="msg_title"></div>
+                <div class="msg_title shadow">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Group Name<span class="badge" id="group_num">20</span>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>
+                </div>
                 <div class="msg_main">
                     <div class="input-group chat_in_height flex-row scroll-y">
                         <!--选中 '#msg-show' 元素， 判断消息谁发——我或别人，在 ’#msg-show div' 子元素class添加值'msg-mine'（自己发）或 ’msg-other‘-->
