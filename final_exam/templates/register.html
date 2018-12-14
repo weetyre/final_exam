@@ -51,12 +51,16 @@
         <div class="text-content content-center">
             <p class="error" id="psw_match"></p>
         </div>
-        <p class="submit">
-            <input type="submit" name="submit" value="Sign up" id="submit" class="button button-primary link-button">
-        </p>
-        <p class="nav">
-            <a href="/login" class="link-button">Login</a>
-        </p>
+        <div>
+            <p class="submit">
+                <input type="submit" name="submit" value="Sign up" id="submit"
+                       class="button button-primary link-button">
+            </p>
+            <p class="nav">
+                <a href="/login" class="link-button">Login</a>
+            </p>
+        </div>
+
     </form>
     {% load static %}
     <script type="text/javascript" src="{% static 'js/register.js' %}"></script>
