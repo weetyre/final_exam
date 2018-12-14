@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>home</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-theme.css' %}">
+    <script type="text/javascript" src="{% static 'js/jquery-3.3.1.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/landing.css' %}">
+</head>
+<body class="bg">
+<div class="container chat">
+    <div class="main_chat col-md-12">
+        <div class="row div-row">
+            <div class="profile_box col-md-3">
+                <div class="pro_name">
+                    <div class="my_face">
+                        <img data-src="" src="{% static "/img/face.jpg" %}" style="with:32px;height: 32px; margin-top: 10px;margin-right: 10px">
+                    </div>
+                    <div class="my_name">
+                        <p >
+                                    <strong class="d-block text-gray-dark">@me</strong>
+                                </p>
+                    </div>
+                    <div id="nav">
+
+                            <li><a href="" id="li">简介</a>
+                                <ul id="subnav">
+                                    <li><a href="">名称</a></li>
+                                    <li><a href="">获奖详情</a></li>
+                                </ul>
+                            </li>
+
+                    </div>
+                </div>
+
+                <div class="pro_search">
+                    <input mm-action-track="" track-type="['focus']" track-opt="{'target':'顶部搜索'}"
+                           class="frm_search ng-isolate-scope ng-pristine ng-valid"
+                           type="text"
+                           style="width:max-content;position:center"
+                           ng-model="keyword"
+                           ng-input="search($event)"
+                           ng-keydown="searchKeydown($event)"
+                           ng-blur="focus = false;"
+                           placeholder="search">
+                </div>
+                <div class="pro_select">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item my-nav-item">
+                            <a class="nav-link active" id="friends-tab" data-toggle="tab" href="#friends" role="tab"
+                               aria-controls="friends" aria-selected="true">Friends</a>
+                        </li>
+                        <li class="nav-item my-nav-item">
+                            <a class="nav-link" id="groups-tab" data-toggle="tab" href="#groups" role="tab"
+                               aria-controls="groups" aria-selected="false">Groups</a>
+                        </li>
+                        <li class="nav-item my-nav-item">
+                            <a class="nav-link" id="list-tab" data-toggle="tab" href="#list" role="tab"
+                               aria-controls="list" aria-selected="false">List</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content scroll-y" id="myTabContent">
+                        <div class="tab-pane active" id="friends" role="tabpanel" aria-labelledby="friends-tab">
+
+                            {% for friend in friends %}
+                                <div class="media text-muted pt-3 my-tab-item">
+                                    <img data-src=""
+                                         alt="32x32" class="mr-2 rounded img-face"
+                                         src="{{ friend.img }}"
+                                         data-holder-rendered="true">
+                                    <p class="media-body pb-3 mb-0 small lh-125">
+                                        <strong class="d-block text-gray-dark">{{ friend.name }}</strong>
+
+                                    </p>
+                                </div>
+                            {% endfor %}
+
+                            <div class="media text-muted pt-3 my-tab-item">
+                                <img data-src=""
+                                     alt="32x32" class="mr-2 rounded img-face"
+                                     src="{% static "/img/face.jpg" %}"
+                                     data-holder-rendered="true">
+                                <p class="media-body pb-3 mb-0 small lh-125">
+                                    <strong class="d-block text-gray-dark">@friend</strong>
+                                    message
+                                </p>
+                            </div>
+                            <div class="media text-muted pt-3 my-tab-item">
+                                <img data-src=""
+                                     alt="32x32" class="mr-2 rounded img-face"
+                                     src="{% static "/img/face.jpg" %}"
+                                     data-holder-rendered="true">
+                                <p class="media-body pb-3 mb-0 small lh-125">
+                                    <strong class="d-block text-gray-dark">@friend</strong>
+                                    message
+                                </p>
+                            </div>
+                            <div class="media text-muted pt-3 my-tab-item">
+                                <img data-src=""
+                                     alt="32x32" class="mr-2 rounded img-face"
+                                     src="{% static "/img/face.jpg" %}"
+                                     data-holder-rendered="true">
+                                <p class="media-body pb-3 mb-0 small lh-125">
+                                    <strong class="d-block text-gray-dark">@friend</strong>
+                                    message
+                                </p>
+                            </div>
+                            <div class="media text-muted pt-3 my-tab-item">
+                                <img data-src=""
+                                     alt="32x32" class="mr-2 rounded img-face"
+                                     src="{% static "/img/face.jpg" %}"
+                                     data-holder-rendered="true">
+                                <p class="media-body pb-3 mb-0 small lh-125">
+                                    <strong class="d-block text-gray-dark">@friend</strong>
+                                    message
+                                </p>
+                            </div>
+                            <div class="media text-muted pt-3 my-tab-item">
+                                <img data-src=""
+                                     alt="32x32" class="mr-2 rounded img-face"
+                                     src="{% static "/img/face.jpg" %}"
+                                     data-holder-rendered="true">
+                                <p class="media-body pb-3 mb-0 small lh-125">
+                                    <strong class="d-block text-gray-dark">@friend</strong>
+                                    message
+                                </p>
+                            </div>
+                            <div class="media text-muted pt-3 my-tab-item">
+                                <img data-src=""
+                                     alt="32x32" class="mr-2 rounded img-face"
+                                     src="{% static "/img/face.jpg" %}"
+                                     data-holder-rendered="true">
+                                <p class="media-body pb-3 mb-0 small lh-125">
+                                    <strong class="d-block text-gray-dark">@friend</strong>
+                                    message
+                                </p>
+                            </div>
+                            <div class="media text-muted pt-3 my-tab-item">
+                                <img data-src=""
+                                     alt="32x32" class="mr-2 rounded img-face"
+                                     src="{% static "/img/face.jpg" %}"
+                                     data-holder-rendered="true">
+                                <p class="media-body pb-3 mb-0 small lh-125">
+                                    <strong class="d-block text-gray-dark">@friend</strong>
+                                    message
+                                </p>
+                            </div>
+                            <div class="media text-muted pt-3 my-tab-item">
+                                <img data-src=""
+                                     alt="32x32" class="mr-2 rounded img-face"
+                                     src="{% static "/img/face.jpg" %}"
+                                     data-holder-rendered="true">
+                                <p class="media-body pb-3 mb-0 small lh-125">
+                                    <strong class="d-block text-gray-dark">@friend</strong>
+                                    message
+                                </p>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="groups" role="tabpanel" aria-labelledby="groups-tab">
+                            g
+                        </div>
+                        <div class="tab-pane" id="list" role="tabpanel" aria-labelledby="list-tab">
+                            l
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="message_box border col-md-9 shadow-sm p-2 bg-white rounded">
+                <div class="msg_title"></div>
+                <div class="msg_main">
+                    <div class="input-group chat_in_height">
+                        <textarea class="form-control chat_in" readonly></textarea>
+                    </div>
+                </div>
+                <div class="msg_sender">
+                    <div class="input-group text_in_height">
+                        <textarea class="form-control text_in"></textarea>
+                    </div>
+                    <div class="button-group send_bu">
+                        <button type="button" class="btn btn-default">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="copyright">copyright</p>
+    </div>
+</div>
+</body>
+</html>
