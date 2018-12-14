@@ -1,0 +1,31 @@
+{% extends "index.html" %}
+{% block title %}
+    <title>login</title>
+{% endblock %}
+{% block right_div %}
+    <form class="login-form content-center well-block" action="/login" onsubmit="return emailValidation()" method="post">
+        <p class="error" id="error_show">{{ input_error }}</p>
+        {{ form.non_field_errors }}
+        {% csrf_token %}
+        <p class="errors">{{ form.text.errors }}</p>
+        <p>
+            <label for="">Username or Email</label>
+        </p>
+        {{ form.text }}
+        <p class="errors">{{ form.password.errors }}</p>
+        <p>
+            <label for="{{ form.password.id_for_label }}">Password</label>
+        </p>
+        {{ form.password }}
+        <div>
+            <p class="submit">
+                <input type="submit" name="submit" value="Log in" id="submit" class="link-button">
+            </p>
+            <p class="nav">
+                <a href="/register" class="link-button">Register</a>
+            </p>
+        </div>
+    </form>
+    {% load static %}
+    <script type="text/javascript" src="{%static 'js/login.js'%}"></script>
+{% endblock %}

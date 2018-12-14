@@ -1,0 +1,265 @@
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+::-webkit-scrollbar {
+    width: 8px;
+    background-color: transparent;
+}
+
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(227, 231, 237, 0.3);
+    background-color: transparent;
+}
+
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(243, 243, 243, 0.3);
+    background-color: #dad8d7;
+}
+
+.back_jpg {
+    display: flex;
+    overflow: hidden;
+    align-content: stretch;
+    justify-content: space-around;
+    background-image: url("../img/welcome.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.bg {
+    overflow: hidden;
+    background-image: url("../img/bg.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    height: 100%;
+    width: 100%
+}
+
+html, body, main {
+    background-color: #ffffff;
+    height: 100%;
+    margin: 0;
+    font-size: 11px;
+    font-family: sans-serif;
+}
+
+.chat {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    height: 100%;
+}
+
+.main_chat {
+    min-height: 700px;
+    min-width: 1000px;
+    width: 100%;
+    height: 70%;
+}
+
+.message_box {
+    height: 100%;
+}
+
+.profile_box {
+    height: 100%;
+}
+
+.pro_name {
+    padding-top: 5%;
+    padding-bottom: 5%;
+    padding-left: 5%;
+    padding-right: 2%;
+    height: 11%;
+}
+
+.pro_search {
+    min-width: 43px;
+    height: 5.6%;
+    padding: 3%;
+}
+
+.pro_select {
+    height: 83.6%;
+    display: flex;
+    flex-direction: column;
+}
+
+.msg_title {
+    min-height: 68px;
+    text-align: center;
+    padding-top: 20px;
+    height: 8%;
+    background-color: rgba(238, 238, 238, 0.24);
+}
+
+.msg_main {
+    height: 67%;
+    background-color: #f3f3f3;
+}
+
+.msg_sender {
+    height: 25%;
+    background-color: #ffffff;
+    padding-bottom: 1%;
+}
+
+.scroll-y {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.my-hover-selection::selection {
+    background-color: #434a54;
+}
+
+.my-nav-item {
+    flex: 1;
+}
+
+.my-tab-item {
+    border-top: 1px solid #c2c2c2 !important;
+    padding: 8px 4px 8px 8px;
+}
+
+.my-tab-item:hover {
+    background-color: #c2c2c3;
+}
+
+.my-tab-item::selection {
+    background-color: #ececec;
+}
+
+.img-face {
+    width: 32px;
+    height: 32px;
+}
+
+.img-face-msg{
+    width: 32px;
+    height: 32px;
+    margin: 0 0.5rem 0.5rem 0.5rem;
+}
+
+.msg-item {
+    width: 100%;
+    height: fit-content;
+    display: block;
+}
+
+.msg-container {
+    width: fit-content;
+    max-width: 80%;
+}
+
+.msg-other {
+    float: left;
+    display: flex;
+    flex-direction: row !important;
+}
+
+.msg-other div {
+    flex-direction: row !important;
+}
+
+.msg-mine {
+    float: right;
+    display: flex;
+    flex-direction: row-reverse !important;
+}
+
+.msg-mine div {
+    flex-direction: row-reverse !important;
+}
+
+.msg-content {
+    width: fit-content;
+    white-space: normal;
+    background-color: #ffffff;
+    border-radius: 0.4rem !important;
+
+}
+
+#msg-show {
+    height: fit-content;
+    justify-content: space-between;
+}
+
+#myTab {
+    height: auto;
+}
+
+#myTabContent {
+    background-color: #eae8e7;
+    flex: 2;
+}
+
+.div-row {
+    height: 100%
+}
+
+.copyright {
+    text-align: center;
+}
+
+.text_in {
+    overflow-y: scroll;
+    resize: none;
+}
+
+.text_in_height {
+    height: 81%;
+    margin-bottom: 1%;
+}
+
+.send_bu {
+    text-align: right;
+}
+
+.chat_in {
+    overflow-y: scroll;
+    resize: none;
+}
+
+.chat_in_height {
+    height: 94%;
+}
+
+.nav_height {
+    height: 100%;
+}
+.user_picture{
+    height: 100%;
+    width: 100%;
+}
+.user_menu{
+    height: 100%;
+    background-color: #0b2e13;
+}
+.img_size{
+    width: auto;
+    height: auto;
+    max-width: 83%;
+    max-height: 83%;
+}
+.p1{
+    width: 30%;
+    text-align: left;
+}
+.p2{
+    padding-top: 5.5%;
+    text-align: left;
+    font-family: "Calisto MT";
+    font-weight: bold;
+    font-size: 20px;
+    width: 50%;
+}
+.p3{
+    text-align: center;
+    width: 20%;
+}
