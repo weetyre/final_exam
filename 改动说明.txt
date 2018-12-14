@@ -1,0 +1,4 @@
+添加了add.html
+更新了home_base的内容
+添加了profile2.css
+更新了 wechat内的 view.py \urls.py
