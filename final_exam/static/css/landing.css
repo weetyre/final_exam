@@ -114,7 +114,7 @@ html, body, main {
 }
 
 .my-tab-item {
-    border-top: 1px solid #c2c2c2 !important;
+    border-bottom: 1px solid #c2c2c2 !important;
     padding: 8px 4px 8px 4px;
 }
 
@@ -177,6 +177,7 @@ html, body, main {
 }
 
 #msg-show {
+    padding-left: 8px;
     height: fit-content;
     justify-content: space-between;
 }
