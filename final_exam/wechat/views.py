@@ -6,6 +6,7 @@ from django.contrib.auth.hashers import make_password
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 
+
 from .admin import UserCreationForm
 from .forms import LoginForm, ChangeEmailForm, MyPasswordChangeForm
 from .models import MyUser
