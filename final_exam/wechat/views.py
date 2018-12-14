@@ -137,6 +137,12 @@ def account_psw_change(request):
                           {'user': request.user, 'form_change_psw': form, 'form_change_email': form2})
 
 
+
+
+def index_add(request):
+    # mainpage
+    return render(request, 'add.html')
+
 @login_required
 def account_email_change(request):
     if request.method == 'POST':

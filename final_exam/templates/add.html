@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>add page00</title>
+    {% load static %}
+    <link href="{% static 'css/reset.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/profile2.css' %}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<div class="container-flex flex-reset">
+    <div id="left" class="container-flex">
+        <img src="{% static 'img/background.jpg' %}">
+    </div>
+    <div id="right" class="container-flex">
+        <div class="table-vertical-align">
+			
+            <div class="float-left col-8">
+                <h2 class="head-block">ID:{{ user.username }} </h2>
+		       
+		<form  action="" onsubmit=" " method="">
+			
+        <p class="error">{{ input_error }}</p>
+			 <div class="change_word2" id="left" style="width:50%;float:left;">
+             Input a friend id:<br>
+            <input type="text" name="friendid">
+			<input name="submit" type="submit" class="submint_b3" value="Add a friend">
+				</div>
+                <div id="right" class="change_word2" style="width:50%;float:left;">
+	            Input a group id:<br>
+                <input type="text" name="groupid">
+                <input name="submit" type="submit" class="submint_b3" value="Add a group">
+	            </div><br>
+				
+			         <div >
+					Input a group id:<br>
+					 <input type="text" name="groupname" class"submint_b5">
+                     <input name="submit" type="submit" class="submint_b4" value="Create a group">
+                     </div>
+             
+                <a href="/home" class="link-button">Back</a>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+</body>
+</html>
