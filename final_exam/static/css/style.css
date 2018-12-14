@@ -145,7 +145,6 @@ form
 }
 
 .success-text{
-    color: #00a0d2;
     padding-left: 8px;
 }
 
@@ -222,7 +221,6 @@ error text
     color: red;
     font-size: 12px;
     width: 100%;
-    margin-left: 0;
     display: inline-block;
 }
 
