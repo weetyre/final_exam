@@ -28,7 +28,7 @@
                                      src="{% static "/img/face.jpg" %}"
                                      data-holder-rendered="true">
                             </td>
-                            <td class="p2"><p id="user_name">{{user.username}}</p></td>
+                            <td class="p2"><p id="user_name">{{ user.username }}</p></td>
                             <td class="p3">
                                 <div class="dropdown btn-group">
                                     <a class="btn btn-default dropdown-toggle" href="#" role="button"
@@ -39,11 +39,12 @@
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                         <a class="dropdown-item" href="#"><span class="oi oi-plus" title="icon name"
                                                                                 aria-hidden="true"></span> 加好友，群</a>
-                                        <a class="dropdown-item" href="/profile"><span class="oi oi-cog" title="icon name"
-                                                                                aria-hidden="true"></span> 个人信息修改</a>
+                                        <a class="dropdown-item" href="/profile"><span class="oi oi-cog"
+                                                                                       title="icon name"
+                                                                                       aria-hidden="true"></span> 个人信息修改</a>
                                         <a class="dropdown-item" href="/logout"><span class="oi oi-account-logout"
-                                                                                title="icon name"
-                                                                                aria-hidden="true"></span> 登出</a>
+                                                                                      title="icon name"
+                                                                                      aria-hidden="true"></span> 登出</a>
                                     </div>
                                 </div>
                             </td>
@@ -182,15 +183,30 @@
             </div>
             <div class="message_box border col-md-9 shadow-lg p-1 bg-white rounded">
                 <div class="msg_title shadow">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="">
+                        <button class="btn btn-secondary" type="button" data-toggle="modal"
+                                aria-haspopup="true" aria-expanded="false" data-target="#exampleModal">
                             Group Name<span class="badge" id="group_num">20</span>
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ...
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -331,6 +347,7 @@
         <p class="copyright">copyright</p>
     </div>
 </div>
+<script type="text/javascript" src="{% static "/js/vue.min.js" %}"></script>
 <script type="text/javascript" src="{% static "/js/v-apps.js" %}"></script>
 </body>
 </html>
