@@ -63,7 +63,6 @@ html, body, main {
 }
 
 .message_box {
-    height: 100%;
     display: flex;
     flex-direction: column;
     background-color: #f3f3f3;
