@@ -272,3 +272,9 @@ html, body, main {
 .show_top{
     z-index: 9999;
 }
+.friend_list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}

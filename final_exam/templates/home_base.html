@@ -181,7 +181,7 @@
                     </div>
                 </div>
             </div>
-            <div class="message_box border col-md-9 p-1 rounded">
+            <div class="message_box border col-md-9 p-1 rounded" id="message">
                 <div class="msg_title shadow">
                     <div class="">
                         <button class="btn btn-secondary" type="button" data-toggle="modal"
@@ -193,13 +193,23 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Members</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        ...
+                                        <div class="container friend_list">
+                                            <div>
+                                                <img data-src=""
+                                                     alt="32x32" class="mr-2 rounded img-face"
+                                                     src="{% static "/img/face.jpg" %}"
+                                                     data-holder-rendered="true">
+                                                <p class="media-body mb-0 small lh-125">
+                                                    <strong class="d-block text-gray-dark">@friend</strong>
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
@@ -349,5 +359,6 @@
 </div>
 <script type="text/javascript" src="{% static "/js/vue.min.js" %}"></script>
 <script type="text/javascript" src="{% static "/js/v-apps.js" %}"></script>
+<script type="text/javascript" src="{% static "/js/friend_l.js" %}"></script>
 </body>
 </html>
