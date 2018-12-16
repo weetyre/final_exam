@@ -303,3 +303,14 @@ html, body, main {
     justify-content: center;
     height: 20%;
 }
+.back_color {
+	padding-top: 10px;
+	padding-right: 10px;
+	padding-left: 10px;
+	padding-bottom: 10px;
+	text-align: center;
+	color: white;
+	border: 0;
+	margin-top: 8px;
+	border-radius: 4px;
+}

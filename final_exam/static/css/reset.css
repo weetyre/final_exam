@@ -4122,7 +4122,7 @@ body {
 }
 
 a {
-    color: #0073aa;
+    color: #fdf9ff;
     transition-property: border, background, color;
     transition-duration: .05s;
     transition-timing-function: ease-in-out;
