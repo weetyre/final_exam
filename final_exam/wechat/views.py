@@ -173,6 +173,12 @@ def myhome(request):
     if request.method == 'GET':
         return render(request, 'home_base.html', {'user': request.user})
 
+@login_required
+def add(request):
+    if request.method == 'GET':
+        return render(request, 'add_friends.html', {'user': request.user})
+
+
 
 class CustomBackend(ModelBackend):
     """邮箱也能登录"""

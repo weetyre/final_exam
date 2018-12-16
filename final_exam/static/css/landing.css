@@ -277,3 +277,29 @@ html, body, main {
     flex-wrap: wrap;
     justify-content: space-around;
 }
+.friends{
+    align-items: center;
+    justify-content: space-around;
+}
+.friends_profile{
+    height: 400px;
+    width: 300px;
+}
+.inner_profile{
+    height: 100%;
+    width: 100%;
+}
+.profile_1{
+    height: 60%;
+    justify-content: center;
+}
+.profile_2{
+    justify-content: center;
+    height: 20%;
+}
+.profile_3{
+    padding-top: 10%;
+    padding-bottom: 8%;
+    justify-content: center;
+    height: 20%;
+}

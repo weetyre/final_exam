@@ -37,8 +37,8 @@
                                         <span class="oi oi-grid-three-up" title="icon name" aria-hidden="true"></span>
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <a class="dropdown-item" href="#"><span class="oi oi-plus" title="icon name"
-                                                                                aria-hidden="true"></span> 加好友，群</a>
+                                        <a class="dropdown-item" href="/add"><span class="oi oi-plus" title="icon name"
+                                                                                   aria-hidden="true"></span> 加好友，群</a>
                                         <a class="dropdown-item" href="/profile"><span class="oi oi-cog"
                                                                                        title="icon name"
                                                                                        aria-hidden="true"></span> 个人信息修改</a>
@@ -48,7 +48,6 @@
                                     </div>
                                 </div>
                             </td>
-
                         </tr>
                         </tbody>
                     </table>
@@ -362,8 +361,23 @@
                     </div>
                 </div>
                 <div class="tab-pane h-100" id="info-tab" role="tabpanel" aria-labelledby="info-tab">
-                    <div class="message_box h-100">
+                    <div class="message_box h-100 friends">
                         <!--show friend information-->
+                        <div class="friends_profile container">
+
+                             <div class="row profile_1">
+                                  <img data-src=""
+                                 alt="32x32" class="rounded img-face-msg img_size"
+                                 src="{% static "/img/face.jpg" %}">
+                             </div>
+                             <div class="row profile_2">
+                                 <h1>wwwee</h1>
+                             </div>
+                             <div class="row profile_3">
+                                  <button class="btn btn-success btn-lg">发消息</button>
+                             </div>
+
+                        </div>
                     </div>
                 </div>
             </div>

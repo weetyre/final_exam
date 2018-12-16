@@ -11,4 +11,5 @@ urlpatterns = [
     path('account/change_psw', views.account_psw_change, name='change_psw'),
     path('account/change_email', views.account_email_change),
     path('home', views.myhome),
+    path('add', views.add),
 ]
