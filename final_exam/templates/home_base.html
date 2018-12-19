@@ -17,7 +17,7 @@
 <div class="container chat">
     <div class="main_chat col-md-12 px-5">
         <div class="row div-row shadow-lg">
-            <div class="profile_box col-md-3 border p-1 rounded">
+            <div class="profile_box col-md-3 border p-1 rounded text-light">
                 <div class="pro_name">
                     <table>
                         <tbody class="user_picture">
@@ -61,7 +61,7 @@
                     </div>
                 </div>
                 <div class="pro_select">
-                    <ul class="nav nav-pills nav-justified" id="myTab" role="tablist">
+                    <ul class="nav nav-tabs bg-dark" id="myTab" role="tablist">
                         <li class="nav-item my-nav-item">
                             <a class="nav-link active" id="friends-tab" data-toggle="tab" href="#friends" role="tab"
                                data-relatedtab="#nav-chat-tab"
@@ -80,8 +80,9 @@
                     </ul>
                     <div class="tab-content scroll-y" id="myTabContent">
                         <div class="tab-pane active" id="friends" role="tabpanel" aria-labelledby="friends-tab">
+
                             {% for friend in friends %}
-                                <div class="media text-muted my-tab-item" onclick="listItemClick(this)" data-userid="{{ friend.id }}" data-name="{{ friend.name }}">
+                                <div class="media text-muted my-tab-item" id="f{{ friend.id }}" onclick="listItemClick(this)" data-userid="{{ friend.id }}" data-name="{{ friend.username }}">
                                     <img data-src=""
                                          alt="32x32" class="mr-2 rounded img-face"
                                          src="{% static "/img/face.jpg" %}"
@@ -118,8 +119,8 @@
             <div class="col-md-9 p-0 tab-content border rounded">
                 <div class="tab-pane active h-100" id="chat-tab" role="tabpanel" aria-labelledby="chat-tab">
                     <div class="message_box h-100">
-                        <div class="msg_title shadow">
-                            <p id="chatName" class="p-1"></p>
+                        <div class="msg_title">
+                            <p id="chatTitle" class="h3 p-1"></p>
                         </div>
                         <div class="msg_main">
                             <div class="input-group chat_in_height flex-row scroll-y">
@@ -413,9 +414,9 @@
                         </div>
                         <div class="msg_sender">
                             <div class="input-group text_in_height">
-                                <textarea class="form-control text_in"></textarea>
+                                <textarea id="msg_input" class="form-control text_in"></textarea>
                             </div>
-                            <div class="button-group send_bu">
+                            <div id="bt_send" class="button-group send_bu">
                                 <button type="button" class="btn btn-default">Send</button>
                             </div>
                         </div>
@@ -446,8 +447,6 @@
         <p class="copyright">copyright</p>
     </div>
 </div>
-<script type="text/javascript" src="{% static "/js/vue.min.js" %}"></script>
-<script type="text/javascript" src="{% static "/js/v-apps.js" %}"></script>
 <script type="text/javascript" src="{% static "/js/home-tab.js" %}"></script>
 </body>
 </html>

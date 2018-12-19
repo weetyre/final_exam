@@ -171,15 +171,15 @@ def index_logout(request):
 def myhome(request):
     if request.method == 'GET':
         friends = [
-            {'id': 1, 'name': 'van'},
-            {'id': 1, 'name': 'dark'},
-            {'id': 1, 'name': 'holmes'},
-            {'id': 1, 'name': 'bili'},
-            {'id': 1, 'name': 'bill'},
-            {'id': 1, 'name': 'bilibili'},
-            {'id': 1, 'name': 'kakasi'},
-            {'id': 1, 'name': 'naruto'},
-            {'id': 1, 'name': 'kanojo'},
+            {'id': 1, 'username': 'van'},
+            {'id': 1, 'username': 'dark'},
+            {'id': 1, 'username': 'holmes'},
+            {'id': 1, 'username': 'bili'},
+            {'id': 1, 'username': 'bill'},
+            {'id': 1, 'username': 'bilibili'},
+            {'id': 1, 'username': 'kakasi'},
+            {'id': 1, 'username': 'naruto'},
+            {'id': 1, 'username': 'kanojo'},
 
         ]
         return render(request, 'home_base.html', {'user': request.user, 'friends': friends})

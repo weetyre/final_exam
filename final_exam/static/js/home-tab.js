@@ -9,6 +9,15 @@ $(function () {
 
 function listItemClick(e) {
     let name = e.getAttribute('data-name');
-    let e1 = $('#chatName');
-    let t = e1.innerText;
-};
+    var e1 = document.getElementById("chatTitle");
+    e1.innerText = name;
+
+}
+
+let uid = '1';
+
+function append_msg(msg) {
+    if (msg['from'] == uid) {
+
+    }
+}
