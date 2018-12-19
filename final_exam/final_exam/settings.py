@@ -17,7 +17,7 @@ from django.conf.global_settings import STATICFILES_DIRS, AUTH_USER_MODEL
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-AUTHENTICATION_BACKENDS=( 'wechat.views.CustomBackend' , )
+AUTHENTICATION_BACKENDS = ('wechat.views.CustomBackend',)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -28,7 +28,6 @@ SECRET_KEY = 'n8+%6hb%@vpwj*l=35$f*klnxezn0!kl8mbop&-ddb$-q6hlvg'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -73,17 +72,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'final_exam.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': 'orcl',  # 数据库名称
+        'USER': 'root',  # 用户名
+        'PASSWORD': 'root',  # 密码
+        'HOST': '127.0.0.1',  # HOST
+        'PORT': '1521',  # 端口
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -120,7 +121,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
@@ -135,4 +135,3 @@ AUTH_USER_MODEL = 'wechat.MyUser'
 LOGIN_URL = '/login'
 
 # APPEND_SLASH=False
-
