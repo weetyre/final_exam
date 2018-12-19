@@ -12,4 +12,5 @@ urlpatterns = [
     path('account/change_email', views.account_email_change),
     path('home', views.myhome),
     path('add', views.add),
+    url(r'^echo/(?P<userid>[0-9]+)$', views.echo, name='echo'),
 ]
