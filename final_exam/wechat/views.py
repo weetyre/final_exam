@@ -6,7 +6,6 @@ from django.contrib.auth.hashers import make_password
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 
-
 from .admin import UserCreationForm
 from .forms import LoginForm, ChangeEmailForm, MyPasswordChangeForm
 from .models import MyUser
@@ -171,13 +170,25 @@ def index_logout(request):
 @login_required
 def myhome(request):
     if request.method == 'GET':
-        return render(request, 'home_base.html', {'user': request.user})
+        friends = [
+            {'id': 1, 'name': 'van'},
+            {'id': 1, 'name': 'dark'},
+            {'id': 1, 'name': 'holmes'},
+            {'id': 1, 'name': 'bili'},
+            {'id': 1, 'name': 'bill'},
+            {'id': 1, 'name': 'bilibili'},
+            {'id': 1, 'name': 'kakasi'},
+            {'id': 1, 'name': 'naruto'},
+            {'id': 1, 'name': 'kanojo'},
+
+        ]
+        return render(request, 'home_base.html', {'user': request.user, 'friends': friends})
+
 
 @login_required
 def add(request):
     if request.method == 'GET':
         return render(request, 'add_friends.html', {'user': request.user})
-
 
 
 class CustomBackend(ModelBackend):
