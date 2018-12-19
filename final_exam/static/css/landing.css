@@ -190,6 +190,7 @@ html, body, main {
 }
 
 #msg-show {
+    width: 100%;
     padding-left: 8px;
     height: fit-content;
     justify-content: space-between;
