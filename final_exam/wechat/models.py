@@ -13,6 +13,7 @@ from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
 
+
 class MyUserManager(BaseUserManager):
     def create_user(self, username, email, sex, password=None):
         """
@@ -100,16 +101,14 @@ class MyUser(AbstractBaseUser):
         self.created_at = datetime.date.today()
 
 
-
 class User_realation(models.Model):
     uid = models.ForeignKey(MyUser, related_name='uid_UR', on_delete=models.CASCADE)
-    friend_id =models.ForeignKey(MyUser, related_name='friend_id_UR', on_delete=models.CASCADE)
+    friend_id = models.ForeignKey(MyUser, related_name='friend_id_UR', on_delete=models.CASCADE)
 
     class Meta:
         unique_together = (('uid', 'friend_id'),)
 
     primary = ('uid', 'friend_id')
-
 
     def __str__(self):
         return "User_realation"
@@ -124,6 +123,7 @@ class One_to_one_msg_record(models.Model):
 
     def __str__(self):
         return "One_to_one_msg_record"
+
 
 class Group(models.Model):
     gid = models.AutoField(primary_key=True)
@@ -147,11 +147,11 @@ class Group_msg(models.Model):
     primary = ('mid', 'gid')
 
 
-
 class G_msg_config(models.Model):
-    uid = models.ForeignKey(MyUser, related_name='uid_GMC', on_delete= models.CASCADE)
-    gid = models.ForeignKey(Group, related_name='gid_GMC', on_delete= models.CASCADE)
-    last_read_msg_id = models.ForeignKey(Group_msg,  related_name='last_read_msg_id', on_delete=models.CASCADE, null=True)
+    uid = models.ForeignKey(MyUser, related_name='uid_GMC', on_delete=models.CASCADE)
+    gid = models.ForeignKey(Group, related_name='gid_GMC', on_delete=models.CASCADE)
+    last_read_msg_id = models.ForeignKey(Group_msg, related_name='last_read_msg_id', on_delete=models.CASCADE,
+                                         null=True)
 
     class Meta:
         unique_together = (('uid', 'gid'),)

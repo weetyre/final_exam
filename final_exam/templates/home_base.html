@@ -38,7 +38,7 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                         <a class="dropdown-item" href="/add"><span class="oi oi-plus" title="icon name"
-                                                                                   aria-hidden="true"></span> 加好友，群</a>
+                                                                                   aria-hidden="true"></span> 加好友</a>
                                         <a class="dropdown-item" href="/profile"><span class="oi oi-cog"
                                                                                        title="icon name"
                                                                                        aria-hidden="true"></span> 个人信息修改</a>
@@ -52,54 +52,53 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="pro_search">
-                    <div class="form-group container center">
-                        <div class="row">
-                            <input type="text" class="form-control col-10" placeholder="搜索">
-                            <button type="button" class="btn btn-info col-2">搜索</button>
-                        </div>
-                    </div>
-                </div>
                 <div class="pro_select">
                     <ul class="nav nav-tabs bg-dark" id="myTab" role="tablist">
                         <li class="nav-item my-nav-item">
                             <a class="nav-link active" id="friends-tab" data-toggle="tab" href="#friends" role="tab"
                                data-relatedtab="#nav-chat-tab"
-                               aria-controls="friends" aria-selected="true">Friends<br><span class="badge">1</span></a>
-                        </li>
-                        <li class="nav-item my-nav-item">
-                            <a class="nav-link" id="groups-tab" data-toggle="tab" href="#groups" role="tab"
-                               data-relatedtab="#nav-chat-tab"
-                               aria-controls="groups" aria-selected="false">Groups<br><span class="badge">1</span></a>
+                               aria-controls="friends" aria-selected="true">Friends</a>
                         </li>
                         <li class="nav-item my-nav-item">
                             <a class="nav-link" id="list-tab" data-toggle="tab" href="#list" role="tab"
                                data-relatedtab="#nav-info-tab"
-                               aria-controls="list" aria-selected="false">List<br><span class="badge">2</span></a>
+                               aria-controls="list" aria-selected="false">List</a>
                         </li>
                     </ul>
                     <div class="tab-content scroll-y" id="myTabContent">
                         <div class="tab-pane active" id="friends" role="tabpanel" aria-labelledby="friends-tab">
 
                             {% for friend in friends %}
-                                <div class="media text-muted my-tab-item" id="f{{ friend.id }}" onclick="listItemClick(this)" data-userid="{{ friend.id }}" data-name="{{ friend.username }}">
+                                <div class="media text-muted my-tab-item" id="f{{ friend.id }}"
+                                     onclick="listItemClick(this)" data-userid="{{ friend.id }}"
+                                     data-name="{{ friend.username }}">
                                     <img data-src=""
                                          alt="32x32" class="mr-2 rounded img-face"
                                          src="{% static "/img/face.jpg" %}"
                                          data-holder-rendered="true">
                                     <p class="media-body mb-0 small lh-125">
                                         <strong class="d-block text-gray-dark">{{ friend.username }}</strong>
-                                        ha ha ha ha
+
                                     </p>
                                 </div>
                             {% endfor %}
 
                         </div>
-                        <div class="tab-pane" id="groups" role="tabpanel" aria-labelledby="groups-tab">
-                            g
-                        </div>
                         <div class="tab-pane" id="list" role="tabpanel" aria-labelledby="list-tab">
-                            l
+                            {% for friend in friends %}
+                                <div class="media text-muted my-tab-item" id="u{{ friend.id }}"
+                                     onclick="listItemClick2(this)" data-userid="{{ friend.id }}"
+                                     data-name="{{ friend.username }}">
+                                    <img data-src=""
+                                         alt="32x32" class="mr-2 rounded img-face"
+                                         src="{% static "/img/face.jpg" %}"
+                                         data-holder-rendered="true">
+                                    <p class="media-body mb-0 small lh-125">
+                                        <strong class="d-block text-gray-dark">{{ friend.username }}</strong>
+
+                                    </p>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -109,7 +108,8 @@
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <a class="nav-item nav-link active" id="nav-chat-tab" data-toggle="tab" href="#chat-tab" role="tab"
                        aria-controls="nav-chat" aria-selected="true"></a>
-                    <a class="nav-item nav-link" id="nav-chat-group-tab" data-toggle="tab" href="#chat-group-tab" role="tab"
+                    <a class="nav-item nav-link" id="nav-chat-group-tab" data-toggle="tab" href="#chat-group-tab"
+                       role="tab"
                        aria-controls="nav-chat-group" aria-selected="false"></a>
                     <a class="nav-item nav-link" id="nav-info-tab" data-toggle="tab" href="#info-tab" role="tab"
                        aria-controls="nav-info" aria-selected="false"></a>
@@ -126,123 +126,7 @@
                             <div class="input-group chat_in_height flex-row scroll-y">
                                 <!--选中 '#msg-show' 元素， 判断消息谁发——我或别人，在 ’#msg-show div' 子元素class添加值'msg-mine'（自己发）或 ’msg-other‘-->
                                 <div id="msg-show">
-                                    {% comment %}<div class="media text-muted py-2 msg-item msg-mine" data-userid="f1">
-                                        <div class="d-flex msg-container">
-                                            <img data-src=""
-                                                 alt="32x32" class="rounded img-face-msg"
-                                                 src="{% static "/img/face.jpg" %}"
-                                                 data-holder-rendered="true">
-                                            <p class="media-body mb-0 small lh-125 p-2 msg-content">
-                                                使用方向实用程序在Flex容器中设置flex项的方向。在大多数情况下，您可以在此处省略水平类，因为浏览器默认为row。但是，您可能会遇到需要显式设置此值的情况（如响应式布局）。
 
-                                                使用.flex-row设置在水平方向（在浏览器默认值），或者.flex-row-reverse开始从相对侧上的水平方向上。
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="media text-muted py-2 msg-item msg-other" data-userid="f1">
-                                        <div class="d-flex msg-container">
-                                            <img data-src=""
-                                                 alt="32x32" class="rounded img-face-msg"
-                                                 src="{% static "/img/face.jpg" %}"
-                                                 data-holder-rendered="true">
-                                            <p class="media-body mb-0 small lh-125 p-2 msg-content">
-                                                使用方向实用程序在Flex容器中设置flex项的方向。在大多数情况下，您可以在此处省略水平类，因为浏览器默认为row。但是，您可能会遇到需要显式设置此值的情况（如响应式布局）。
-
-                                                使用.flex-row设置在水平方向（在浏览器默认值），或者.flex-row-reverse开始从相对侧上的水平方向上。
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="media text-muted py-2 msg-item msg-other" data-userid="f1">
-                                        <div class="d-flex msg-container">
-                                            <img data-src=""
-                                                 alt="32x32" class="rounded img-face-msg"
-                                                 src="{% static "/img/face.jpg" %}"
-                                                 data-holder-rendered="true">
-                                            <p class="media-body mb-0 small lh-125 p-2 msg-content">
-                                                使用方向实用程序在Flex容器中设置flex项的方向。在大多数情况下，您可以在此处省略水平类，因为浏览器默认为row。但是，您可能会遇到需要显式设置此值的情况（如响应式布局）。
-
-                                                使用.flex-row设置在水平方向（在浏览器默认值），或者.flex-row-reverse开始从相对侧上的水平方向上。
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="media text-muted py-2 msg-item msg-other" data-userid="f1">
-                                        <div class="d-flex msg-container">
-                                            <img data-src=""
-                                                 alt="32x32" class="rounded img-face-msg"
-                                                 src="{% static "/img/face.jpg" %}"
-                                                 data-holder-rendered="true">
-                                            <p class="media-body mb-0 small lh-125 p-2 msg-content">
-                                                使用方向实用程序在Flex容器中设置flex项的方向。在大多数情况下，您可以在此处省略水平类，因为浏览器默认为row。但是，您可能会遇到需要显式设置此值的情况（如响应式布局）。
-
-                                                使用.flex-row设置在水平方向（在浏览器默认值），或者.flex-row-reverse开始从相对侧上的水平方向上。
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="media text-muted py-2 msg-item msg-other" data-userid="f1">
-                                        <div class="d-flex msg-container">
-                                            <img data-src=""
-                                                 alt="32x32" class="rounded img-face-msg"
-                                                 src="{% static "/img/face.jpg" %}"
-                                                 data-holder-rendered="true">
-                                            <p class="media-body mb-0 small lh-125 p-2 msg-content">
-                                                使用方向实用程序在Flex容器中设置flex项的方向。在大多数情况下，您可以在此处省略水平类，因为浏览器默认为row。但是，您可能会遇到需要显式设置此值的情况（如响应式布局）。
-
-                                                使用.flex-row设置在水平方向（在浏览器默认值），或者.flex-row-reverse开始从相对侧上的水平方向上。
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="media text-muted py-2 msg-item msg-other" data-userid="f1">
-                                        <div class="d-flex msg-container">
-                                            <img data-src=""
-                                                 alt="32x32" class="rounded img-face-msg"
-                                                 src="{% static "/img/face.jpg" %}"
-                                                 data-holder-rendered="true">
-                                            <p class="media-body mb-0 small lh-125 p-2 msg-content">
-                                                使用方向实用程序在Flex容器中设置flex项的方向。在大多数情况下，您可以在此处省略水平类，因为浏览器默认为row。但是，您可能会遇到需要显式设置此值的情况（如响应式布局）。
-
-                                                使用.flex-row设置在水平方向（在浏览器默认值），或者.flex-row-reverse开始从相对侧上的水平方向上。
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="media text-muted py-2 msg-item msg-other" data-userid="f1">
-                                        <div class="d-flex msg-container">
-                                            <img data-src=""
-                                                 alt="32x32" class="rounded img-face-msg"
-                                                 src="{% static "/img/face.jpg" %}"
-                                                 data-holder-rendered="true">
-                                            <p class="media-body mb-0 small lh-125 p-2 msg-content">
-                                                使用方向实用程序在Flex容器中设置flex项的方向。在大多数情况下，您可以在此处省略水平类，因为浏览器默认为row。但是，您可能会遇到需要显式设置此值的情况（如响应式布局）。
-
-                                                使用.flex-row设置在水平方向（在浏览器默认值），或者.flex-row-reverse开始从相对侧上的水平方向上。
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="media text-muted py-2 msg-item msg-other" data-userid="f1">
-                                        <div class="d-flex msg-container">
-                                            <img data-src=""
-                                                 alt="32x32" class="rounded img-face-msg"
-                                                 src="{% static "/img/face.jpg" %}"
-                                                 data-holder-rendered="true">
-                                            <p class="media-body mb-0 small lh-125 p-2 msg-content">
-                                                使用方向实用程序在Flex容器中设置flex项的方向。在大多数情况下，您可以在此处省略水平类，因为浏览器默认为row。但是，您可能会遇到需要显式设置此值的情况（如响应式布局）。
-
-                                                使用.flex-row设置在水平方向（在浏览器默认值），或者.flex-row-reverse开始从相对侧上的水平方向上。
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="media text-muted py-2 msg-item msg-other" data-userid="f1">
-                                        <div class="d-flex msg-container">
-                                            <img data-src=""
-                                                 alt="32x32" class="rounded img-face-msg"
-                                                 src="{% static "/img/face.jpg" %}"
-                                                 data-holder-rendered="true">
-                                            <p class="media-body mb-0 small lh-125 p-2 msg-content">
-                                                使用方向实用程序在Flex容器中设置flex项的方向。在大多数情况下，您可以在此处省略水平类，因为浏览器默认为row。但是，您可能会遇到需要显式设置此值的情况（如响应式布局）。
-
-                                                使用.flex-row设置在水平方向（在浏览器默认值），或者.flex-row-reverse开始从相对侧上的水平方向上。
-                                            </p>
-                                        </div>
-                                    </div>{% endcomment %}
                                 </div>
                             </div>
                         </div>
@@ -259,19 +143,19 @@
                 <div class="tab-pane h-100" id="info-tab" role="tabpanel" aria-labelledby="info-tab">
                     <div class="message_box h-100 friends">
                         <!--show friend information-->
-                        <div class="friends_profile container">
+                        <div id="friendsInfoBox" class="friends_profile container">
 
-                             <div class="row profile_1">
-                                  <img data-src=""
-                                 alt="32x32" class="rounded img-face-msg img_size"
-                                 src="{% static "/img/face.jpg" %}">
-                             </div>
-                             <div class="row profile_2">
-                                 <h1>wwwee</h1>
-                             </div>
-                             <div class="row profile_3">
-                                  <button class="btn btn-success btn-lg">发消息</button>
-                             </div>
+                            {% comment %}<div id="userInfoBox" class="row profile_1">
+                                <img data-src=""
+                                     alt="32x32" class="rounded img-face-msg img_size"
+                                     src="{% static "/img/face.jpg" %}">
+                            </div>
+                            <div class="row profile_2">
+                                <h1 id="userInfo"></h1>
+                            </div>
+                            <div class="row profile_3">
+                                <button id="toChat" class="btn btn-success btn-lg">发消息</button>
+                            </div>{% endcomment %}
 
                         </div>
                     </div>
