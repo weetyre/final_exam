@@ -82,21 +82,36 @@
                         <div class="tab-pane active" id="friends" role="tabpanel" aria-labelledby="friends-tab">
 
                             {% for friend in friends %}
-                                <div class="media text-muted my-tab-item" id="f{{ friend.id }}" onclick="listItemClick(this)" data-userid="{{ friend.id }}" data-name="{{ friend.username }}">
+                                <div class="media text-muted my-tab-item" id="f{{ friend.id }}"
+                                     onclick="listItemClick(this)" data-userid="{{ friend.id }}"
+                                     data-name="{{ friend.username }}">
                                     <img data-src=""
                                          alt="32x32" class="mr-2 rounded img-face"
                                          src="{% static "/img/face.jpg" %}"
                                          data-holder-rendered="true">
                                     <p class="media-body mb-0 small lh-125">
                                         <strong class="d-block text-gray-dark">{{ friend.username }}</strong>
-                                        ha ha ha ha
+
                                     </p>
                                 </div>
                             {% endfor %}
 
                         </div>
                         <div class="tab-pane" id="groups" role="tabpanel" aria-labelledby="groups-tab">
-                            g
+                            {% for group in groups %}
+                                <div class="media text-muted my-tab-item" id="f{{ group.id }}"
+                                     onclick="listItemClick(this)" data-userid="{{ group.id }}"
+                                     data-name="{{ group.name }}">
+                                    <img data-src=""
+                                         alt="32x32" class="mr-2 rounded img-face"
+                                         src="{% static "/img/face.jpg" %}"
+                                         data-holder-rendered="true">
+                                    <p class="media-body mb-0 small lh-125">
+                                        <strong class="d-block text-gray-dark">{{ group.rname }}</strong>
+
+                                    </p>
+                                </div>
+                            {% endfor %}
                         </div>
                         <div class="tab-pane" id="list" role="tabpanel" aria-labelledby="list-tab">
                             l
@@ -109,7 +124,8 @@
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <a class="nav-item nav-link active" id="nav-chat-tab" data-toggle="tab" href="#chat-tab" role="tab"
                        aria-controls="nav-chat" aria-selected="true"></a>
-                    <a class="nav-item nav-link" id="nav-chat-group-tab" data-toggle="tab" href="#chat-group-tab" role="tab"
+                    <a class="nav-item nav-link" id="nav-chat-group-tab" data-toggle="tab" href="#chat-group-tab"
+                       role="tab"
                        aria-controls="nav-chat-group" aria-selected="false"></a>
                     <a class="nav-item nav-link" id="nav-info-tab" data-toggle="tab" href="#info-tab" role="tab"
                        aria-controls="nav-info" aria-selected="false"></a>
@@ -261,17 +277,17 @@
                         <!--show friend information-->
                         <div class="friends_profile container">
 
-                             <div class="row profile_1">
-                                  <img data-src=""
-                                 alt="32x32" class="rounded img-face-msg img_size"
-                                 src="{% static "/img/face.jpg" %}">
-                             </div>
-                             <div class="row profile_2">
-                                 <h1>wwwee</h1>
-                             </div>
-                             <div class="row profile_3">
-                                  <button class="btn btn-success btn-lg">发消息</button>
-                             </div>
+                            <div class="row profile_1">
+                                <img data-src=""
+                                     alt="32x32" class="rounded img-face-msg img_size"
+                                     src="{% static "/img/face.jpg" %}">
+                            </div>
+                            <div class="row profile_2">
+                                <h1>wwwee</h1>
+                            </div>
+                            <div class="row profile_3">
+                                <button class="btn btn-success btn-lg">发消息</button>
+                            </div>
 
                         </div>
                     </div>
