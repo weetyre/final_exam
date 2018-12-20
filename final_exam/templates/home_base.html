@@ -84,7 +84,7 @@
                             {% for friend in friends %}
                                 <div class="media text-muted my-tab-item" id="f{{ friend.id }}"
                                      onclick="listItemClick(this)" data-userid="{{ friend.id }}"
-                                     data-name="{{ friend.username }}">
+                                     data-type="user" data-name="{{ friend.username }}">
                                     <img data-src=""
                                          alt="32x32" class="mr-2 rounded img-face"
                                          src="{% static "/img/face.jpg" %}"
@@ -101,7 +101,7 @@
                             {% for group in groups %}
                                 <div class="media text-muted my-tab-item" id="g{{ group.gid }}"
                                      onclick="listItemClick(this)" data-userid="{{ group.gid }}"
-                                     data-name="{{ group.gname }}">
+                                     data-type="group" data-name="{{ group.gname }}">
                                     <img data-src=""
                                          alt="32x32" class="mr-2 rounded img-face"
                                          src="{% static "/img/face.jpg" %}"

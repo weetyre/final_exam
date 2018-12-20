@@ -2,7 +2,7 @@ let e = $('#user');
 var uid = e.data("id");
 var username = e.data("username");
 var currentChat = null;
-
+var currentType = null;
 
 function appendMsg(data) {
     let from = data["from"];
@@ -55,11 +55,11 @@ $(function () {
             let inputArea = $('#tx-input');
             let content = inputArea.val();
             //if don't choose a user to chat or input is blank
-            if (currentChat == null || content == '') {
+            if (currentChat == null || content == '' || currentType == null) {
                 return
             }
 
-            let data = {'from': uid, 'to': currentChat, 'msg': content};
+            let data = {'from': uid, 'to': currentChat, 'msg': content, 'type': currentType};
             window.s.send(JSON.stringify(data));//通过websocket发送数据
 
             //clear input area

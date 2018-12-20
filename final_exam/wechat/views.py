@@ -224,6 +224,7 @@ def echo(request, userid):
         # 遍历请求地址中的消息
         for message in request.websocket:
             # 将信息发至自己的聊天框
+            print(message)
             request.websocket.send(message)
             mes = json.loads(message)
             if int(mes['to']) >= 10000:
