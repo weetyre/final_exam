@@ -45,11 +45,15 @@ $(function () {
                     scrollToEnd()
                 }*/
             }
-        }else{
-            if (data['id'] == uid){
-                return
-            } else {
+        }else if (type == 'broadcast') {
+            let t_id = data['id'];
+            if (t_id == uid){
 
+            } else if (data['msg'] == 'on') {
+                let html = '<div class="media text-muted my-tab-item" id="g' + data['id'] + '" ><img alt="32x32" class="mr-2 rounded img-face" src="/static/img/face.jpg" data-holder-rendered="true"><p class="media-body mb-0 small lh-125"><strong class="d-block text-gray-dark">' + data['username'] + '</strong></p></div>'
+                $('#friends').append(html);
+            } else if (data['msg'] == 'off') {
+                $('g' + t_id).remove()
             }
         }
 
@@ -79,7 +83,7 @@ $(function () {
                 return
             }
 
-            let data = {'from': uid, 'to': currentChat, 'msg': content};
+            let data = {'type': 'msg', 'from': uid, 'to': currentChat, 'msg': content};
             window.s.send(JSON.stringify(data));//通过websocket发送数据
 
             //clear input area

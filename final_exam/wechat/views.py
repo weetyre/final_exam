@@ -188,6 +188,7 @@ def myhome(request):
         friends = selectFrinds(user.username)
         # groups = models.G_msg_config.objects.all()
         global onlineUsers
+        onlineUsers.append({'id': user.id, 'username': user.username})
 
         return render(request, 'home_base.html', {'user': user, 'friends': friends, 'onlines': onlineUsers})
 
@@ -228,7 +229,6 @@ def echo(request, userid):
         # 将链接(请求？)存入全局字典中
         allconn[str(userid)] = request.websocket
         totalOnline = totalOnline + 1
-        onlineUsers.append({'id': user.id, 'username': user.username})
 
         msg = {'type': 'broadcast', 'id': user.id, 'username': user.username, 'msg': 'on',
                'total': totalOnline}
@@ -238,14 +238,20 @@ def echo(request, userid):
             try:
                 # 将信息发至自己的聊天框
                 request.websocket.send(message)
+                message = json.loads(message)
             except Exception as e:
                 totalOnline = totalOnline - 1
                 message = {'type': 'broadcast', 'id': request.user.id, 'username': request.user.username, 'msg': 'off',
                            'total': totalOnline}
+                # 删除在线用户
+                for user in onlineUsers:
+                    if user['id'] == request.user.id:
+                        onlineUsers.remove(user)
 
-            if message['type'] == 'broadcast' or message['to'] != '0':
-                models.One_to_one_msg_record.objects.create(form_id_id=message['from'], to_id_id=int(message['to']),
-                                                            content=message['msg'])
+            if message['type'] != 'broadcast':
+                if message['to'] != '0':
+                    models.One_to_one_msg_record.objects.create(form_id_id=message['from'], to_id_id=int(message['to']),
+                                                                content=message['msg'])
                 # 将信息发至其他所有用户的聊天框
             for i in allconn:
                 if i != str(userid):
