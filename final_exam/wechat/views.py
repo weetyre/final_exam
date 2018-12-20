@@ -182,8 +182,8 @@ def myhome(request):
     if request.method == 'GET':
         user = request.user
         friends = selectFrinds(user.username)
-
-        return render(request, 'home_base.html', {'user': user, 'friends': friends})
+        groups = selectGroups(user.username)
+        return render(request, 'home_base.html', {'user': user, 'friends': friends, 'groups': groups})
 
 
 @login_required
@@ -226,12 +226,20 @@ def echo(request, userid):
             # 将信息发至自己的聊天框
             request.websocket.send(message)
             mes = json.loads(message)
-            models.One_to_one_msg_record.objects.create(form_id_id=mes['from'], to_id_id=int(mes['to']),content=mes['msg'])
-            # 将信息发至其他所有用户的聊天框
-            for i in allconn:
-                if i != str(userid):
+            if int(mes['to']) >= 10000:
+                models.Group_msg.objects.create(form_id_id=mes['from'], to_id_id=int(mes['to']),
+                                                            content=mes['msg'])
+                # 将信息发至其他所有用户的聊天框
+                for i in allconn:
+                    if i != str(userid):
+                        allconn[i].send(message)
+            else:
+                models.One_to_one_msg_record.objects.create(form_id_id=mes['from'], to_id_id=int(mes['to']),content=mes['msg'])
+                # 将信息发至其他所有用户的聊天框
+                for i in allconn:
+                    if i != str(userid):
 
-                    allconn[i].send(message)
+                        allconn[i].send(message)
 
 
 # 查找myuser表，通过用户的name，返回用户id
@@ -244,9 +252,23 @@ def selectuid(uname):
     for row in cursor:
         if (row[1] == uname):
             uuid = row[0]
-            print(uuid)
     conn.close()
     return uuid
+
+
+def selectgname(gid):
+    conn = sqlite3.connect('db.sqlite3')
+    cursor = conn.cursor()
+    # userid = cursor.execute('select id from wechat_myuser where username = uname')
+    # values = cursor.execute('select friend_id from wechat_user_realation where uid = ?',('value1',))
+    cursor = conn.execute("SELECT gid, gname from wechat_group")
+    for row in cursor:
+        if (row[0] == gid):
+            gname = row[1]
+    conn.close()
+    return gname
+
+
 
 
 # 根据id 返回name
@@ -262,8 +284,19 @@ def selectuname(uid):
             uname = row[1]
     conn.close()
     return uname
-
-
+# 根据群的id 返回群中包含的所有的uid
+def selectGroupIDs(gid):
+    conn = sqlite3.connect('db.sqlite3')
+    cursor = conn.cursor()
+    gids=[]
+    # userid = cursor.execute('select id from wechat_myuser where username = uname')
+    # values = cursor.execute('select friend_id from wechat_user_realation where uid = ?',('value1',))
+    cursor = conn.execute("SELECT gid_id, uid_id from wechat_g_msg_config")
+    for row in cursor:
+        if(row[0]==gid):
+            gids.append(row[1])
+    conn.close()
+    return gids
 # 好友关系表
 # 根据id，返回用户的所有的好友name 数组？
 def selectFrinds(uname):
@@ -300,21 +333,29 @@ def selectFrinds(uname):
 def selectGroups(uname):
     # 该用户的id
     uuuid = selectuid(uname)
-    groups = []
+    friends = []
     i = 0
-
     conn = sqlite3.connect('db.sqlite3')
     cursor = conn.cursor()
     # userid = cursor.execute('select id from wechat_myuser where username = uname')
     # values = cursor.execute('select friend_id from wechat_user_realation where uid = ?',('value1',))
-    cursor = conn.execute("SELECT uid_id, gid_id  from wechat_g_msg_config")
+    cursor = conn.execute("SELECT gid_id,uid_id from wechat_g_msg_config")
     for row in cursor:
+        if (row[0] == uuuid):
+            uuid = row[1]
+            uuname=selectgname(uuid)
+            uuname = selectuname(uuid)
+            r = {'gid': uuid, 'gname': uuname}
+            friends.append(r)
+
+
         if (row[1] == uuuid):
             uuid = row[0]
-            groups.append(uuid)
-            i = i + 1
+            uuname = selectgname(uuid)
+            r = {'gid': uuid, 'gname': uuname}
+            friends.append(r)
     conn.close()
-    return groups
+    return friends
 
 
 # 删除好友
@@ -354,8 +395,7 @@ def groupsadd(uid, gid):
     conn = sqlite3.connect('test.db')
     c = conn.cursor()
 
-    c.execute("INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) \
-          VALUES (1, 'Paul', 32, 'California', 20000.00 )");
+    c.execute("INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) VALUES (1, 'Paul', 32, 'California', 20000.00 )");
 
     conn.commit()
 
