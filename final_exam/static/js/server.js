@@ -19,9 +19,9 @@ $(function () {
         console.log('message: ' + data);//打印出服务端返回过来的数据
         if (data.from == currentChat || data.to == currentChat) {
             appendMsg(data);
-            if (isNewInWindow()) {
+            /*if (isNewInWindow()) {
                 scrollToEnd()
-            }
+            }*/
         }
     };
     // Call onopen directly if socket is already open
@@ -64,7 +64,7 @@ $(function () {
     //listen to the Enter key
     $(document).keydown(function (event) {
         if (event.keyCode == 13) {
-            sendMsg()
+            sendMsg();
         }
     });
 
@@ -85,7 +85,9 @@ $(function () {
     /*将页面下拉到最新消息处*/
     function scrollToEnd() {
         let div = document.getElementById("msg-show");
-        let div_length = div.length - 6;
+        let len = div.length;
+        let hei = div.height;
+        let div_length = len - 6;
         div[div_length].scrollIntoView({behavior: "smooth"});	   //平滑滚动，提高了用户体验
 
     }
@@ -93,8 +95,8 @@ $(function () {
     /*判断当有新信息来时，用户是否在页面底端*/
     function isNewInWindow() {
         let msgShowDiv = document.getElementById("msg-show");
-        let last = msgShowDiv.lastElementChild
-        return last.
+        let last = msgShowDiv.lastElementChild;
+        return true;
     }
 
     /*判定元素是否在界面内*/

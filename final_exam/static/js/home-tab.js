@@ -9,7 +9,7 @@ $(function () {
 
 function listItemClick(e) {
     let id = e.getAttribute('data-userid');
-    if (id != currentChat) {
+    if (currentChat == undefined || id != currentChat) {
         let name = e.getAttribute('data-name');
         document.getElementById("chatTitle").innerText = name;
         currentChat = id;
