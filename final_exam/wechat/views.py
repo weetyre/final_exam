@@ -21,6 +21,9 @@ from flask import Flask, render_template, request, jsonify
 
 # 保存所有接入的用户地址
 allconn = defaultdict(list)
+totalOnline = 0
+onlineUsers = []
+tid = 0
 
 
 def index_login(request):
@@ -211,7 +214,7 @@ def echo(request, userid):
     userinfo = request.user
     allresult['userinfo'] = userinfo
     # 声明全局变量
-    global allconn
+    global allconn, totalOnline, onlineUsers, tid
     if not request.is_websocket():  # 判断是不是websocket连接
         try:  # 如果是普通的http方法
             message = request.GET['message']
@@ -221,28 +224,30 @@ def echo(request, userid):
     else:
         # 将链接(请求？)存入全局字典中
         allconn[str(userid)] = request.websocket
+        totalOnline = totalOnline + 1
+
+        msg = {'type': 'broadcast', 'id': request.user.id, 'username': request.user.username, 'msg': 'on',
+               'total': totalOnline}
+        request.websocket.send(json.dumps(msg))
         # 遍历请求地址中的消息
         for message in request.websocket:
-            # 将信息发至自己的聊天框
-            request.websocket.send(message)
+            try:
+                # 将信息发至自己的聊天框
+                request.websocket.send(message)
+            except Exception as e:
+                totalOnline = totalOnline - 1
+                message = {'type': 'broadcast', 'id': request.user.id, 'username': request.user.username, 'msg': 'off',
+                           'total': totalOnline}
+
             mes = json.loads(message)
-            if int(mes['to']) >= 10000:
 
-                models.Group_msg.objects.create(form_id_id=mes['from'], gid_id=int(mes['to']),
+            if mes['to'] != '0':
+                models.One_to_one_msg_record.objects.create(form_id_id=mes['from'], to_id_id=int(mes['to']),
                                                             content=mes['msg'])
-
-
                 # 将信息发至其他所有用户的聊天框
-                for i in allconn:
-                    if i != str(userid):
-                        allconn[i].send(message)
-            else:
-                models.One_to_one_msg_record.objects.create(form_id_id=mes['from'], to_id_id=int(mes['to']),content=mes['msg'])
-                # 将信息发至其他所有用户的聊天框
-                for i in allconn:
-                    if i != str(userid):
-
-                        allconn[i].send(message)
+            for i in allconn:
+                if i != str(userid):
+                    allconn[i].send(message)
 
 
 # 查找myuser表，通过用户的name，返回用户id
@@ -272,8 +277,6 @@ def selectgname(gid):
     return gname
 
 
-
-
 # 根据id 返回name
 
 def selectuname(uid):
@@ -287,19 +290,23 @@ def selectuname(uid):
             uname = row[1]
     conn.close()
     return uname
+
+
 # 根据群的id 返回群中包含的所有的uid
 def selectGroupIDs(gid):
     conn = sqlite3.connect('db.sqlite3')
     cursor = conn.cursor()
-    gids=[]
+    gids = []
     # userid = cursor.execute('select id from wechat_myuser where username = uname')
     # values = cursor.execute('select friend_id from wechat_user_realation where uid = ?',('value1',))
     cursor = conn.execute("SELECT gid_id, uid_id from wechat_g_msg_config")
     for row in cursor:
-        if(row[0]==gid):
+        if (row[0] == gid):
             gids.append(row[1])
     conn.close()
     return gids
+
+
 # 好友关系表
 # 根据id，返回用户的所有的好友name 数组？
 def selectFrinds(uname):
@@ -346,11 +353,10 @@ def selectGroups(uname):
     for row in cursor:
         if (row[0] == uuuid):
             uuid = row[1]
-            uuname=selectgname(uuid)
+            uuname = selectgname(uuid)
             uuname = selectuname(uuid)
             r = {'gid': uuid, 'gname': uuname}
             friends.append(r)
-
 
         if (row[1] == uuuid):
             uuid = row[0]
@@ -461,39 +467,40 @@ def get_mes(request):
 def create_group(request):
     if request.method == 'POST':
         group_name = request.POST['group_name']
-        group = models.Group.objects.create(gname = group_name,num_of_group=1,master_id_id=request.user.id)
+        group = models.Group.objects.create(gname=group_name, num_of_group=1, master_id_id=request.user.id)
         models.G_msg_config.objects.create(gid_id=int(group.gid), uid_id=request.user.id)
         succeed_message = 'Success!'
         return render(request, 'add_friends.html',
-                      {'user': request.user,'suc':succeed_message})
+                      {'user': request.user, 'suc': succeed_message})
 
 
 def add_group(request):
     if request.method == 'POST':
         group_id = request.POST['group_id']
         group = models.Group.objects.filter(gid=int(group_id))
-        if  group.count()==0:
+        if group.count() == 0:
             error_message = 'Group id not exists!'
-            return render(request, 'add_friends.html', {'user': request.user,'find_n':error_message})
+            return render(request, 'add_friends.html', {'user': request.user, 'find_n': error_message})
         else:
-            if  0!=models.G_msg_config.objects.filter(uid_id=request.user.id).count():
+            if 0 != models.G_msg_config.objects.filter(uid_id=request.user.id).count():
                 error_message = 'You have attended!'
                 return render(request, 'add_friends.html', {'user': request.user, 'find_n': error_message})
             else:
-                models.G_msg_config.objects.create(gid_id=int(group_id),uid_id=request.user.id)
+                models.G_msg_config.objects.create(gid_id=int(group_id), uid_id=request.user.id)
                 succeed_message = 'Success!'
-                return render(request, 'add_friends.html', {'user': request.user,'find_y':succeed_message})
+                return render(request, 'add_friends.html', {'user': request.user, 'find_y': succeed_message})
+
 
 def add_friends(request):
     if request.method == 'POST':
         friend_id = request.POST['friend_id']
         friends = models.MyUser.objects.filter(id=friend_id)
 
-        if  friends.count()==0:
+        if friends.count() == 0:
             error_message = 'User id not exists!'
-            return render(request, 'add_friends.html', {'user': request.user,'f_n':error_message})
+            return render(request, 'add_friends.html', {'user': request.user, 'f_n': error_message})
         else:
-            if 0!=models.User_realation.objects.filter(friend_id_id=friend_id,uid_id=request.user.id).count():
+            if 0 != models.User_realation.objects.filter(friend_id_id=friend_id, uid_id=request.user.id).count():
                 error_message = 'You have added the friend!'
                 return render(request, 'add_friends.html', {'user': request.user, 'f_n': error_message})
             else:
@@ -501,6 +508,6 @@ def add_friends(request):
                     error_message = 'You can not add yourself!'
                     return render(request, 'add_friends.html', {'user': request.user, 'f_n': error_message})
                 else:
-                    models.User_realation.objects.create(friend_id_id=int(friend_id),uid_id=request.user.id)
+                    models.User_realation.objects.create(friend_id_id=int(friend_id), uid_id=request.user.id)
                     succeed_message = 'Success!'
-                    return render(request, 'add_friends.html', {'user': request.user,'f_y':succeed_message})
+                    return render(request, 'add_friends.html', {'user': request.user, 'f_y': succeed_message})

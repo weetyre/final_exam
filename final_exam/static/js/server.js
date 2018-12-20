@@ -2,6 +2,7 @@ let e = $('#user');
 var uid = e.data("id");
 var username = e.data("username");
 var currentChat = null;
+var totalOnline = 1;
 
 
 function appendMsg(data) {
@@ -34,13 +35,24 @@ $(function () {
 
     socket.onmessage = function (e) {
         let data = JSON.parse(e.data);
+        let type = data['type'];
         console.log('message: ' + data);//打印出服务端返回过来的数据
-        if (data.from == currentChat || data.to == currentChat) {
-            appendMsg(data);
-            /*if (isNewInWindow()) {
-                scrollToEnd()
-            }*/
+
+        if (type == 'msg') {
+            if (data.from == currentChat || data.to == currentChat) {
+                appendMsg(data);
+                /*if (isNewInWindow()) {
+                    scrollToEnd()
+                }*/
+            }
+        }else{
+            if (data['id'] == uid){
+                return
+            } else {
+
+            }
         }
+
     };
     // Call onopen directly if socket is already open
     if (socket.readyState === WebSocket.OPEN) socket.onopen();
@@ -89,19 +101,17 @@ $(function () {
 
     /*将页面下拉到最新消息处*/
     function scrollToEnd() {
-        let div = document.getElementById("msg-show");
-        let len = div.length;
-        let hei = div.height;
-        let div_length = len - 6;
-        div[div_length].scrollIntoView({behavior: "smooth"});	   //平滑滚动，提高了用户体验
-
+        let e = $('#msg-show');
+        e.scrollTop(e.lastElementChild.scrollHeight);
     }
 
     /*判断当有新信息来时，用户是否在页面底端*/
     function isNewInWindow() {
-        let msgShowDiv = document.getElementById("msg-show");
-        let last = msgShowDiv.lastElementChild;
-        return true;
+        let p = $('#msg-show');
+        let e = $('#msg-show').last();
+        let secondChildTop = e.height();
+        let parentBottom = $('#msg-show').height();
+        return secondChildTop > parentBottom;
     }
 
     /*判定元素是否在界面内*/

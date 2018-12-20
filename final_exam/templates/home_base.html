@@ -123,10 +123,9 @@
                             <p id="chatTitle" class="h3 p-1"></p>
                         </div>
                         <div class="msg_main">
-                            <div class="input-group chat_in_height flex-row scroll-y">
+                            <div class="input-group chat_in_height flex-row">
                                 <!--选中 '#msg-show' 元素， 判断消息谁发——我或别人，在 ’#msg-show div' 子元素class添加值'msg-mine'（自己发）或 ’msg-other‘-->
-                                <div id="msg-show">
-
+                                <div id="msg-show" class=" scroll-y">
                                 </div>
                             </div>
                         </div>
@@ -144,19 +143,6 @@
                     <div class="message_box h-100 friends">
                         <!--show friend information-->
                         <div id="friendsInfoBox" class="friends_profile container">
-
-                            {% comment %}<div id="userInfoBox" class="row profile_1">
-                                <img data-src=""
-                                     alt="32x32" class="rounded img-face-msg img_size"
-                                     src="{% static "/img/face.jpg" %}">
-                            </div>
-                            <div class="row profile_2">
-                                <h1 id="userInfo"></h1>
-                            </div>
-                            <div class="row profile_3">
-                                <button id="toChat" class="btn btn-success btn-lg">发消息</button>
-                            </div>{% endcomment %}
-
                         </div>
                     </div>
                 </div>
