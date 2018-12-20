@@ -9,12 +9,14 @@ import sqlite3
 from .admin import UserCreationForm
 from .forms import LoginForm, ChangeEmailForm, MyPasswordChangeForm
 from .models import MyUser
+from . import models
 from django.db.models import Q
 from django.contrib.auth import authenticate
 from django.shortcuts import render
 from django.http import HttpResponse
 from dwebsocket.decorators import accept_websocket, require_websocket
 from collections import defaultdict
+import json
 from flask import Flask, render_template, request, jsonify
 
 # 保存所有接入的用户地址
@@ -223,9 +225,12 @@ def echo(request, userid):
         for message in request.websocket:
             # 将信息发至自己的聊天框
             request.websocket.send(message)
+            mes = json.loads(message)
+            models.One_to_one_msg_record.objects.create(form_id_id=mes['from'], to_id_id=int(mes['to']),content=mes['msg'])
             # 将信息发至其他所有用户的聊天框
             for i in allconn:
                 if i != str(userid):
+
                     allconn[i].send(message)
 
 
@@ -390,3 +395,7 @@ def messagesGroup(uid, gid):
         "SALARY = ", row[3], "\n"
     conn.close()
     return cursor
+
+def get_mes(request):
+    b =request.user.id
+    a = request.GET.get('uid')
