@@ -240,6 +240,14 @@ def echo(request, userid):
                 message = {'type': 'broadcast', 'id': request.user.id, 'username': request.user.username, 'msg': 'off',
                            'total': totalOnline}
 
+                #删除在线用户
+                for user in onlineUsers:
+                    if user['id']==request.user.id:
+                        onlineUsers.remove(user)
+
+
+
+
             mes = json.loads(message)
 
             if mes['to'] != '0':
