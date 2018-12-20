@@ -176,19 +176,9 @@ def index_logout(request):
 @login_required
 def myhome(request):
     if request.method == 'GET':
-        friends = [
-            {'id': 10, 'username': 'van'},
-            {'id': 20, 'username': 'dark'},
-            {'id': 30, 'username': 'holmes'},
-            {'id': 40, 'username': 'bili'},
-            {'id': 50, 'username': 'bill'},
-            {'id': 60, 'username': 'bilibili'},
-            {'id': 70, 'username': 'kakasi'},
-            {'id': 80, 'username': 'naruto'},
-            {'id': 90, 'username': 'kanojo'},
-
-        ]
-        return render(request, 'home_base.html', {'user': request.user, 'friends': friends})
+        user = request.user
+        friends = MyUser.objects.filter(uid_UR=user.id)
+        return render(request, 'home_base.html', {'user': user, 'friends': friends})
 
 
 @login_required

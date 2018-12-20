@@ -16,7 +16,7 @@ document.getElementById("setname").onclick = function(){
         //获取消息
         ws.onmessage =function (e) {
             JA = JSON.parse(e.data);
-            text = JA.text
+            text = JA.text;
             document.getElementById('container').appendChild(createChatPanel(JSON.parse(e.data).text));
         };
 

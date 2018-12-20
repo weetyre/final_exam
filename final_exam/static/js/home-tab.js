@@ -13,5 +13,7 @@ function listItemClick(e) {
         let name = e.getAttribute('data-name');
         document.getElementById("chatTitle").innerText = name;
         currentChat = id;
+        // clear message area
+        $('#msg-show').empty()
     }
 }

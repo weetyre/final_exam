@@ -114,7 +114,7 @@ html, body, main {
 }
 
 .scroll-y {
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
 }
 
@@ -127,7 +127,7 @@ html, body, main {
 }
 
 .my-tab-item {
-    border-bottom: 1px solid #c2c2c2 !important;
+    border-bottom: 1px solid #3a3f45 !important;
     padding: 8px 4px 8px 4px;
 }
 
