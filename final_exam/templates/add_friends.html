@@ -27,9 +27,9 @@
                                 {% csrf_token %}
                                 <div class="form-group">
                                     <p class="h5">Please input the user id:</p>
-                                    <input type="text" class="form-control" name="friend_id">
+                                    <input type="text" required="required" class="form-control" name="friend_id">
                                     <p class="green form-control" id="g_nofind">{{ f_y }}</p>
-                                    <p class="red form-control" id="g_nofind">{{ f_n }}</p>
+                                    <p class="red form-control" id="f_i">{{ f_n }}</p>
                                     <br>
                                 </div>
                                 <div class="">
@@ -40,14 +40,14 @@
                     </form>
 
                     <h2 class="subhead-heading">Add groups</h2>
-                    <form class="" action="/account/add_group" method="post" onsubmit="return pswValidation2(this)">
+                    <form class="" action="/account/add_group" method="post" onsubmit="">
                         <div class="form-group field">
                             {% csrf_token %}
                             <div class="change_word">
                                 <label for="form_change_email.email.id_for_label">Please input the group id:</label>
-                                <input type="text" class="form-control" name="group_id">
+                                <input type="text" required="required" class="form-control" name="group_id">
                                 <p class="green form-control" id="g_nofind">{{ find_y }}</p>
-                                <p class="red form-control" id="g_nofind">{{ find_n }}</p>
+                                <p class="red form-control" id="g_i">{{ find_n }}</p>
                                 <br>
                             </div>
                             <div class="change_word">
@@ -64,8 +64,9 @@
                                 {% csrf_token %}
                                 <div class="form-group">
                                     <p class="h5">Please input the group name:</p>
-                                    <input type="text" class="form-control" name="group_name">
+                                    <input type="text" required="required" class="form-control" name="group_name">
                                     <p class="green form-control" id="group_name">{{ suc }}</p>
+                                    <p class="red form-control" id="c_i"></p>
                                     <br>
                                 </div>
                                 <div class="">

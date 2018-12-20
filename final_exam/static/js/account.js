@@ -38,6 +38,65 @@ function pswValidation2() {
     return flag;
 }
 
+
+
+
+function gruop1() {
+
+    let flag = true;
+    if (old_psw.value.length < 6 || p1.value.length < 6 || p2.value.length < 6) {
+        document.getElementById("psw_error").innerHTML = "password too short.";
+        flag = false;
+    } else {
+        document.getElementById("psw_error").innerHTML = "";
+    }
+    if (p1.value != p2.value) {
+        document.getElementById("psw_match").innerHTML = "password mismatch!";
+        flag = false;
+    } else {
+        document.getElementById("psw_match").innerHTML = "";
+    }
+
+    return flag;
+}
+function gruop2() {
+
+    let flag = true;
+    if (old_psw.value.length < 6 || p1.value.length < 6 || p2.value.length < 6) {
+        document.getElementById("psw_error").innerHTML = "password too short.";
+        flag = false;
+    } else {
+        document.getElementById("psw_error").innerHTML = "";
+    }
+    if (p1.value != p2.value) {
+        document.getElementById("psw_match").innerHTML = "password mismatch!";
+        flag = false;
+    } else {
+        document.getElementById("psw_match").innerHTML = "";
+    }
+
+    return flag;
+}
+function gruop3() {
+
+    let flag = true;
+    if (old_psw.value.length < 6 || p1.value.length < 6 || p2.value.length < 6) {
+        document.getElementById("psw_error").innerHTML = "password too short.";
+        flag = false;
+    } else {
+        document.getElementById("psw_error").innerHTML = "";
+    }
+    if (p1.value != p2.value) {
+        document.getElementById("psw_match").innerHTML = "password mismatch!";
+        flag = false;
+    } else {
+        document.getElementById("psw_match").innerHTML = "";
+    }
+
+    return flag;
+}
+
+
 old_psw.onblur = p1.onblur = p2.onblur = function () {
     pswValidation2()
 };
