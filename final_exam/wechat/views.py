@@ -233,6 +233,9 @@ def echo(request, userid):
         msg = {'type': 'broadcast', 'id': user.id, 'username': user.username, 'msg': 'on',
                'total': totalOnline}
         request.websocket.send(json.dumps(msg))
+        for i in allconn:
+            if i != str(userid):
+                allconn[i].send(json.dumps(msg))
         # 遍历请求地址中的消息
         for message in request.websocket:
             try:
@@ -243,7 +246,7 @@ def echo(request, userid):
                 totalOnline = totalOnline - 1
                 message = {'type': 'broadcast', 'id': request.user.id, 'username': request.user.username, 'msg': 'off',
                            'total': totalOnline}
-                # 删除在线用户
+                # 删除下线用户
                 for user in onlineUsers:
                     if user['id'] == request.user.id:
                         onlineUsers.remove(user)

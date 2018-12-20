@@ -4,7 +4,6 @@ $(function () {
         $(related_tab.toString()).tab('show')
     });
 
-
 });
 
 let url = '/get-history-msg';
@@ -32,7 +31,15 @@ function listItemClick(e) {
 
         }
     })
+}
 
+function groupChat(e) {
+    let id = e.getAttribute('data-userid');
+    document.getElementById("chatTitle").innerText = e.getAttribute('data-name');
+    currentChat = id;
+    // clear message area
+    $('#msg-show').empty();
+    document.getElementById('nav-chat-tab').click();
 }
 
 function listItemClick2(e) {
