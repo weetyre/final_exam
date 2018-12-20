@@ -21,36 +21,60 @@
                     <h3 class="subhead-heading"></h3>
                     <h2 class="subhead-heading">Add friends</h2>
 
-                    <form class="" action="/account/change_psw" method="post" onsubmit="return pswValidation2(this)">
+                    <form class="" action="/account/add_friends" method="post" onsubmit="">
                         <div class="passwor1">
                             <div class="field">
                                 {% csrf_token %}
                                 <div class="form-group">
-                                  <p class="h5">Please input the user id:</p>
-                                    <input type="text" class="form-control">
-                                    <p class="error form-control" id="f_nofind"></p>
+                                    <p class="h5">Please input the user id:</p>
+                                    <input type="text" class="form-control" name="friend_id">
+                                    <p class="green form-control" id="g_nofind">{{ f_y }}</p>
+                                    <p class="red form-control" id="g_nofind">{{ f_n }}</p>
+                                    <br>
                                 </div>
                                 <div class="">
-                                    <input name="submit" type="button" class="submint_b1" value="Add">
+                                    <input name="submit" type="submit" class="submint_b1" value="Add">
                                 </div>
                             </div>
                         </div>
                     </form>
 
                     <h2 class="subhead-heading">Add groups</h2>
-
-                    <div class="form-group field">
+                    <form class="" action="/account/add_group" method="post" onsubmit="return pswValidation2(this)">
+                        <div class="form-group field">
                             {% csrf_token %}
                             <div class="change_word">
                                 <label for="form_change_email.email.id_for_label">Please input the group id:</label>
-                                 <input type="text" class="form-control">
-                                  <p class="error form-control" id="g_nofind"></p>
+                                <input type="text" class="form-control" name="group_id">
+                                <p class="green form-control" id="g_nofind">{{ find_y }}</p>
+                                <p class="red form-control" id="g_nofind">{{ find_n }}</p>
+                                <br>
                             </div>
                             <div class="change_word">
                                 <input name="submit" type="submit" class="submint_b2" value="Add">
-                                <a href="/home" class="link-button  pull-left">Back</a>
+
                             </div>
-                    </div>
+                        </div>
+                    </form>
+
+                    <h2 class="subhead-heading">Create a group</h2>
+                    <form class="" action="/account/create_group" method="post" onsubmit="">
+                        <div class="passwor1">
+                            <div class="field">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <p class="h5">Please input the group name:</p>
+                                    <input type="text" class="form-control" name="group_name">
+                                    <p class="green form-control" id="group_name">{{ suc }}</p>
+                                    <br>
+                                </div>
+                                <div class="">
+                                    <input name="" type="submit" class="submint_b1" value="Create">
+                                    <a href="/home" class="link-button  pull-left">Back</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
 
                 </div>
             </div>

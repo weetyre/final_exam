@@ -126,10 +126,11 @@ class One_to_one_msg_record(models.Model):
         return "One_to_one_msg_record"
 
 class Group(models.Model):
-    gid = models.IntegerField(primary_key=True, default=10000)
+    gid = models.AutoField(primary_key=True)
     gname = models.CharField(max_length=20)
+    type = models.IntegerField(default=1)
     create_time = models.DateField(auto_now_add=True)
-    num_of_group = models.IntegerField()
+    num_of_group = models.IntegerField(blank=True, null=True)
     master_id = models.ForeignKey(MyUser, on_delete=models.CASCADE)
 
 
@@ -150,7 +151,7 @@ class Group_msg(models.Model):
 class G_msg_config(models.Model):
     uid = models.ForeignKey(MyUser, related_name='uid_GMC', on_delete= models.CASCADE)
     gid = models.ForeignKey(Group, related_name='gid_GMC', on_delete= models.CASCADE)
-    last_read_msg_id = models.ForeignKey(Group_msg,  related_name='last_read_msg_id', on_delete=models.CASCADE, null=False)
+    last_read_msg_id = models.ForeignKey(Group_msg,  related_name='last_read_msg_id', on_delete=models.CASCADE, null=True)
 
     class Meta:
         unique_together = (('uid', 'gid'),)

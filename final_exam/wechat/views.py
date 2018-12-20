@@ -226,11 +226,11 @@ def echo(request, userid):
             # 将信息发至自己的聊天框
             request.websocket.send(message)
             mes = json.loads(message)
-            models.One_to_one_msg_record.objects.create(form_id_id=mes['from'], to_id_id=int(mes['to']),content=mes['msg'])
+            models.One_to_one_msg_record.objects.create(form_id_id=mes['from'], to_id_id=int(mes['to']),
+                                                        content=mes['msg'])
             # 将信息发至其他所有用户的聊天框
             for i in allconn:
                 if i != str(userid):
-
                     allconn[i].send(message)
 
 
@@ -396,8 +396,9 @@ def messagesGroup(uid, gid):
     conn.close()
     return cursor
 
+
 def get_mes(request):
-    b =request.user.id
+    b = request.user.id
     a = request.GET['uid']
 
     conn = sqlite3.connect('db.sqlite3')
@@ -412,3 +413,50 @@ def get_mes(request):
         i += 1
 
     return HttpResponse(json.dumps(msgs))
+
+
+def create_group(request):
+    if request.method == 'POST':
+        group_name = request.POST['group_name']
+        models.Group.objects.create(gname = group_name,num_of_group=1,master_id_id=request.user.id)
+        succeed_message = 'Success!'
+        return render(request, 'add_friends.html',
+                      {'user': request.user,'suc':succeed_message})
+
+
+def add_group(request):
+    if request.method == 'POST':
+        group_id = request.POST['group_id']
+        group = models.Group.objects.filter(gid=int(group_id))
+        if  group.count()==0:
+            error_message = 'Group id not exists!'
+            return render(request, 'add_friends.html', {'user': request.user,'find_n':error_message})
+        else:
+            if  0!=models.G_msg_config.objects.filter(uid_id=request.user.id).count():
+                error_message = 'You have attended!'
+                return render(request, 'add_friends.html', {'user': request.user, 'find_n': error_message})
+            else:
+                models.G_msg_config.objects.create(gid_id=int(group_id),uid_id=request.user.id)
+                succeed_message = 'Success!'
+                return render(request, 'add_friends.html', {'user': request.user,'find_y':succeed_message})
+
+def add_friends(request):
+    if request.method == 'POST':
+        friend_id = request.POST['friend_id']
+        friends = models.MyUser.objects.filter(id=friend_id)
+
+        if  friends.count()==0:
+            error_message = 'User id not exists!'
+            return render(request, 'add_friends.html', {'user': request.user,'f_n':error_message})
+        else:
+            if 0!=models.User_realation.objects.filter(friend_id_id=friend_id,uid_id=request.user.id).count():
+                error_message = 'You have added the friend!'
+                return render(request, 'add_friends.html', {'user': request.user, 'f_n': error_message})
+            else:
+                if int(friend_id) == request.user.id:
+                    error_message = 'You can not add yourself!'
+                    return render(request, 'add_friends.html', {'user': request.user, 'f_n': error_message})
+                else:
+                    models.User_realation.objects.create(friend_id_id=int(friend_id),uid_id=request.user.id)
+                    succeed_message = 'Success!'
+                    return render(request, 'add_friends.html', {'user': request.user,'f_y':succeed_message})
