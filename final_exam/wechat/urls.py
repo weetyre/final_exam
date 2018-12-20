@@ -13,5 +13,5 @@ urlpatterns = [
     path('home', views.myhome),
     path('add', views.add),
     url(r'^echo/(?P<userid>[0-9]+)$', views.echo, name='echo'),
-    url(r'/get-history-msg',views.get_mes,name='mes')
+    url(r'get-history-msg',views.get_mes,name='mes')
 ]

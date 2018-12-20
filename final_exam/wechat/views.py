@@ -398,4 +398,17 @@ def messagesGroup(uid, gid):
 
 def get_mes(request):
     b =request.user.id
-    a = request.GET.get('uid')
+    a = request.GET['uid']
+
+    conn = sqlite3.connect('db.sqlite3')
+    cursor = conn.execute("SELECT form_id_id,to_id_id, content  from wechat_one_to_one_msg_record")
+    data_rows = cursor.fetchall()
+
+    msgs = []
+    i = 0
+    for row in data_rows:
+        r = {'from': row[0], 'to': row[1], 'msg': row[2]}
+        msgs.append(r)
+        i += 1
+
+    return HttpResponse(json.dumps(msgs))
