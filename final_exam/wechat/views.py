@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, render_to_response
-
+import sqlite3
 from .admin import UserCreationForm
 from .forms import LoginForm, ChangeEmailForm, MyPasswordChangeForm
 from .models import MyUser
@@ -13,8 +13,9 @@ from django.db.models import Q
 from django.contrib.auth import authenticate
 from django.shortcuts import render
 from django.http import HttpResponse
-from dwebsocket.decorators import accept_websocket,require_websocket
+from dwebsocket.decorators import accept_websocket, require_websocket
 from collections import defaultdict
+
 # 保存所有接入的用户地址
 allconn = defaultdict(list)
 
@@ -177,7 +178,8 @@ def index_logout(request):
 def myhome(request):
     if request.method == 'GET':
         user = request.user
-        friends = MyUser.objects.filter(uid_UR=user.id)
+        friends = selectFrinds(user.username)
+
         return render(request, 'home_base.html', {'user': user, 'friends': friends})
 
 
@@ -207,8 +209,8 @@ def echo(request, userid):
     allresult['userinfo'] = userinfo
     # 声明全局变量
     global allconn
-    if not request.is_websocket():#判断是不是websocket连接
-        try:#如果是普通的http方法
+    if not request.is_websocket():  # 判断是不是websocket连接
+        try:  # 如果是普通的http方法
             message = request.GET['message']
             return HttpResponse(message)
         except:
@@ -216,7 +218,7 @@ def echo(request, userid):
     else:
         # 将链接(请求？)存入全局字典中
         allconn[str(userid)] = request.websocket
-       # 遍历请求地址中的消息
+        # 遍历请求地址中的消息
         for message in request.websocket:
             # 将信息发至自己的聊天框
             request.websocket.send(message)
@@ -224,3 +226,166 @@ def echo(request, userid):
             for i in allconn:
                 if i != str(userid):
                     allconn[i].send(message)
+
+
+# 查找myuser表，通过用户的name，返回用户id
+def selectuid(uname):
+    conn = sqlite3.connect('db.sqlite3')
+    cursor = conn.cursor()
+    # userid = cursor.execute('select id from wechat_myuser where username = uname')
+    # values = cursor.execute('select friend_id from wechat_user_realation where uid = ?',('value1',))
+    cursor = conn.execute("SELECT id, username  from wechat_myuser")
+    for row in cursor:
+        if (row[1] == uname):
+            uuid = row[0]
+            print(uuid)
+    conn.close()
+    return uuid
+
+
+# 根据id 返回name
+
+def selectuname(uid):
+    conn = sqlite3.connect('db.sqlite3')
+    cursor = conn.cursor()
+    # userid = cursor.execute('select id from wechat_myuser where username = uname')
+    # values = cursor.execute('select friend_id from wechat_user_realation where uid = ?',('value1',))
+    cursor = conn.execute("SELECT id, username  from wechat_myuser")
+    for row in cursor:
+        if (row[0] == uid):
+            uname = row[1]
+    conn.close()
+    return uname
+
+
+# 好友关系表
+# 根据id，返回用户的所有的好友name 数组？
+def selectFrinds(uname):
+    # 该用户的id
+    uuuid = selectuid(uname)
+    friends = []
+    i = 0
+    conn = sqlite3.connect('db.sqlite3')
+    cursor = conn.cursor()
+    # userid = cursor.execute('select id from wechat_myuser where username = uname')
+    # values = cursor.execute('select friend_id from wechat_user_realation where uid = ?',('value1',))
+    cursor = conn.execute("SELECT uid_id, friend_id_id  from wechat_user_realation")
+    for row in cursor:
+        if (row[0] == uuuid):
+            uuid = row[1]
+            uuname = selectuname(uuid)
+            r = {'id': uuid, 'username': uuname}
+            friends.append(r)
+            i = i + 1
+
+        if (row[1] == uuuid):
+            uuid = row[0]
+            uuname = selectuname(uuid)
+            r = {'id': uuid, 'username': uuname}
+            friends.append(r)
+
+            i = i + 1
+    conn.close()
+    return friends
+
+
+# 根据id，返回用户的所有的群name  数组  用户群的关系表
+
+def selectGroups(uname):
+    # 该用户的id
+    uuuid = selectuid(uname)
+    groups = []
+    i = 0
+
+    conn = sqlite3.connect('db.sqlite3')
+    cursor = conn.cursor()
+    # userid = cursor.execute('select id from wechat_myuser where username = uname')
+    # values = cursor.execute('select friend_id from wechat_user_realation where uid = ?',('value1',))
+    cursor = conn.execute("SELECT uid_id, gid_id  from wechat_g_msg_config")
+    for row in cursor:
+        if (row[1] == uuuid):
+            uuid = row[0]
+            groups.append(uuid)
+            i = i + 1
+    conn.close()
+    return groups
+
+
+# 删除好友
+def friendssdelete(uid1, uid2):
+    conn = sqlite3.connect('db.sqlite3')
+    cursor = conn.cursor()
+    cursor.execute("DELETE from COMPANY where ID=uid1 and ID2=uid2;")
+    conn.commit()
+    conn.close()
+
+
+# 退群
+def groupsdelete(uid1, uid2):
+    conn = sqlite3.connect('db.sqlite3')
+    cursor = conn.cursor()
+    cursor.execute("DELETE from COMPANY where ID=uid1 and ID2=uid2;")
+    conn.commit()
+    conn.close()
+
+
+# 添加好友
+
+def friendsadd(uid1, uid2):
+    conn = sqlite3.connect('test.db')
+    c = conn.cursor()
+
+    c.execute("INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) \
+          VALUES (1, 'Paul', 32, 'California', 20000.00 )");
+
+    conn.commit()
+
+    conn.close()
+
+
+# 加群
+def groupsadd(uid, gid):
+    conn = sqlite3.connect('test.db')
+    c = conn.cursor()
+
+    c.execute("INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) \
+          VALUES (1, 'Paul', 32, 'California', 20000.00 )");
+
+    conn.commit()
+
+    conn.close()
+
+
+# 返回双人聊天历史记录：(返回 消息 时间 uid 显示的时候根据顺序判断谁说出的 )
+def messagesTwo(uid1, uid2):
+    msssages = []
+    conn = sqlite3.connect('test.db')
+    cursor = conn.execute("SELECT id, name, address, salary  from COMPANY")
+    for row in cursor:
+        print
+        "ID = ", row[0]
+        print
+        "NAME = ", row[1]
+        print
+        "ADDRESS = ", row[2]
+        print
+        "SALARY = ", row[3], "\n"
+    conn.close()
+    return cursor
+
+
+def messagesGroup(uid, gid):
+    msssages = []
+    conn = sqlite3.connect('test.db')
+    cursor = conn.execute("SELECT id, name, address, salary  from COMPANY")
+    for row in cursor:
+        print
+        "ID = ", row[0]
+        print
+        "NAME = ", row[1]
+        print
+        "ADDRESS = ", row[2]
+        print
+        "SALARY = ", row[3], "\n"
+    conn.close()
+    return cursor
