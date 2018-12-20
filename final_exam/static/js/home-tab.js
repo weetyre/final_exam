@@ -25,11 +25,14 @@ function listItemClick(e) {
             for (let i = 0; i < datas.length; i++) {
                 appendMsg(datas[i]);
             }
+             var ele = document.getElementById('msg-show');
+             ele.scrollTop = ele.scrollHeight;
         },
         error: function (error) {
 
         }
     })
+
 }
 
 function listItemClick2(e) {
