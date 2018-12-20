@@ -94,7 +94,8 @@ def index_register(request):
 
             user = authenticate(request=request, username=email, password=request.POST['password'])
             auth.login(request, user)
-
+            #同时自动加入群聊
+            models.G_msg_config.objects.create(gid=1, uid=request.user.id)
             return HttpResponseRedirect("/home")
         else:
             if len(email_filter) > 0:
@@ -182,8 +183,8 @@ def myhome(request):
     if request.method == 'GET':
         user = request.user
         friends = selectFrinds(user.username)
-        groups = selectGroups(user.username)
-        return render(request, 'home_base.html', {'user': user, 'friends': friends, 'groups': groups})
+        groups = models.G_msg_config.objects.all()
+        return render(request, 'home_base.html', {'user': user, 'friends': friends,'groups':groups})
 
 
 @login_required
@@ -342,7 +343,7 @@ def selectGroups(uname):
     cursor = conn.cursor()
     # userid = cursor.execute('select id from wechat_myuser where username = uname')
     # values = cursor.execute('select friend_id from wechat_user_realation where uid = ?',('value1',))
-    cursor = conn.execute("SELECT gid_id,uid_id from wechat_g_msg_config")
+    cursor = conn.execute("SELECT gid,uid from wechat_g_msg_config")
     for row in cursor:
         if (row[0] == uuuid):
             uuid = row[1]

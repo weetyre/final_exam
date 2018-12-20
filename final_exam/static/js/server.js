@@ -46,6 +46,14 @@ $(function () {
     if (socket.readyState === WebSocket.OPEN) socket.onopen();
     window.s = socket;
 
+
+    function keep_up() {
+        //用户上线时发送type 以及自己的uid
+        let data = {'uid': uid, 'username':username,'type': 1};
+        window.s.send(JSON.stringify(data));
+    }
+
+
     //send message to server
     function sendMsg() {
         //如果未连接到websocket
@@ -116,23 +124,6 @@ $(function () {
         return true;
     }
 
-    function getNowFormatDate() {
-        var date = new Date();
-        var seperator1 = "-";
-        var seperator2 = ":";
-        var month = date.getMonth() + 1;
-        var strDate = date.getDate();
-        if (month >= 1 && month <= 9) {
-            month = "0" + month;
-        }
-        if (strDate >= 0 && strDate <= 9) {
-            strDate = "0" + strDate;
-        }
-        var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
-            + " " + date.getHours() + seperator2 + date.getMinutes()
-            + seperator2 + date.getSeconds();
-        return currentdate;
-    }
 
     $('#toChat').click(function () {
         if (currentChat == null || currentChat == undefined) {
