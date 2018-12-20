@@ -75,7 +75,8 @@ $(function () {
             let inputArea = $('#tx-input');
             let content = inputArea.val();
             //if don't choose a user to chat or input is blank
-            if (currentChat == null || content == '') {
+            if (currentChat == null || content.replace(/\s*/g,"") == '') {
+                inputArea.val('');
                 return
             }
 
