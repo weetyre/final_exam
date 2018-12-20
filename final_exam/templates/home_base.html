@@ -57,27 +57,27 @@
                         <li class="nav-item my-nav-item">
                             <a class="nav-link active" id="friends-tab" data-toggle="tab" href="#friends" role="tab"
                                data-relatedtab="#nav-chat-tab"
-                               aria-controls="friends" aria-selected="true">Friends</a>
+                               aria-controls="friends" aria-selected="true">Public chat</a>
                         </li>
                         <li class="nav-item my-nav-item">
                             <a class="nav-link" id="list-tab" data-toggle="tab" href="#list" role="tab"
                                data-relatedtab="#nav-info-tab"
-                               aria-controls="list" aria-selected="false">List</a>
+                               aria-controls="list" aria-selected="false">Friends</a>
                         </li>
                     </ul>
                     <div class="tab-content scroll-y" id="myTabContent">
                         <div class="tab-pane active" id="friends" role="tabpanel" aria-labelledby="friends-tab">
 
-                            {% for friend in friends %}
-                                <div class="media text-muted my-tab-item" id="f{{ friend.id }}"
-                                     onclick="listItemClick(this)" data-userid="{{ friend.id }}"
-                                     data-name="{{ friend.username }}">
+                            {% for online in onlines %}
+                                <div class="media text-muted my-tab-item" id="f{{ online.id }}"
+                                     onclick="" data-userid="{{ online.id }}"
+                                     data-name="{{ online.username }}">
                                     <img data-src=""
                                          alt="32x32" class="mr-2 rounded img-face"
                                          src="{% static "/img/face.jpg" %}"
                                          data-holder-rendered="true">
                                     <p class="media-body mb-0 small lh-125">
-                                        <strong class="d-block text-gray-dark">{{ friend.username }}</strong>
+                                        <strong class="d-block text-gray-dark">{{ online.username }}</strong>
 
                                     </p>
                                 </div>
@@ -86,8 +86,8 @@
                         </div>
                         <div class="tab-pane" id="list" role="tabpanel" aria-labelledby="list-tab">
                             {% for friend in friends %}
-                                <div class="media text-muted my-tab-item" id="u{{ friend.id }}"
-                                     onclick="listItemClick2(this)" data-userid="{{ friend.id }}"
+                                <div class="media text-muted my-tab-item" id="f{{ friend.id }}"
+                                     onclick="listItemClick(this)" data-userid="{{ friend.id }}"
                                      data-name="{{ friend.username }}">
                                     <img data-src=""
                                          alt="32x32" class="mr-2 rounded img-face"
@@ -108,16 +108,13 @@
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <a class="nav-item nav-link active" id="nav-chat-tab" data-toggle="tab" href="#chat-tab" role="tab"
                        aria-controls="nav-chat" aria-selected="true"></a>
-                    <a class="nav-item nav-link" id="nav-chat-group-tab" data-toggle="tab" href="#chat-group-tab"
-                       role="tab"
-                       aria-controls="nav-chat-group" aria-selected="false"></a>
                     <a class="nav-item nav-link" id="nav-info-tab" data-toggle="tab" href="#info-tab" role="tab"
                        aria-controls="nav-info" aria-selected="false"></a>
                 </div>
             </nav>
 
             <div class="col-md-9 p-0 tab-content border rounded">
-                <div class="tab-pane active h-100" id="chat-tab" role="tabpanel" aria-labelledby="chat-tab">
+                <div class="tab-pane active h-100" id="info-tab" role="tabpanel" aria-labelledby="info-tab">
                     <div class="message_box h-100">
                         <div class="msg_title">
                             <p id="chatTitle" class="h3 p-1"></p>
@@ -139,7 +136,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane h-100" id="info-tab" role="tabpanel" aria-labelledby="info-tab">
+                <div class="tab-pane h-100" id="chat-tab" role="tabpanel" aria-labelledby="chat-tab">
                     <div class="message_box h-100 friends">
                         <!--show friend information-->
                         <div id="friendsInfoBox" class="friends_profile container">

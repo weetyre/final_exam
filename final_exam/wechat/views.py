@@ -97,7 +97,7 @@ def index_register(request):
 
             user = authenticate(request=request, username=email, password=request.POST['password'])
             auth.login(request, user)
-            #同时自动加入群聊
+            # 同时自动加入群聊
             models.G_msg_config.objects.create(gid=1, uid=request.user.id)
             return HttpResponseRedirect("/home")
         else:
@@ -186,8 +186,10 @@ def myhome(request):
     if request.method == 'GET':
         user = request.user
         friends = selectFrinds(user.username)
-        groups = models.G_msg_config.objects.all()
-        return render(request, 'home_base.html', {'user': user, 'friends': friends,'groups':groups})
+        # groups = models.G_msg_config.objects.all()
+        global onlineUsers
+
+        return render(request, 'home_base.html', {'user': user, 'friends': friends, 'onlines': onlineUsers})
 
 
 @login_required
@@ -212,8 +214,8 @@ class CustomBackend(ModelBackend):
 def echo(request, userid):
     allresult = {}
     # 获取用户信息
-    userinfo = request.user
-    allresult['userinfo'] = userinfo
+    user = request.user
+    allresult['userinfo'] = user
     # 声明全局变量
     global allconn, totalOnline, onlineUsers, tid
     if not request.is_websocket():  # 判断是不是websocket连接
@@ -226,8 +228,9 @@ def echo(request, userid):
         # 将链接(请求？)存入全局字典中
         allconn[str(userid)] = request.websocket
         totalOnline = totalOnline + 1
+        onlineUsers.append({'id': user.id, 'username': user.username})
 
-        msg = {'type': 'broadcast', 'id': request.user.id, 'username': request.user.username, 'msg': 'on',
+        msg = {'type': 'broadcast', 'id': user.id, 'username': user.username, 'msg': 'on',
                'total': totalOnline}
         request.websocket.send(json.dumps(msg))
         # 遍历请求地址中的消息
@@ -240,15 +243,31 @@ def echo(request, userid):
                 message = {'type': 'broadcast', 'id': request.user.id, 'username': request.user.username, 'msg': 'off',
                            'total': totalOnline}
 
-            mes = json.loads(message)
-
-            if mes['to'] != '0':
-                models.One_to_one_msg_record.objects.create(form_id_id=mes['from'], to_id_id=int(mes['to']),
-                                                            content=mes['msg'])
+            if message['type'] == 'broadcast' or message['to'] != '0':
+                models.One_to_one_msg_record.objects.create(form_id_id=message['from'], to_id_id=int(message['to']),
+                                                            content=message['msg'])
                 # 将信息发至其他所有用户的聊天框
             for i in allconn:
                 if i != str(userid):
-                    allconn[i].send(message)
+                    allconn[i].send(json.dumps(message))
+
+
+def get_mes(request):
+    b = request.user.id
+    a = request.GET['uid']
+
+    conn = sqlite3.connect('db.sqlite3')
+    cursor = conn.execute("SELECT form_id_id,to_id_id, content  from wechat_one_to_one_msg_record")
+    data_rows = cursor.fetchall()
+
+    msgs = []
+    i = 0
+    for row in data_rows:
+        r = {'from': row[0], 'to': row[1], 'msg': row[2]}
+        msgs.append(r)
+        i += 1
+
+    return HttpResponse(json.dumps(msgs))
 
 
 # 查找myuser表，通过用户的name，返回用户id
@@ -445,24 +464,6 @@ def messagesGroup(uid, gid):
         "SALARY = ", row[3], "\n"
     conn.close()
     return cursor
-
-
-def get_mes(request):
-    b = request.user.id
-    a = request.GET['uid']
-
-    conn = sqlite3.connect('db.sqlite3')
-    cursor = conn.execute("SELECT form_id_id,to_id_id, content  from wechat_one_to_one_msg_record")
-    data_rows = cursor.fetchall()
-
-    msgs = []
-    i = 0
-    for row in data_rows:
-        r = {'from': row[0], 'to': row[1], 'msg': row[2]}
-        msgs.append(r)
-        i += 1
-
-    return HttpResponse(json.dumps(msgs))
 
 
 def create_group(request):
