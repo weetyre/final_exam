@@ -126,7 +126,7 @@ class One_to_one_msg_record(models.Model):
         return "One_to_one_msg_record"
 
 class Group(models.Model):
-    gid = models.IntegerField(primary_key=True)
+    gid = models.IntegerField(primary_key=True, default=10000)
     gname = models.CharField(max_length=20)
     create_time = models.DateField(auto_now_add=True)
     num_of_group = models.IntegerField()
