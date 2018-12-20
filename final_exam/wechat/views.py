@@ -15,6 +15,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from dwebsocket.decorators import accept_websocket,require_websocket
 from collections import defaultdict
+from flask import Flask, render_template, request, jsonify
+
 # 保存所有接入的用户地址
 allconn = defaultdict(list)
 

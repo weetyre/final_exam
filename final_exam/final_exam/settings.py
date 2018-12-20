@@ -76,12 +76,8 @@ WSGI_APPLICATION = 'final_exam.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.oracle',
-        'NAME': 'orcl',  # 数据库名称
-        'USER': 'root',  # 用户名
-        'PASSWORD': 'root',  # 密码
-        'HOST': '127.0.0.1',  # HOST
-        'PORT': '1521',  # 端口
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
