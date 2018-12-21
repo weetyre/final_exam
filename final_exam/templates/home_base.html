@@ -54,7 +54,7 @@
                 </div>
                 <div class="pro_select">
                     <ul class="nav nav-tabs bg-dark" id="myTab" role="tablist">
-                        <li onclick="groupChat(this)" data-id="0" data-name="Public chat" class="nav-item my-nav-item">
+                        <li id="gChatLi" onclick="groupChat(this)" data-id="0" data-name="Public chat" class="nav-item my-nav-item">
                             <a class="nav-link active" id="friends-tab" data-toggle="tab" href="#friends" role="tab"
                                data-relatedtab="#nav-chat-tab"
                                aria-controls="friends" aria-selected="true">Public chat</a>
@@ -106,8 +106,8 @@
 
             <nav hidden>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="nav-chat-tab" data-toggle="tab" href="#chat-tab" role="tab"
-                       aria-controls="nav-chat" aria-selected="true"></a>
+                    {% comment %}<a class="nav-item nav-link active" id="nav-chat-tab" data-toggle="tab" href="#chat-tab" role="tab"
+                       aria-controls="nav-chat" aria-selected="true"></a>{% endcomment %}
                     <a class="nav-item nav-link" id="nav-info-tab" data-toggle="tab" href="#info-tab" role="tab"
                        aria-controls="nav-info" aria-selected="false"></a>
                 </div>

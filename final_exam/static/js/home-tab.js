@@ -34,13 +34,15 @@ function listItemClick(e) {
 }
 
 function groupChat(e) {
-    let id = e.getAttribute('data-userid');
+    document.getElementById('nav-info-tab').click();
+    let id = e.getAttribute('data-id');
     document.getElementById("chatTitle").innerText = e.getAttribute('data-name');
     currentChat = id;
     // clear message area
     $('#msg-show').empty();
-    document.getElementById('nav-chat-tab').click();
 }
+
+$('#gChatLi').click();
 
 function listItemClick2(e) {
     let id = e.getAttribute('data-userid');

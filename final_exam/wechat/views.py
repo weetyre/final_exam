@@ -98,7 +98,7 @@ def index_register(request):
             user = authenticate(request=request, username=email, password=request.POST['password'])
             auth.login(request, user)
             # 同时自动加入群聊
-            models.G_msg_config.objects.create(gid=1, uid=request.user.id)
+            models.G_msg_config.objects.create(gid=0, uid=request.user.id)
             return HttpResponseRedirect("/home")
         else:
             if len(email_filter) > 0:
@@ -188,6 +188,9 @@ def myhome(request):
         friends = selectFrinds(user.username)
         # groups = models.G_msg_config.objects.all()
         global onlineUsers
+        for u in onlineUsers:
+            if u['id'] == request.user.id:
+                onlineUsers.remove(u)
         onlineUsers.append({'id': user.id, 'username': user.username})
 
         return render(request, 'home_base.html', {'user': user, 'friends': friends, 'onlines': onlineUsers})

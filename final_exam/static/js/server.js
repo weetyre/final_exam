@@ -8,13 +8,17 @@ var totalOnline = 1;
 function appendMsg(data) {
     let from = data["from"];
     let to = data["to"];
+    let name = '';
+    if (to == '0') {
+        name = data['name'];
+    }
     //let msg_show = document.getElementById("msg-show");
     let html_div_content;
 
     if (from == uid && to == currentChat) {
-        html_div_content = '<div class="media text-muted py-2 msg-item msg-mine" data-userid="' + from + '"><div class="d-flex msg-container"><img data-src="" alt="32x32" class="rounded img-face-msg" src="/static/img/face.jpg" data-holder-rendered="true"><p class="media-body mb-0 small lh-125 p-2 msg-content">' + data.msg + '</p></div></div>'
-    } else if (from == currentChat && to == uid) {
-        html_div_content = '<div class="media text-muted py-2 msg-item msg-other" data-userid="' + from + '"><div class="d-flex msg-container"><img data-src="" alt="32x32" class="rounded img-face-msg" src="/static/img/face.jpg" data-holder-rendered="true"><p class="media-body mb-0 small lh-125 p-2 msg-content">' + data.msg + '</p></div></div>'
+        html_div_content = '<div class="media text-muted py-2 msg-item msg-mine" data-userid="' + from + '"><div class="d-flex msg-container"><img data-src="" alt="40x40" class="rounded img-face-msg mx-3 mt-1" src="/static/img/face.jpg" data-holder-rendered="true"><div class=""><p class="text-right media-body mb-0 lh-125">' + name + '</p><p class="media-body mb-0 lh-125 p-2 msg-content float-right">' + data.msg + '</p></div></div></div>'
+    } else if ((from == currentChat && to == uid) || (to == currentChat && currentChat == '0')) {
+        html_div_content = '<div class="media text-muted py-2 msg-item msg-other" data-userid="' + from + '"><div class="d-flex msg-container"><img data-src="" alt="40x40" class="rounded img-face-msg mx-3 mt-1" src="/static/img/face.jpg" data-holder-rendered="true"><div class=""><p class="text-right media-body mb-0 lh-125">' + name + '</p><p class="media-body mb-0 lh-125 p-2 msg-content float-right">' + data.msg + '</p></div></div></div>'
     } else {
         return
     }
@@ -45,13 +49,15 @@ $(function () {
                     scrollToEnd()
                 }*/
             }
-        }else if (type == 'broadcast') {
+        } else if (type == 'broadcast') {
             let t_id = data['id'];
-            if (t_id == uid){
+            if (t_id == uid) {
 
             } else if (data['msg'] == 'on') {
-                let html = '<div class="media text-muted my-tab-item" id="g' + data['id'] + '" ><img alt="32x32" class="mr-2 rounded img-face" src="/static/img/face.jpg" data-holder-rendered="true"><p class="media-body mb-0 small lh-125"><strong class="d-block text-gray-dark">' + data['username'] + '</strong></p></div>'
-                $('#friends').append(html);
+                if ($('g' + t_id != undefined)) {
+                    let html = '<div class="media text-muted my-tab-item" id="g' + data['id'] + '" ><img alt="32x32" class="mr-2 rounded img-face" src="/static/img/face.jpg" data-holder-rendered="true"><p class="media-body mb-0 small lh-125"><strong class="d-block text-gray-dark">' + data['username'] + '</strong></p></div>'
+                    $('#friends').append(html);
+                }
             } else if (data['msg'] == 'off') {
                 $('#g' + t_id).remove()
             }
@@ -62,14 +68,6 @@ $(function () {
     if (socket.readyState === WebSocket.OPEN) socket.onopen();
     window.s = socket;
 
-
-    function keep_up() {
-        //用户上线时发送type 以及自己的uid
-        let data = {'uid': uid, 'username':username,'type': 1};
-        window.s.send(JSON.stringify(data));
-    }
-
-
     //send message to server
     function sendMsg() {
         //如果未连接到websocket
@@ -79,12 +77,13 @@ $(function () {
             let inputArea = $('#tx-input');
             let content = inputArea.val();
             //if don't choose a user to chat or input is blank
-            if (currentChat == null || content.replace(/\s*/g,"") == '') {
+            if (currentChat == null || content.replace(/\s*/g, "") == '') {
                 inputArea.val('');
                 return
             }
 
-            let data = {'type': 'msg', 'from': uid, 'to': currentChat, 'msg': content};
+
+            let data = {'type': 'msg', 'from': uid, 'to': currentChat, 'name': username, 'msg': content};
             window.s.send(JSON.stringify(data));//通过websocket发送数据
 
             //clear input area
