@@ -56,7 +56,7 @@ $(function () {
             if (t_id == uid) {
 
             } else if (data['msg'] == 'on') {
-                if ($('g' + t_id != undefined)) {
+                if ($('g' + t_id) != undefined) {
                     let html = '<div class="media text-muted my-tab-item" id="g' + data['id'] + '" ><img alt="32x32" class="mr-2 rounded img-face" src="/static/img/online.jpg" data-holder-rendered="true"><p class="media-body mb-0 small lh-125"><strong class="d-block text-gray-dark">' + data['username'] + '</strong></p></div>'
                     $('#friends').append(html);
                 }
@@ -117,34 +117,6 @@ $(function () {
 // 下面写你的发送消息的代码
         }
     });
-
-
-    /*将页面下拉到最新消息处*/
-    function scrollToEnd() {
-        let e = $('#msg-show');
-        e.scrollTop(e.lastElementChild.scrollHeight);
-    }
-
-    /*判断当有新信息来时，用户是否在页面底端*/
-    function isNewInWindow() {
-        let p = $('#msg-show');
-        let e = $('#msg-show').last();
-        let secondChildTop = e.height();
-        let parentBottom = $('#msg-show').height();
-        return secondChildTop > parentBottom;
-    }
-
-    /*判定元素是否在界面内*/
-    function isInWindow(x) {
-        if (x.getBoundingClientRect().top > window.innerHeight) {
-            // 元素低于当前界面
-            return false;
-        } else if (x.getBoundingClientRect().bottom < 0) {
-            // 元素高于当前界面
-            return false;
-        }
-        return true;
-    }
 
 
     $('#toChat').click(function () {

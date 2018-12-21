@@ -23,6 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('wechat.urls')),
     ##　以下是新增
-    url(r'^static/(?P<path>.*)$', static.serve,
-        {'document_root': settings.STATIC_ROOT}, name='static'),
+    # url(r'^static/(?P<path>.*)$', static.serve,
+    #     {'document_root': settings.STATIC_ROOT}, name='static'),
 ]

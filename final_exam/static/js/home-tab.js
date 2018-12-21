@@ -43,21 +43,3 @@ function groupChat(e) {
 }
 
 $('#gChatLi').click();
-
-function listItemClick2(e) {
-    let id = e.getAttribute('data-userid');
-    let name = e.getAttribute('data-name');
-    currentChat = id;
-    let html = '<div id="userInfoBox" class="row profile_1"><img data-src="" alt="32x32" class="rounded img-face-msg img_size" src="/static/img/face.jpg"></div><div class="row profile_2"><h1 id="userInfo">' + name + '</h1></div><div class="row profile_3"><button id="toChat" onclick="onToChat()" class="btn btn-success btn-lg">发消息</button></div>'
-    document.getElementById('nav-info-tab').click();
-    document.getElementById("friendsInfoBox").innerHTML = html;
-}
-
-function onToChat() {
-    if (currentChat == null || currentChat == undefined) {
-        return
-    }
-    let id = 'f' + currentChat;
-    document.getElementById('nav-chat-tab').click();
-    listItemClick(document.getElementById(id));
-}

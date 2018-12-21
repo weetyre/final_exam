@@ -16,7 +16,7 @@ import os
 from django.conf.global_settings import STATICFILES_DIRS, AUTH_USER_MODEL
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+onlineUsers = []
 AUTHENTICATION_BACKENDS = ('wechat.views.CustomBackend',)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -25,7 +25,7 @@ AUTHENTICATION_BACKENDS = ('wechat.views.CustomBackend',)
 SECRET_KEY = 'n8+%6hb%@vpwj*l=35$f*klnxezn0!kl8mbop&-ddb$-q6hlvg'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -64,6 +64,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'wechat.views.global_params'
             ],
         },
     },
@@ -120,9 +121,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = 'static' ## 新增行
+# STATIC_ROOT = 'static' ## 新增行
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, '/static/'),
+    os.path.join(BASE_DIR, 'static'),
 )
 
 AUTH_USER_MODEL = 'wechat.MyUser'

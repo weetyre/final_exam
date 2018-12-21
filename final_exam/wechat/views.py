@@ -17,7 +17,8 @@ from django.http import HttpResponse
 from dwebsocket.decorators import accept_websocket, require_websocket
 from collections import defaultdict
 import json
-from flask import Flask, render_template, request, jsonify
+from django.conf import settings
+
 
 # 保存所有接入的用户地址
 allconn = defaultdict(list)
@@ -484,33 +485,6 @@ def messagesGroup(uid, gid):
     return cursor
 
 
-def create_group(request):
-    if request.method == 'POST':
-        group_name = request.POST['group_name']
-        group = models.Group.objects.create(gname=group_name, num_of_group=1, master_id_id=request.user.id)
-        models.G_msg_config.objects.create(gid_id=int(group.gid), uid_id=request.user.id)
-        succeed_message = 'Success!'
-        return render(request, 'add_friends.html',
-                      {'user': request.user, 'suc': succeed_message})
-
-
-def add_group(request):
-    if request.method == 'POST':
-        group_id = request.POST['group_id']
-        group = models.Group.objects.filter(gid=int(group_id))
-        if group.count() == 0:
-            error_message = 'Group id not exists!'
-            return render(request, 'add_friends.html', {'user': request.user, 'find_n': error_message})
-        else:
-            if 0 != models.G_msg_config.objects.filter(uid_id=request.user.id).count():
-                error_message = 'You have attended!'
-                return render(request, 'add_friends.html', {'user': request.user, 'find_n': error_message})
-            else:
-                models.G_msg_config.objects.create(gid_id=int(group_id), uid_id=request.user.id)
-                succeed_message = 'Success!'
-                return render(request, 'add_friends.html', {'user': request.user, 'find_y': succeed_message})
-
-
 def add_friends(request):
     if request.method == 'POST':
         friend_id = request.POST['friend_id']
@@ -524,20 +498,27 @@ def add_friends(request):
 
         if friends.count() == 0:
             error_message = 'User id not exists!'
-            # return render(request, 'home_base.html', {'user': request.user, 'f_n': error_message,'friends': friendss,'onlines': onlineUsers})
+
             return HttpResponseRedirect("/home?error=User id not exists!")
         else:
-            if 0 != models.User_realation.objects.filter(friend_id_id=friend_id, uid_id=request.user.id).count():
+            if 0 != models.User_realation.objects.filter(friend_id_id=friend_id, uid_id=request.user.id).count() or 0 != models.User_realation.objects.filter(friend_id_id=request.user.id, uid_id=friend_id).count():
                 error_message = 'You have added the friend!'
-                # return render(request, 'home_base.html', {'user': request.user, 'f_n': error_message,'friends': friendss,'onlines': onlineUsers})
+
                 return HttpResponseRedirect("/home?error=You have added the friend!")
             else:
                 if int(friend_id) == request.user.id:
                     error_message = 'You can not add yourself!'
-                    # return render(request, 'home_base.html', {'user': request.user, 'f_n': error_message,'friends': friendss,'onlines': onlineUsers})
+
                     return HttpResponseRedirect("/home?error=You can not add yourself!")
                 else:
                     models.User_realation.objects.create(friend_id_id=int(friend_id), uid_id=request.user.id)
                     succeed_message = 'Success!'
-                    # return render(request, 'home_base.html', {'user': request.user, 'f_y': succeed_message,'friends': friendss,'onlines': onlineUsers})
+
                     return HttpResponseRedirect("/home?error=Success!")
+
+
+def global_params(request):
+
+    return {
+        'Fri':onlineUsers,
+    }
