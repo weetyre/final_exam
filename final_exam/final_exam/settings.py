@@ -25,7 +25,7 @@ AUTHENTICATION_BACKENDS = ('wechat.views.CustomBackend',)
 SECRET_KEY = 'n8+%6hb%@vpwj*l=35$f*klnxezn0!kl8mbop&-ddb$-q6hlvg'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -120,9 +120,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = 'static' ## 新增行
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static/'),
+    os.path.join(BASE_DIR, '/static/'),
 )
 
 AUTH_USER_MODEL = 'wechat.MyUser'
