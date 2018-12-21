@@ -18,7 +18,7 @@ function appendMsg(data) {
     if (from == uid && to == currentChat) {
         html_div_content = '<div class="media text-muted py-2 msg-item msg-mine" data-userid="' + from + '"><div class="d-flex msg-container"><img data-src="" alt="40x40" class="rounded img-face-msg mx-3 mt-1" src="/static/img/face.jpg" data-holder-rendered="true"><div class=""><p class="text-right media-body mb-0 lh-125">' + name + '</p><p class="media-body mb-0 lh-125 p-2 msg-content float-right">' + data.msg + '</p></div></div></div>'
     } else if ((from == currentChat && to == uid) || (to == currentChat && currentChat == '0')) {
-        html_div_content = '<div class="media text-muted py-2 msg-item msg-other" data-userid="' + from + '"><div class="d-flex msg-container"><img data-src="" alt="40x40" class="rounded img-face-msg mx-3 mt-1" src="/static/img/face.jpg" data-holder-rendered="true"><div class=""><p class="text-left media-body mb-0 lh-125">' + name + '</p><p class="media-body mb-0 lh-125 p-2 msg-content float-right">' + data.msg + '</p></div></div></div>'
+        html_div_content = '<div class="media text-muted py-2 msg-item msg-other" data-userid="' + from + '"><div class="d-flex msg-container"><img data-src="" alt="40x40" class="rounded img-face-msg mx-3 mt-1" src="/static/img/face.jpg" data-holder-rendered="true"><div class=""><p class="text-left media-body mb-0 lh-125">' + name + '</p><p class="media-body mb-0 lh-125 p-2 msg-content float-left">' + data.msg + '</p></div></div></div>'
     } else {
         return
     }
