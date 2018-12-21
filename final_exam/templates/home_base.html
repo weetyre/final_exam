@@ -37,8 +37,6 @@
                                         <span class="oi oi-grid-three-up" title="icon name" aria-hidden="true"></span>
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <a class="dropdown-item" href="/add"><span class="oi oi-plus" title="icon name"
-                                                                                   aria-hidden="true"></span> 加好友</a>
                                         <a class="dropdown-item" href="/profile"><span class="oi oi-cog"
                                                                                        title="icon name"
                                                                                        aria-hidden="true"></span> 个人信息修改</a>
@@ -54,15 +52,21 @@
                 </div>
                 <div class="pro_select">
                     <ul class="nav nav-tabs bg-dark" id="myTab" role="tablist">
-                        <li id="gChatLi" onclick="groupChat(this)" data-id="0" data-name="Public chat" class="nav-item my-nav-item">
+                        <li id="gChatLi" onclick="groupChat(this)" data-id="0" data-name="Public chat"
+                            class="nav-item my-nav-item">
                             <a class="nav-link active" id="friends-tab" data-toggle="tab" href="#friends" role="tab"
                                data-relatedtab="#nav-chat-tab"
-                               aria-controls="friends" aria-selected="true">Public chat</a>
+                               aria-controls="friends" aria-selected="true">Public</a>
                         </li>
                         <li class="nav-item my-nav-item">
                             <a class="nav-link" id="list-tab" data-toggle="tab" href="#list" role="tab"
                                data-relatedtab="#nav-info-tab"
                                aria-controls="list" aria-selected="false">Friends</a>
+                        </li>
+                        <li class="nav-item my-nav-item">
+                            <a class="nav-link" id="list-tab" data-toggle="tab" href="#add" role="tab"
+                               data-relatedtab="#nav-info-tab"
+                               aria-controls="list" aria-selected="false">Add</a>
                         </li>
                     </ul>
                     <div class="tab-content scroll-y" id="myTabContent">
@@ -74,7 +78,7 @@
                                      data-name="{{ online.username }}">
                                     <img data-src=""
                                          alt="32x32" class="mr-2 rounded img-face"
-                                         src="{% static "/img/face.jpg" %}"
+                                         src="{% static "/img/online.jpg" %}"
                                          data-holder-rendered="true">
                                     <p class="media-body mb-0 small lh-125">
                                         <strong class="d-block text-gray-dark">{{ online.username }}</strong>
@@ -99,6 +103,32 @@
                                     </p>
                                 </div>
                             {% endfor %}
+                        </div>
+                        <div class="tab-pane" id="add" role="tabpanel" aria-labelledby="list-tab">
+
+                            <br>
+                            <h3 class="subhead-heading">Add friends</h3>
+                            <br>
+                            <form class="" action="/account/add_friends" method="post" onsubmit="">
+
+                                <div class="field">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <p class="h5">Please input the user id:</p>
+                                        <input type="text" required="required" class="form-control"
+                                               name="friend_id">
+                                        <br>
+                                        <p class="" id="f_i">{{ home_err }}</p>
+                                        <br>
+                                    </div>
+                                    <div class="">
+                                        <input name="submit" type="submit" class="btn btn-info" value="Add">
+                                    </div>
+                                </div>
+
+                            </form>
+
+
                         </div>
                     </div>
                 </div>

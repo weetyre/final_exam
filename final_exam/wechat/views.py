@@ -184,6 +184,11 @@ def index_logout(request):
 @login_required
 def myhome(request):
     if request.method == 'GET':
+        error = ''
+        try:
+            error = request.GET['error']
+        except:
+            pass
         user = request.user
         friends = selectFrinds(user.username)
         # groups = models.G_msg_config.objects.all()
@@ -193,7 +198,8 @@ def myhome(request):
                 onlineUsers.remove(u)
         onlineUsers.append({'id': user.id, 'username': user.username})
 
-        return render(request, 'home_base.html', {'user': user, 'friends': friends, 'onlines': onlineUsers})
+        return render(request, 'home_base.html',
+                      {'user': user, 'friends': friends, 'onlines': onlineUsers, 'home_err': error})
 
 
 @login_required
@@ -509,19 +515,29 @@ def add_friends(request):
     if request.method == 'POST':
         friend_id = request.POST['friend_id']
         friends = models.MyUser.objects.filter(id=friend_id)
+        friendss = selectFrinds(request.user.username)
+        global onlineUsers
+        for u in onlineUsers:
+            if u['id'] == request.user.id:
+                onlineUsers.remove(u)
+        onlineUsers.append({'id': request.user.id, 'username': request.user.username})
 
         if friends.count() == 0:
             error_message = 'User id not exists!'
-            return render(request, 'add_friends.html', {'user': request.user, 'f_n': error_message})
+            # return render(request, 'home_base.html', {'user': request.user, 'f_n': error_message,'friends': friendss,'onlines': onlineUsers})
+            return HttpResponseRedirect("/home?error=User id not exists!")
         else:
             if 0 != models.User_realation.objects.filter(friend_id_id=friend_id, uid_id=request.user.id).count():
                 error_message = 'You have added the friend!'
-                return render(request, 'add_friends.html', {'user': request.user, 'f_n': error_message})
+                # return render(request, 'home_base.html', {'user': request.user, 'f_n': error_message,'friends': friendss,'onlines': onlineUsers})
+                return HttpResponseRedirect("/home?error=You have added the friend!")
             else:
                 if int(friend_id) == request.user.id:
                     error_message = 'You can not add yourself!'
-                    return render(request, 'add_friends.html', {'user': request.user, 'f_n': error_message})
+                    # return render(request, 'home_base.html', {'user': request.user, 'f_n': error_message,'friends': friendss,'onlines': onlineUsers})
+                    return HttpResponseRedirect("/home?error=You can not add yourself!")
                 else:
                     models.User_realation.objects.create(friend_id_id=int(friend_id), uid_id=request.user.id)
                     succeed_message = 'Success!'
-                    return render(request, 'add_friends.html', {'user': request.user, 'f_y': succeed_message})
+                    # return render(request, 'home_base.html', {'user': request.user, 'f_y': succeed_message,'friends': friendss,'onlines': onlineUsers})
+                    return HttpResponseRedirect("/home?error=Success!")

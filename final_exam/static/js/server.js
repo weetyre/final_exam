@@ -18,11 +18,13 @@ function appendMsg(data) {
     if (from == uid && to == currentChat) {
         html_div_content = '<div class="media text-muted py-2 msg-item msg-mine" data-userid="' + from + '"><div class="d-flex msg-container"><img data-src="" alt="40x40" class="rounded img-face-msg mx-3 mt-1" src="/static/img/face.jpg" data-holder-rendered="true"><div class=""><p class="text-right media-body mb-0 lh-125">' + name + '</p><p class="media-body mb-0 lh-125 p-2 msg-content float-right">' + data.msg + '</p></div></div></div>'
     } else if ((from == currentChat && to == uid) || (to == currentChat && currentChat == '0')) {
-        html_div_content = '<div class="media text-muted py-2 msg-item msg-other" data-userid="' + from + '"><div class="d-flex msg-container"><img data-src="" alt="40x40" class="rounded img-face-msg mx-3 mt-1" src="/static/img/face.jpg" data-holder-rendered="true"><div class=""><p class="text-right media-body mb-0 lh-125">' + name + '</p><p class="media-body mb-0 lh-125 p-2 msg-content float-right">' + data.msg + '</p></div></div></div>'
+        html_div_content = '<div class="media text-muted py-2 msg-item msg-other" data-userid="' + from + '"><div class="d-flex msg-container"><img data-src="" alt="40x40" class="rounded img-face-msg mx-3 mt-1" src="/static/img/face.jpg" data-holder-rendered="true"><div class=""><p class="text-left media-body mb-0 lh-125">' + name + '</p><p class="media-body mb-0 lh-125 p-2 msg-content float-right">' + data.msg + '</p></div></div></div>'
     } else {
         return
     }
     $('#msg-show').append(html_div_content)
+    var ele = document.getElementById('msg-show');
+    ele.scrollTop = ele.scrollHeight;
 }
 
 
@@ -55,7 +57,7 @@ $(function () {
 
             } else if (data['msg'] == 'on') {
                 if ($('g' + t_id != undefined)) {
-                    let html = '<div class="media text-muted my-tab-item" id="g' + data['id'] + '" ><img alt="32x32" class="mr-2 rounded img-face" src="/static/img/face.jpg" data-holder-rendered="true"><p class="media-body mb-0 small lh-125"><strong class="d-block text-gray-dark">' + data['username'] + '</strong></p></div>'
+                    let html = '<div class="media text-muted my-tab-item" id="g' + data['id'] + '" ><img alt="32x32" class="mr-2 rounded img-face" src="/static/img/online.jpg" data-holder-rendered="true"><p class="media-body mb-0 small lh-125"><strong class="d-block text-gray-dark">' + data['username'] + '</strong></p></div>'
                     $('#friends').append(html);
                 }
             } else if (data['msg'] == 'off') {
@@ -104,9 +106,15 @@ $(function () {
     });
 
     //listen to the Enter key
-    $(document).keydown(function (event) {
-        if (event.keyCode == 13) {
+    $(document).keydown(function (e) {
+        if (e.keyCode == 13 && e.ctrlKey) {
+            // 这里实现换行
+            document.getElementById("tx-input").value += "\n";
+        } else if (e.keyCode == 13) {
+// 避免回车键换行
+            e.preventDefault();
             sendMsg();
+// 下面写你的发送消息的代码
         }
     });
 
